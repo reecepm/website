@@ -1,3 +1,80 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-color: 221 153 255;
+    --bg-gradient: radial-gradient(
+        at 68% 23%,
+        hsla(262, 97%, 65%, 1) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 42% 41%, hsla(30, 87%, 73%, 1) 0px, transparent 50%),
+      radial-gradient(at 72% 96%, hsla(336, 84%, 69%, 1) 0px, transparent 50%),
+      radial-gradient(at 40% 1%, hsla(249, 79%, 76%, 1) 0px, transparent 50%),
+      radial-gradient(at 21% 84%, hsla(293, 69%, 69%, 1) 0px, transparent 50%),
+      radial-gradient(at 33% 58%, hsla(159, 98%, 64%, 1) 0px, transparent 50%),
+      radial-gradient(at 89% 29%, hsla(138, 97%, 68%, 1) 0px, transparent 50%);
+  }
+
+  .second {
+    --bg-color: 255 0 0;
+    --bg-gradient: radial-gradient(
+        at 40% 20%,
+        hsla(28, 100%, 74%, 1) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 1) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 1) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, hsla(340, 100%, 76%, 1) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(22, 100%, 77%, 1) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, hsla(242, 100%, 70%, 1) 0px, transparent 50%),
+      radial-gradient(at 0% 0%, hsla(343, 100%, 76%, 1) 0px, transparent 50%);
+  }
+
+  .third {
+    --bg-color: 153 255 243;
+    --bg-gradient: radial-gradient(
+        at 22% 21%,
+        hsla(278, 68%, 64%, 1) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 92% 11%, hsla(207, 86%, 65%, 1) 0px, transparent 50%),
+      radial-gradient(at 99% 55%, hsla(190, 95%, 68%, 1) 0px, transparent 50%),
+      radial-gradient(at 66% 75%, hsla(242, 98%, 79%, 1) 0px, transparent 50%),
+      radial-gradient(at 14% 78%, hsla(66, 68%, 75%, 1) 0px, transparent 50%),
+      radial-gradient(at 68% 20%, hsla(0, 79%, 61%, 1) 0px, transparent 50%),
+      radial-gradient(at 83% 73%, hsla(322, 97%, 69%, 1) 0px, transparent 50%);
+  }
+
+  .fourth {
+    --bg-color: 231 153 255;
+    --bg-gradient: radial-gradient(
+        at 92% 40%,
+        hsla(314, 73%, 71%, 1) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 80% 80%, hsla(230, 64%, 66%, 1) 0px, transparent 50%),
+      radial-gradient(at 22% 33%, hsla(181, 97%, 67%, 1) 0px, transparent 50%),
+      radial-gradient(at 0% 77%, hsla(70, 87%, 73%, 1) 0px, transparent 50%),
+      radial-gradient(at 68% 22%, hsla(52, 86%, 61%, 1) 0px, transparent 50%),
+      radial-gradient(at 18% 87%, hsla(150, 94%, 73%, 1) 0px, transparent 50%),
+      radial-gradient(at 26% 26%, hsla(232, 93%, 61%, 1) 0px, transparent 50%);
+  }
+
+  .fifth {
+    --bg-color: 255 192 153;
+    --bg-gradient: radial-gradient(
+        at 59% 68%,
+        hsla(184, 73%, 75%, 1) 0px,
+        transparent 50%
+      ),
+      radial-gradient(at 4% 98%, hsla(145, 75%, 77%, 1) 0px, transparent 50%),
+      radial-gradient(at 99% 75%, hsla(301, 99%, 79%, 1) 0px, transparent 50%),
+      radial-gradient(at 29% 70%, hsla(50, 70%, 62%, 1) 0px, transparent 50%),
+      radial-gradient(at 40% 4%, hsla(270, 83%, 75%, 1) 0px, transparent 50%),
+      radial-gradient(at 69% 73%, hsla(272, 63%, 78%, 1) 0px, transparent 50%),
+      radial-gradient(at 36% 39%, hsla(142, 86%, 70%, 1) 0px, transparent 50%);
+  }
+}
