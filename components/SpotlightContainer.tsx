@@ -46,8 +46,8 @@ export const SpotlightContainer: React.FC<Props> = ({
         })}
         style={style}
       />
-      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 group-hover:ring-white/20 transition-all" />
-      <div className="relative gap-3 flex truncate">{children}</div>
+      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 transition-all group-hover:ring-white/20" />
+      <div className="relative flex gap-3 truncate">{children}</div>
     </div>
   );
 };

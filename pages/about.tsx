@@ -23,7 +23,7 @@ const About: NextPage<Props> = ({ technologies }) => {
   return (
     <motion.div className="flex flex-col gap-8">
       <motion.div
-        className="flex gap-4 items-center justify-center"
+        className="flex items-center justify-center gap-4"
         initial={{
           opacity: 0,
         }}
@@ -43,13 +43,13 @@ const About: NextPage<Props> = ({ technologies }) => {
           quality={100}
         />
         <div className="flex flex-col gap-1">
-          <div className="font-bold text-2xl text-white">Hey, I'm Reece.</div>
-          <div className="font-medium text-xl text-neutral-400">
+          <div className="text-2xl font-bold text-white">Hey, I'm Reece.</div>
+          <div className="text-xl font-medium text-neutral-400">
             Full stack developer
           </div>
         </div>
       </motion.div>
-      <div className="grid-cols-2 grid gap-8">
+      <div className="grid grid-cols-2 gap-8">
         <Item title="About me" Icon={IconUser} highlights="red">
           I love to build/break things and learning almost anything. <br />
           <br />
@@ -82,7 +82,7 @@ const About: NextPage<Props> = ({ technologies }) => {
                 <Technology key={x} id={x} />
               ))}
             </div>
-            <div className="w-full flex justify-end mt-0.5 text-neutral-500 text-xs">
+            <div className="mt-0.5 flex w-full justify-end text-xs text-neutral-500">
               ...and plenty of other technologies!
             </div>
           </div>
@@ -126,14 +126,14 @@ const Item: React.FC<ItemProps> = ({ title, Icon, highlights, children }) => {
         spotlightSize="lg"
         highlights={highlights}
       >
-        <div className="flex flex-col truncate gap-1">
-          <div className="flex gap-3 items-center">
+        <div className="flex flex-col gap-1 truncate">
+          <div className="flex items-center gap-3">
             <div className={iconWrapperStyles({ highlights })}>
               <Icon className={iconStyles({ highlights })} size={16} />
             </div>
-            <div className="text-white font-bold">{title}</div>
+            <div className="font-bold text-white">{title}</div>
           </div>
-          <div className="text-neutral-400 text-sm pt-3 flex whitespace-normal">
+          <div className="flex whitespace-normal pt-3 text-sm text-neutral-400">
             {children}
           </div>
         </div>

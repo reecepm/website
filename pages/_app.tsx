@@ -14,7 +14,7 @@ const inter = Inter({
 
 const Reece = ({ Component, pageProps, router }: AppProps) => {
   return (
-    <main className={`${inter.variable} font-sans bg-[#050505] h-screen`}>
+    <main className={`${inter.variable} h-screen bg-[#050505] font-sans`}>
       <Layout>
         <AnimatePresence mode="wait">
           <Component {...pageProps} key={router.route} />

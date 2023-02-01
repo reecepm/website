@@ -87,7 +87,7 @@ const CarouselBase = () => {
     };
   }, []);
   return (
-    <div className="w-full flex flex-col gap-9 overflow-hidden">
+    <div className="flex w-full flex-col gap-9 overflow-hidden">
       <motion.div
         ref={frameRef}
         className="flex overflow-hidden"
@@ -133,7 +133,7 @@ const CarouselBase = () => {
         </motion.div>
       </motion.div>
       <motion.div
-        className="w-full flex items-center justify-center"
+        className="flex w-full items-center justify-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -148,7 +148,7 @@ const CarouselBase = () => {
               return (
                 <button
                   key={index}
-                  className="flex gap-1 items-center text-sm cursor-pointer transition-all group"
+                  className="group flex cursor-pointer items-center gap-1 text-sm transition-all"
                   onClick={() => {
                     if (index !== currentItem) {
                       // if its from start to end or end to start, only move by 1
@@ -189,13 +189,13 @@ const CarouselBase = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => moveTrackPosition(viewWidth)}
-              className="w-8 h-8 flex items-center justify-center bg-neutral-900 border border-neutral-800 rounded-full text-white cursor-pointer shadow-md hover:scale-110 transition-all"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-neutral-800 bg-neutral-900 text-white shadow-md transition-all hover:scale-110"
             >
               <IconArrowNarrowLeft className="h-4 w-4" />
             </button>
             <button
               onClick={() => moveTrackPosition(-viewWidth)}
-              className="w-8 h-8 flex items-center justify-center bg-neutral-900 border border-neutral-800 rounded-full text-white cursor-pointer shadow-md hover:scale-110 transition-all"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-neutral-800 bg-neutral-900 text-white shadow-md transition-all hover:scale-110"
             >
               <IconArrowNarrowRight className="h-4 w-4" />
             </button>

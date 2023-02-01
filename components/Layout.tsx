@@ -13,12 +13,12 @@ const Layout: React.FC<Props> = ({ children }) => {
   const [contactOpen, setContactOpen] = useState(false);
 
   return (
-    <div className="h-screen overflow-hidden before:pointer-events-none before:bg-no-repeat before:bg-grid-pattern before:[calc(100vh+3.5rem)] before:absolute before:inset-0 before:-top-14 before:bg-top before:opacity-70">
-      <div className="z-10 relative h-screen flex flex-col flex-grow overflow-clip">
-        <div className="absolute flex w-screen items-center justify-center bottom-[-6.25vw] text-[12.5vw] font-extrabold bg-gradient-to-r from-neutral-500 to-white opacity-5 bg-clip-text [-webkit-text-stroke:4px_transparent]">
+    <div className="before:[calc(100vh+3.5rem)] h-screen overflow-hidden before:pointer-events-none before:absolute before:inset-0 before:-top-14 before:bg-grid-pattern before:bg-top before:bg-no-repeat before:opacity-70">
+      <div className="relative z-10 flex h-screen flex-grow flex-col overflow-clip">
+        <div className="absolute bottom-[-6.25vw] flex w-screen items-center justify-center bg-gradient-to-r from-neutral-500 to-white bg-clip-text text-[12.5vw] font-extrabold opacity-5 [-webkit-text-stroke:4px_transparent]">
           always learning
         </div>
-        <div className="w-full flex-grow flex items-center justify-center">
+        <div className="flex w-full flex-grow items-center justify-center">
           <AnimatePresence>
             {contactOpen && <ContactModal setOpen={setContactOpen} />}
           </AnimatePresence>
@@ -39,7 +39,7 @@ interface NavProps {
 const Nav: React.FC<NavProps> = ({ setContactOpen }) => {
   return (
     <motion.div
-      className="flex gap-8 items-center w-full justify-center pt-9 fixed"
+      className="fixed flex w-full items-center justify-center gap-8 pt-9"
       variants={navVariants}
       transition={{
         duration: 1.5,

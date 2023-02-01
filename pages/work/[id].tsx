@@ -1,5 +1,4 @@
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
-import { useRouter } from "next/router";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import React, { useEffect } from "react";
 import Overview from "../../components/work/project/Overview";

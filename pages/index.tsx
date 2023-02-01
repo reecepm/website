@@ -1,29 +1,26 @@
 import Layout from "../components/Layout";
 import Tag from "../components/Tag";
 import Spotify from "../components/Spotify";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { NextPage } from "next";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrayRGB } from "color-thief-react/lib/types";
 import tinycolor from "tinycolor2";
+import { useLanyardWS, Spotify as SpotifyType } from "use-lanyard";
+import { usePalette } from "color-thief-react";
 
 const Home: NextPage = () => {
-  const [albumColors, setAlbumColors] = useState<ArrayRGB[]>();
+  const user = useLanyardWS(process.env.NEXT_PUBLIC_DISCORD_ID as `${bigint}`);
+  const [brightest, setBrightest] = useState<string | undefined>();
+  const [mountDelay, setMountDelay] = useState(false);
 
-  const twoBrightest = useMemo(() => {
-    const sorted = albumColors?.map((rgb) =>
-      tinycolor(`rgb(${rgb.join(",")})`)
-    );
-
-    return sorted?.slice(0, 2).map((color) => {
-      const rgb = color.toRgb();
-      return `${rgb.r}, ${rgb.g}, ${rgb.b}`;
-    });
-  }, [albumColors]);
+  useEffect(() => {
+    setTimeout(() => setMountDelay(true), 2500);
+  }, []);
 
   return (
     <motion.div
-      className="flex flex-col gap-3 items-center justify-center relative"
+      className="relative flex flex-col items-center justify-center gap-3"
       variants={parentVaraints}
       transition={{
         duration: 1.5,
@@ -38,8 +35,7 @@ const Home: NextPage = () => {
         variants={gradientVariants}
         style={{
           background: `radial-gradient(50% 50% at 50% 50%, rgba(${
-            (twoBrightest && twoBrightest[0] && `${twoBrightest[0]},1`) ||
-            "255, 255, 255, 0.6"
+            (brightest && `${brightest},1`) || "255, 255, 255, 0.6"
           }) 0%, rgba(0, 0, 0, 0) 100%)`,
         }}
         transition={{
@@ -49,30 +45,76 @@ const Home: NextPage = () => {
         }}
       />
       <motion.div variants={variants}>
-        <Tag background={twoBrightest && twoBrightest[0]}>
-          Bristol, United Kingdom
-        </Tag>
+        <Tag background={brightest}>Bristol, United Kingdom</Tag>
       </motion.div>
       <motion.div
         variants={variants}
-        className="text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-white to-neutral-500 text-center"
+        className="bg-gradient-to-br from-white to-neutral-500 bg-clip-text text-center text-6xl font-bold text-transparent"
       >
         Reece Martin.
       </motion.div>
       <motion.div
         variants={variants}
-        className="text-neutral-400 font-medium text-center"
+        className="text-center font-medium text-neutral-400"
       >
         Full stack developer devoted to creating fluid and easy to use software.
       </motion.div>
-      <motion.div variants={variants}>
-        <Spotify {...{ setAlbumColors, albumColors }} />
-      </motion.div>
+      {user?.listening_to_spotify &&
+        user.spotify &&
+        user.spotify?.album_art_url &&
+        mountDelay && (
+          <motion.div variants={variants}>
+            <SpotifyWrapper
+              {...{ brightest, setBrightest, data: user.spotify }}
+            />
+          </motion.div>
+        )}
     </motion.div>
   );
 };
 
 export default Home;
+
+interface SpotifyWrapperProps {
+  brightest: string | undefined;
+  setBrightest: React.Dispatch<React.SetStateAction<string | undefined>>;
+  data: SpotifyType;
+}
+
+const SpotifyWrapper: React.FC<SpotifyWrapperProps> = ({
+  brightest,
+  setBrightest,
+  data,
+}) => {
+  const {
+    data: paletteData,
+    loading,
+    error,
+  } = usePalette(data.album_art_url!, 6, "rgbArray", {
+    crossOrigin: "*",
+    quality: 100,
+  });
+
+  useEffect(() => {
+    if (!loading && !error && paletteData && paletteData.length > 0) {
+      const mapped = paletteData.map((rgb) =>
+        tinycolor(`rgb(${rgb.join(",")})`)
+      );
+      if (!mapped) return undefined;
+
+      const isFirstBright = mapped[0].getLuminance() > 0.05;
+      const color = isFirstBright
+        ? mapped[0]
+        : mapped.find((color) => color.getLuminance() > 0.05 !== isFirstBright);
+      if (!color) return undefined;
+
+      const rgb = color.toRgb();
+      setBrightest(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
+    }
+  }, [paletteData]);
+
+  return <Spotify {...{ brightest, data }} />;
+};
 
 const parentVaraints = {
   initial: {

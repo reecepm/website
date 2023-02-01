@@ -132,11 +132,11 @@ const Slideshow: React.FC<Props> = ({ project }) => {
         )}
       </AnimatePresence>
       <div
-        className="col-span-3 flex flex-col gap-3 cursor-pointer"
+        className="col-span-3 flex cursor-pointer flex-col gap-3"
         ref={frameRef}
       >
         <div
-          className="relative flex items-center justify-center border border-neutral-800 bg-neutral-900 rounded-3xl overflow-hidden"
+          className="relative flex items-center justify-center overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900"
           style={{
             width: viewWidth,
             height: viewHeight,
@@ -145,12 +145,12 @@ const Slideshow: React.FC<Props> = ({ project }) => {
           <ImageOrVideo item={item.src} autoPlay />
         </div>
         <div
-          className="flex items-center justify-between w-full px-9 py-5 border border-neutral-800 bg-neutral-900 rounded-3xl"
+          className="flex w-full items-center justify-between rounded-3xl border border-neutral-800 bg-neutral-900 px-9 py-5"
           onClick={() => setOpen(true)}
         >
           <div className="flex flex-col gap-1">
-            <div className="text-white font-semibold text-xl">{item.title}</div>
-            <div className="text-neutral-300 text-sm">{item.desc}</div>
+            <div className="text-xl font-semibold text-white">{item.title}</div>
+            <div className="text-sm text-neutral-300">{item.desc}</div>
           </div>
           <div className="flex flex-col text-white">
             <IconChevronUp />
@@ -178,7 +178,7 @@ const ImageOrVideo = ({
       src={item}
       fill
       quality={100}
-      className="max-w-none border-none shadow-none outline-none scale-[1.02]"
+      className="max-w-none scale-[1.02] border-none shadow-none outline-none"
       alt={`Media ${item}`}
     />
   );
@@ -224,7 +224,7 @@ const SearchModal: React.FC<ModalProps> = ({
 
   return (
     <motion.div
-      className="absolute inset-0 h-full w-full flex justify-center z-50 bg-black/40 backdrop-blur-sm"
+      className="absolute inset-0 z-50 flex h-full w-full justify-center bg-black/40 backdrop-blur-sm"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -259,7 +259,7 @@ const SearchModal: React.FC<ModalProps> = ({
       }}
     >
       <motion.div
-        className="w-full max-w-xl mt-[25vh]"
+        className="mt-[25vh] w-full max-w-xl"
         ref={modalRef}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -267,7 +267,7 @@ const SearchModal: React.FC<ModalProps> = ({
         layout
       >
         <motion.div
-          className="bg-neutral-900 rounded-2xl border border-neutral-700 shadow-lg"
+          className="rounded-2xl border border-neutral-700 bg-neutral-900 shadow-lg"
           onClick={(e) => e.stopPropagation()}
           layout
           transition={spring}
@@ -277,7 +277,7 @@ const SearchModal: React.FC<ModalProps> = ({
             type="text"
             placeholder="Search..."
             autoFocus
-            className="w-full px-7 py-4 border-b border-neutral-800 bg-transparent outline-none text-white placeholder:text-neutral-500"
+            className="w-full border-b border-neutral-800 bg-transparent px-7 py-4 text-white outline-none placeholder:text-neutral-500"
             value={search}
             onChange={(e) => {
               setHoveredItem(0);
@@ -285,14 +285,14 @@ const SearchModal: React.FC<ModalProps> = ({
             }}
           />
           <motion.div
-            className="py-3 px-4 flex flex-col max-h-80 overflow-auto z-0"
+            className="z-0 flex max-h-80 flex-col overflow-auto py-3 px-4"
             layout="position"
             transition={spring}
             ref={listRef}
           >
             {filteredMedia.length === 0 ? (
               <motion.div
-                className="text-neutral-500 text-sm p-3"
+                className="p-3 text-sm text-neutral-500"
                 layout="position"
               >
                 No results found for "{search}"
@@ -317,21 +317,21 @@ const SearchModal: React.FC<ModalProps> = ({
                 >
                   {hoveredItem === index && (
                     <motion.div
-                      className="absolute bg-white/10 w-full h-full rounded-xl z-0"
+                      className="absolute z-0 h-full w-full rounded-xl bg-white/10"
                       layoutId="selected"
                       transition={spring}
                       layout
                     />
                   )}
                   <motion.div
-                    className="relative flex items-center gap-3 p-2 z-10"
+                    className="relative z-10 flex items-center gap-3 p-2"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
                     <div
                       className={twMerge(
-                        "relative w-32 h-[72px] rounded-md overflow-hidden",
+                        "relative h-[72px] w-32 overflow-hidden rounded-md",
                         selectedItem === index
                           ? "bg-neutral-800"
                           : "bg-neutral-900"
@@ -340,10 +340,10 @@ const SearchModal: React.FC<ModalProps> = ({
                       <ImageOrVideo item={item.src} />
                     </div>
                     <div className="flex-1">
-                      <div className="text-white font-medium text-sm">
+                      <div className="text-sm font-medium text-white">
                         {item.title}
                       </div>
-                      <div className="text-neutral-500 text-xs">
+                      <div className="text-xs text-neutral-500">
                         {item.desc}
                       </div>
                     </div>
@@ -353,16 +353,16 @@ const SearchModal: React.FC<ModalProps> = ({
             )}
           </motion.div>
           <div
-            className="w-full px-7 py-4 border-t border-neutral-800 flex items-center justify-between"
+            className="flex w-full items-center justify-between border-t border-neutral-800 px-7 py-4"
             // layout="position"
             // transition={spring}
           >
-            <div className="font-medium text-sm text-neutral-500">
+            <div className="text-sm font-medium text-neutral-500">
               {project.name}
             </div>
-            <div className="text-white font-medium text-sm flex gap-2">
+            <div className="flex gap-2 text-sm font-medium text-white">
               View Media
-              <div className="text-xs rounded-md px-2 pt-1 bg-white/5 flex items-center justify-center">
+              <div className="flex items-center justify-center rounded-md bg-white/5 px-2 pt-1 text-xs">
                 ↵
               </div>
             </div>

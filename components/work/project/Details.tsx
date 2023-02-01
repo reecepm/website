@@ -13,7 +13,7 @@ interface Props {
 const Details: React.FC<Props> = ({ project }) => {
   return (
     <div className="col-span-2 flex flex-col gap-8">
-      <div className="flex gap-4 items-center">
+      <div className="flex items-center gap-4">
         <Image
           src={project.logoPath}
           width={96}
@@ -21,7 +21,7 @@ const Details: React.FC<Props> = ({ project }) => {
           quality={100}
           alt={project.name}
         />
-        <div className="flex flex-col gap-1 items-start">
+        <div className="flex flex-col items-start gap-1">
           <div className="flex flex-col">
             <h1 className="text-2xl font-bold text-white">{project.name}</h1>
             <p className="text-xl font-medium text-neutral-400">

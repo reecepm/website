@@ -103,7 +103,7 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
         opacity,
       }}
       onMouseMove={onMouseMove}
-      className="absolute flex items-center justify-center rounded-3xl border border-neutral-800 bg-neutral-900 overflow-hidden"
+      className="absolute flex items-center justify-center overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900"
     >
       <div className="relative flex items-center justify-center">
         <Image
@@ -112,23 +112,23 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
           height={1920}
           width={1080}
           quality={100}
-          className="max-w-none pointer-events-none"
+          className="pointer-events-none max-w-none"
         />
-        <div className="h-full bg-gradient-to-t from-black to-black/0 w-full z-10 absolute">
-          <div className="flex flex-col items-center justify-center h-full gap-4">
+        <div className="absolute z-10 h-full w-full bg-gradient-to-t from-black to-black/0">
+          <div className="flex h-full flex-col items-center justify-center gap-4">
             <Image
               src={projects[index].logoPath}
               alt={projects[index].name}
               width={48}
               height={48}
               quality={100}
-              className="w-12 h-12 pointer-events-none"
+              className="pointer-events-none h-12 w-12"
             />
             <div className="flex flex-col items-center justify-center">
               <h1 className="text-2xl font-bold text-white">
                 {projects[index].name} {index}
               </h1>
-              <p className="text-neutral-400 text-lg font-medium">
+              <p className="text-lg font-medium text-neutral-400">
                 {projects[index].desc}
               </p>
             </div>

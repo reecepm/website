@@ -1,4 +1,3 @@
-import { ArrayRGB } from "color-thief-react/lib/types";
 import React from "react";
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
 const Tag: React.FC<Props> = ({ children, background }) => {
   return (
     <div
-      className="bg-amber-900/40 border-amber-700/20 text-amber-600 border font-medium text-xs py-1.5 px-3 rounded-full flex items-center justify-center text-center"
+      className="flex items-center justify-center rounded-full border border-amber-700/20 bg-amber-900/40 py-1.5 px-3 text-center text-xs font-medium text-amber-600 transition-all"
       style={{
         borderColor: `rgba(${background || "120, 53, 15"}, 0.2)`,
         color: `rgb(${background || "180 83 9"})`,

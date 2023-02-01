@@ -26,7 +26,7 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
 
   return (
     <motion.div
-      className="absolute inset-0 h-full w-full flex justify-center items-center z-50 bg-black/40 backdrop-blur-sm"
+      className="absolute inset-0 z-50 flex h-full w-full items-center justify-center bg-black/40 backdrop-blur-sm"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -35,7 +35,7 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
       }}
     >
       <motion.div
-        className="w-full max-w-2xl bg-neutral-900 rounded-2xl border border-neutral-800 shadow-lg px-12 py-10"
+        className="w-full max-w-2xl rounded-2xl border border-neutral-800 bg-neutral-900 px-12 py-10 shadow-lg"
         onClick={(e) => e.stopPropagation()}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
@@ -45,7 +45,7 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-2">
             <h2 className="text-2xl font-semibold text-neutral-100">Contact</h2>
-            <p className="text-neutral-400 text-sm">
+            <p className="text-sm text-neutral-400">
               I’m always open to expanding my network and also hearing about
               work opportunities. Drop me an email or a DM and I’ll get back to
               you ASAP.
@@ -54,10 +54,10 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-neutral-100 font-semibold text-sm">
+                <h3 className="text-sm font-semibold text-neutral-100">
                   Email
                 </h3>
-                <p className="text-neutral-400 text-sm">hello@reece.so</p>
+                <p className="text-sm text-neutral-400">hello@reece.so</p>
               </div>
               <div className="flex gap-3">
                 <Button
@@ -90,10 +90,10 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-neutral-100 font-semibold text-sm">
+                <h3 className="text-sm font-semibold text-neutral-100">
                   Discord
                 </h3>
-                <p className="text-neutral-400 text-sm">Reece#9999</p>
+                <p className="text-sm text-neutral-400">Reece#9999</p>
               </div>
               <div className="flex gap-3">
                 <Button
@@ -132,10 +132,10 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-neutral-100 font-semibold text-sm">
+                <h3 className="text-sm font-semibold text-neutral-100">
                   Socials
                 </h3>
-                <p className="text-neutral-400 text-sm">
+                <p className="text-sm text-neutral-400">
                   Connect with me on different platforms
                 </p>
               </div>

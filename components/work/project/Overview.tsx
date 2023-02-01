@@ -36,19 +36,19 @@ const Overview: React.FC<Props> = ({ project }) => {
         <div className="group">
           <Link
             href={project.url}
-            className="text-neutral-200 font-medium text-base flex gap-1 items-center group-hover:text-white transition-all"
+            className="flex items-center gap-1 text-base font-medium text-neutral-200 transition-all group-hover:text-white"
           >
             Visit Website
             <IconArrowUpRight
               height={18}
               width={18}
-              className="text-neutral-300 group-hover:text-white transition-all"
+              className="text-neutral-300 transition-all group-hover:text-white"
             />
           </Link>
         </div>
       </motion.div>
       <motion.div
-        className="grid grid-cols-5 gap-9 max-w-7xl"
+        className="grid max-w-7xl grid-cols-5 gap-9"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

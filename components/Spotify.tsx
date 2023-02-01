@@ -1,61 +1,69 @@
 import React, { useEffect } from "react";
-import { useLanyard, useLanyardWS } from "use-lanyard";
+import { useLanyard, useLanyardWS, Spotify as SpotifyType } from "use-lanyard";
 import SpotlightContainer from "./SpotlightContainer";
 import Image from "next/image";
 import Link from "next/link";
-import { useColor, usePalette } from "color-thief-react";
 import { ArrayRGB } from "color-thief-react/lib/types";
 
 interface SpotifyProps {
-  albumColors: ArrayRGB[] | undefined;
-  setAlbumColors: React.Dispatch<React.SetStateAction<ArrayRGB[] | undefined>>;
+  brightest: string | undefined;
+  data: SpotifyType;
 }
 
-const Spotify: React.FC<SpotifyProps> = ({ setAlbumColors, albumColors }) => {
-  const isLoading = false;
-  const user = useLanyardWS(process.env.NEXT_PUBLIC_DISCORD_ID as `${bigint}`);
-
+const Spotify: React.FC<SpotifyProps> = ({ brightest, data }) => {
   const inner = (
-    <SpotlightContainer padding="md" fixedWidth="sm">
-      {isLoading ? (
-        <div className="h-16 w-16 bg-slate-300 rounded-xl animate-pulse"></div>
-      ) : user?.spotify?.album_art_url ? (
-        <ImageWithExtractor
-          src={user.spotify.album_art_url}
-          alt={user?.spotify?.song || "Reece Martin"}
-          albumColors={albumColors}
-          setAlbumColors={setAlbumColors}
-        />
-      ) : (
-        <div className="h-16 w-16 bg-slate-300 rounded-xl"></div>
-      )}
-      <div className="flex flex-col gap-1 flex-grow overflow-hidden min-w-0">
-        {isLoading ? (
-          <>
-            <div className="h-3.5 w-24 bg-slate-300 rounded-full animate-pulse"></div>
-            <div className="h-3.5 w-20 bg-slate-300 rounded-full animate-pulse"></div>
-            <div className="h-3.5 w-16 bg-slate-300 rounded-full animate-pulse"></div>
-          </>
-        ) : (
-          <>
-            <div className="text-sm font-bold text-white truncate">
-              {user?.spotify?.song}
-            </div>
-            <div className="text-xs font-bold text-neutral-400 truncate">
-              {user?.spotify?.artist}
-            </div>
-            <div className="text-xs font-bold text-neutral-500 truncate">
-              {user?.spotify?.album}
-            </div>
-          </>
-        )}
+    <div className="group relative h-[115px] w-80 overflow-hidden rounded-2xl transition-all">
+      <div className="absolute h-full w-full overflow-hidden rounded-2xl p-0.5">
+        <div className="relative h-full w-full overflow-hidden rounded-[14px] p-0.5">
+          <div
+            className="absolute -top-[136px] -left-6 h-96 w-96 animate-spin-slow blur-lg saturate-200"
+            style={{
+              background: `conic-gradient(rgba(${
+                (brightest && `${brightest},1`) || "255, 255, 255, 0.6"
+              }), rgba(0, 0, 0, 0.1))`,
+            }}
+          ></div>
+        </div>
       </div>
-    </SpotlightContainer>
+      <div
+        className="absolute flex h-full w-full gap-3 rounded-2xl bg-neutral-900/90 p-6"
+        style={{
+          border: `2px solid rgba(${
+            (brightest && `${brightest},1`) || "255, 255, 255, 0.6"
+          })`,
+        }}
+      >
+        {data.album_art_url ? (
+          <Image
+            src={data.album_art_url}
+            width={64}
+            height={64}
+            alt={data.song || "Reece Martin"}
+            className="max-w-full flex-shrink-0 rounded-xl"
+          />
+        ) : (
+          <div className="h-16 w-16 rounded-xl bg-slate-300"></div>
+        )}
+        <div className="flex min-w-0 flex-grow flex-col gap-1 overflow-hidden">
+          <>
+            <div className="truncate text-sm font-bold text-white">
+              {data.song}
+            </div>
+            <div className="truncate text-xs font-bold text-neutral-400">
+              {data.artist}
+            </div>
+            <div className="truncate text-xs font-bold text-neutral-500">
+              {data.album}
+            </div>
+          </>
+        </div>
+      </div>
+    </div>
   );
 
-  return user?.listening_to_spotify && user.spotify?.track_id ? (
+  return data && data.track_id ? (
     <Link
-      href={`https://open.spotify.com/track/${user.spotify.track_id}`}
+      href={`https://open.spotify.com/track/${data.track_id}`}
       target="_blank"
       rel="noreferrer"
     >
@@ -67,33 +75,3 @@ const Spotify: React.FC<SpotifyProps> = ({ setAlbumColors, albumColors }) => {
 };
 
 export default Spotify;
-
-interface ImageWithExtractorProps extends SpotifyProps {
-  src: string;
-  alt: string;
-}
-
-const ImageWithExtractor: React.FC<ImageWithExtractorProps> = ({
-  src,
-  alt,
-  setAlbumColors,
-}) => {
-  const { data, loading, error } = usePalette(src, 6, "rgbArray", {
-    crossOrigin: "*",
-    quality: 100,
-  });
-
-  useEffect(() => {
-    setAlbumColors(data);
-  }, [data]);
-
-  return (
-    <Image
-      src={src}
-      width={64}
-      height={64}
-      alt={alt || "Reece Martin"}
-      className="rounded-xl flex-shrink-0 max-w-full"
-    />
-  );
-};
