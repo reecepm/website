@@ -3,8 +3,24 @@ import Tag from "../components/Tag";
 import Spotify from "../components/Spotify";
 import { motion } from "framer-motion";
 import { NextPage } from "next";
+import { useMemo, useState } from "react";
+import { ArrayRGB } from "color-thief-react/lib/types";
+import tinycolor from "tinycolor2";
 
 const Home: NextPage = () => {
+  const [albumColors, setAlbumColors] = useState<ArrayRGB[]>();
+
+  const twoBrightest = useMemo(() => {
+    const sorted = albumColors?.map((rgb) =>
+      tinycolor(`rgb(${rgb.join(",")})`)
+    );
+
+    return sorted?.slice(0, 2).map((color) => {
+      const rgb = color.toRgb();
+      return `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+    });
+  }, [albumColors]);
+
   return (
     <motion.div
       className="flex flex-col gap-3 items-center justify-center relative"
@@ -21,8 +37,10 @@ const Home: NextPage = () => {
         className="absolute z-0"
         variants={gradientVariants}
         style={{
-          background:
-            "radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.6) 0%, rgba(0, 0, 0, 0) 100%)",
+          background: `radial-gradient(50% 50% at 50% 50%, rgba(${
+            (twoBrightest && twoBrightest[0] && `${twoBrightest[0]},1`) ||
+            "255, 255, 255, 0.6"
+          }) 0%, rgba(0, 0, 0, 0) 100%)`,
         }}
         transition={{
           duration: 3,
@@ -31,7 +49,9 @@ const Home: NextPage = () => {
         }}
       />
       <motion.div variants={variants}>
-        <Tag>Bristol, United Kingdom</Tag>
+        <Tag background={twoBrightest && twoBrightest[0]}>
+          Bristol, United Kingdom
+        </Tag>
       </motion.div>
       <motion.div
         variants={variants}
@@ -46,7 +66,7 @@ const Home: NextPage = () => {
         Full stack developer devoted to creating fluid and easy to use software.
       </motion.div>
       <motion.div variants={variants}>
-        <Spotify />
+        <Spotify {...{ setAlbumColors, albumColors }} />
       </motion.div>
     </motion.div>
   );

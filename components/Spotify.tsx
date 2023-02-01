@@ -1,27 +1,30 @@
-import React from "react";
-import { useLanyard } from "use-lanyard";
+import React, { useEffect } from "react";
+import { useLanyard, useLanyardWS } from "use-lanyard";
 import SpotlightContainer from "./SpotlightContainer";
 import Image from "next/image";
 import Link from "next/link";
+import { useColor, usePalette } from "color-thief-react";
+import { ArrayRGB } from "color-thief-react/lib/types";
 
-const DISCORD_ID = "480435502445756429";
+interface SpotifyProps {
+  albumColors: ArrayRGB[] | undefined;
+  setAlbumColors: React.Dispatch<React.SetStateAction<ArrayRGB[] | undefined>>;
+}
 
-const Spotify = () => {
-  const { data: user, isLoading } = useLanyard(DISCORD_ID);
-
-  // const isLoading = true;
+const Spotify: React.FC<SpotifyProps> = ({ setAlbumColors, albumColors }) => {
+  const isLoading = false;
+  const user = useLanyardWS(process.env.NEXT_PUBLIC_DISCORD_ID as `${bigint}`);
 
   const inner = (
     <SpotlightContainer padding="md" fixedWidth="sm">
       {isLoading ? (
         <div className="h-16 w-16 bg-slate-300 rounded-xl animate-pulse"></div>
       ) : user?.spotify?.album_art_url ? (
-        <Image
+        <ImageWithExtractor
           src={user.spotify.album_art_url}
-          width={64}
-          height={64}
           alt={user?.spotify?.song || "Reece Martin"}
-          className="rounded-xl"
+          albumColors={albumColors}
+          setAlbumColors={setAlbumColors}
         />
       ) : (
         <div className="h-16 w-16 bg-slate-300 rounded-xl"></div>
@@ -64,3 +67,33 @@ const Spotify = () => {
 };
 
 export default Spotify;
+
+interface ImageWithExtractorProps extends SpotifyProps {
+  src: string;
+  alt: string;
+}
+
+const ImageWithExtractor: React.FC<ImageWithExtractorProps> = ({
+  src,
+  alt,
+  setAlbumColors,
+}) => {
+  const { data, loading, error } = usePalette(src, 6, "rgbArray", {
+    crossOrigin: "*",
+    quality: 100,
+  });
+
+  useEffect(() => {
+    setAlbumColors(data);
+  }, [data]);
+
+  return (
+    <Image
+      src={src}
+      width={64}
+      height={64}
+      alt={alt || "Reece Martin"}
+      className="rounded-xl flex-shrink-0 max-w-full"
+    />
+  );
+};
