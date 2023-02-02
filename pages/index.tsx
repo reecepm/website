@@ -1,13 +1,9 @@
-import Layout from "../components/Layout";
+import { useEffect, useState } from "react";
 import Tag from "../components/Tag";
-import Spotify from "../components/Spotify";
-import { AnimatePresence, motion } from "framer-motion";
+import { SpotifyWrapper } from "../components/Spotify";
+import { motion } from "framer-motion";
 import { NextPage } from "next";
-import { useEffect, useMemo, useState } from "react";
-import { ArrayRGB } from "color-thief-react/lib/types";
-import tinycolor from "tinycolor2";
-import { useLanyardWS, Spotify as SpotifyType } from "use-lanyard";
-import { usePalette } from "color-thief-react";
+import { useLanyardWS } from "use-lanyard";
 
 const Home: NextPage = () => {
   const user = useLanyardWS(process.env.NEXT_PUBLIC_DISCORD_ID as `${bigint}`);
@@ -74,47 +70,6 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-interface SpotifyWrapperProps {
-  brightest: string | undefined;
-  setBrightest: React.Dispatch<React.SetStateAction<string | undefined>>;
-  data: SpotifyType;
-}
-
-const SpotifyWrapper: React.FC<SpotifyWrapperProps> = ({
-  brightest,
-  setBrightest,
-  data,
-}) => {
-  const {
-    data: paletteData,
-    loading,
-    error,
-  } = usePalette(data.album_art_url!, 6, "rgbArray", {
-    crossOrigin: "*",
-    quality: 100,
-  });
-
-  useEffect(() => {
-    if (!loading && !error && paletteData && paletteData.length > 0) {
-      const mapped = paletteData.map((rgb) =>
-        tinycolor(`rgb(${rgb.join(",")})`)
-      );
-      if (!mapped) return undefined;
-
-      const isFirstBright = mapped[0].getLuminance() > 0.05;
-      const color = isFirstBright
-        ? mapped[0]
-        : mapped.find((color) => color.getLuminance() > 0.05 !== isFirstBright);
-      if (!color) return undefined;
-
-      const rgb = color.toRgb();
-      setBrightest(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
-    }
-  }, [paletteData]);
-
-  return <Spotify {...{ brightest, data }} />;
-};
 
 const parentVaraints = {
   initial: {

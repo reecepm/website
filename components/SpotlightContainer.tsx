@@ -47,7 +47,7 @@ export const SpotlightContainer: React.FC<Props> = ({
         style={style}
       />
       <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10 transition-all group-hover:ring-white/20" />
-      <div className="relative flex gap-3 truncate">{children}</div>
+      <div className="relative flex w-full gap-3">{children}</div>
     </div>
   );
 };
@@ -79,15 +79,15 @@ export const containerStyles = cva(
   {
     variants: {
       padding: {
-        lg: "p-12",
+        lg: "lg:p-12 p-8",
         md: "p-6",
       },
       fixedWidth: {
         sm: "w-80",
-        md: "w-[500px]",
+        md: "lg:w-[500px] md:w-[400px] w-full",
       },
       fixedHeight: {
-        md: "h-[300px]",
+        md: "lg:h-[300px] md:h-[250px] h-auto",
       },
       gap: {
         sm: "gap-2.5",

@@ -4,6 +4,49 @@ import SpotlightContainer from "./SpotlightContainer";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrayRGB } from "color-thief-react/lib/types";
+import { usePalette } from "color-thief-react";
+import tinycolor from "tinycolor2";
+
+interface SpotifyWrapperProps {
+  brightest: string | undefined;
+  setBrightest: React.Dispatch<React.SetStateAction<string | undefined>>;
+  data: SpotifyType;
+}
+
+export const SpotifyWrapper: React.FC<SpotifyWrapperProps> = ({
+  brightest,
+  setBrightest,
+  data,
+}) => {
+  const {
+    data: paletteData,
+    loading,
+    error,
+  } = usePalette(data.album_art_url!, 6, "rgbArray", {
+    crossOrigin: "*",
+    quality: 100,
+  });
+
+  useEffect(() => {
+    if (!loading && !error && paletteData && paletteData.length > 0) {
+      const mapped = paletteData.map((rgb) =>
+        tinycolor(`rgb(${rgb.join(",")})`)
+      );
+      if (!mapped) return undefined;
+
+      const isFirstBright = mapped[0].getLuminance() > 0.05;
+      const color = isFirstBright
+        ? mapped[0]
+        : mapped.find((color) => color.getLuminance() > 0.05 !== isFirstBright);
+      if (!color) return undefined;
+
+      const rgb = color.toRgb();
+      setBrightest(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
+    }
+  }, [paletteData]);
+
+  return <Spotify {...{ brightest, data }} />;
+};
 
 interface SpotifyProps {
   brightest: string | undefined;

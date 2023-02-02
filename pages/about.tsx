@@ -1,27 +1,38 @@
 import { GetStaticProps, NextPage } from "next";
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Image from "next/image";
 import SpotlightContainer from "../components/SpotlightContainer";
 import { cva } from "class-variance-authority";
 import {
+  IconArrowNarrowRight,
   IconBook,
   IconBriefcase,
   IconCpu,
+  IconMinus,
+  IconPlus,
   IconUser,
   TablerIcon,
 } from "@tabler/icons";
 import { technologies } from "../data/technologies";
 import { motion } from "framer-motion";
 import Technology from "../components/Technology";
+import { Button } from "../components/Button";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   technologies: (keyof typeof technologies)[];
 }
 
 const About: NextPage<Props> = ({ technologies }) => {
+  const [openItem, setOpenItem] = useState(-1);
+
+  const handleOpen = (value: number) => {
+    setOpenItem(openItem === value ? -1 : value);
+  };
+
   return (
-    <motion.div className="flex flex-col gap-8">
+    <motion.div className="flex w-full flex-col gap-4 sm:w-auto sm:gap-8">
       <motion.div
         className="flex items-center justify-center gap-4"
         initial={{
@@ -43,14 +54,22 @@ const About: NextPage<Props> = ({ technologies }) => {
           quality={100}
         />
         <div className="flex flex-col gap-1">
-          <div className="text-2xl font-bold text-white">Hey, I'm Reece.</div>
-          <div className="text-xl font-medium text-neutral-400">
+          <div className="text-lg font-bold text-white md:text-xl lg:text-2xl">
+            Hey, I'm Reece.
+          </div>
+          <div className="text-base font-medium text-neutral-400 md:text-lg lg:text-xl">
             Full stack developer
           </div>
         </div>
       </motion.div>
-      <div className="grid grid-cols-2 gap-8">
-        <Item title="About me" Icon={IconUser} highlights="red">
+      <div className="m-4 grid grid-cols-1 gap-4 sm:m-0 sm:grid-cols-2 md:gap-8">
+        <Item
+          title="About me"
+          Icon={IconUser}
+          highlights="red"
+          open={openItem === 0}
+          onClick={() => handleOpen(0)}
+        >
           I love to build/break things and learning almost anything. <br />
           <br />
           Strive to build polished end-to-end web, mobile and desktop
@@ -58,7 +77,13 @@ const About: NextPage<Props> = ({ technologies }) => {
           <br />
           <br />I also love working out, football, F1, sneakers and travel.
         </Item>
-        <Item title="Always learning" Icon={IconBook} highlights="blue">
+        <Item
+          title="Always learning"
+          Icon={IconBook}
+          highlights="blue"
+          open={openItem === 1}
+          onClick={() => handleOpen(1)}
+        >
           “Once you stop learning, you start dying”.
           <br />
           <br />
@@ -68,15 +93,34 @@ const About: NextPage<Props> = ({ technologies }) => {
           <br />I always love to learn new technologies and also to learn about
           random topics.
         </Item>
-        <Item title="Current work" Icon={IconBriefcase} highlights="green">
-          Working as an independent contractor for web, mobile and desktop
-          projects. Also building some cool side projects (coming soon).
-          <br />
-          <br /> Feel free to reach out if you are interested in working with
-          me.
+        <Item
+          title="Current work"
+          Icon={IconBriefcase}
+          highlights="green"
+          open={openItem === 2}
+          onClick={() => handleOpen(2)}
+        >
+          <div className="flex flex-col gap-2">
+            Working as an independent contractor for web, mobile and desktop
+            projects. Also building some cool side projects (coming soon).
+            <br />
+            <br /> Feel free to reach out if you are interested in working with
+            me.
+            <div className="self-end">
+              <Button>
+                Hire me <IconArrowNarrowRight height={18} width={18} />
+              </Button>
+            </div>
+          </div>
         </Item>
-        <Item title="Technologies" Icon={IconCpu} highlights="purple">
-          <div className="flex flex-col gap-1">
+        <Item
+          title="Technologies"
+          Icon={IconCpu}
+          highlights="purple"
+          open={openItem === 3}
+          onClick={() => handleOpen(3)}
+        >
+          <div className="flex w-full flex-col gap-1">
             <div className="grid grid-cols-3 gap-y-1">
               {technologies.map((x) => (
                 <Technology key={x} id={x} />
@@ -104,9 +148,18 @@ interface ItemProps {
   Icon: TablerIcon;
   children?: React.ReactNode;
   highlights?: React.ComponentProps<typeof SpotlightContainer>["highlights"];
+  open?: boolean;
+  onClick: () => void;
 }
 
-const Item: React.FC<ItemProps> = ({ title, Icon, highlights, children }) => {
+const Item: React.FC<ItemProps> = ({
+  title,
+  Icon,
+  highlights,
+  children,
+  open,
+  onClick,
+}) => {
   return (
     <motion.div
       initial={{
@@ -118,6 +171,8 @@ const Item: React.FC<ItemProps> = ({ title, Icon, highlights, children }) => {
       exit={{
         opacity: 0,
       }}
+      onClick={onClick}
+      className="w-full cursor-pointer sm:flex sm:cursor-default"
     >
       <SpotlightContainer
         fixedWidth="md"
@@ -126,14 +181,30 @@ const Item: React.FC<ItemProps> = ({ title, Icon, highlights, children }) => {
         spotlightSize="lg"
         highlights={highlights}
       >
-        <div className="flex flex-col gap-1 truncate">
-          <div className="flex items-center gap-3">
-            <div className={iconWrapperStyles({ highlights })}>
-              <Icon className={iconStyles({ highlights })} size={16} />
+        <div className="flex w-full flex-col gap-1 truncate">
+          <div className="flex items-center justify-between">
+            <div className="flex w-full items-center gap-3">
+              <div className={iconWrapperStyles({ highlights })}>
+                <Icon className={iconStyles({ highlights })} size={16} />
+              </div>
+              <div className="text-sm font-bold text-white lg:text-base">
+                {title}
+              </div>
             </div>
-            <div className="font-bold text-white">{title}</div>
+            <div className="flex text-white sm:hidden">
+              {open ? (
+                <IconMinus height={18} width={18} />
+              ) : (
+                <IconPlus height={18} width={18} />
+              )}
+            </div>
           </div>
-          <div className="flex whitespace-normal pt-3 text-sm text-neutral-400">
+          <div
+            className={twMerge(
+              "w-full whitespace-normal pt-3 text-xs text-neutral-400  lg:text-sm",
+              open ? "flex" : "hidden sm:flex"
+            )}
+          >
             {children}
           </div>
         </div>

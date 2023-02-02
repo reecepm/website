@@ -1,12 +1,13 @@
 import { IconArrowNarrowLeft, IconArrowUpRight } from "@tabler/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { Project } from "../../../data/projects";
 import Details from "./Details";
 import Slideshow from "./Slideshow";
 import { Button } from "../../Button";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import SearchModal from "./SearchModal";
 
 interface Props {
   project: Project;
@@ -14,6 +15,8 @@ interface Props {
 
 const Overview: React.FC<Props> = ({ project }) => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(0);
 
   return (
     <div className="flex flex-col gap-9">
@@ -54,8 +57,18 @@ const Overview: React.FC<Props> = ({ project }) => {
         exit={{ opacity: 0 }}
       >
         <Details project={project} />
-        <Slideshow project={project} />
+        <Slideshow {...{ project, setOpen, selectedItem }} />
       </motion.div>
+      <AnimatePresence>
+        {open && (
+          <SearchModal
+            setOpen={setOpen}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+            project={project}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

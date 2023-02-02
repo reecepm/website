@@ -26,7 +26,7 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
 
   return (
     <motion.div
-      className="absolute inset-0 z-50 flex h-full w-full items-center justify-center bg-black/40 backdrop-blur-sm"
+      className="absolute inset-0 z-50 flex h-full w-full items-center justify-center bg-black/40 backdrop-blur"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
