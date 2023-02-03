@@ -13,7 +13,7 @@ interface SpotifyWrapperProps {
   data: SpotifyType;
 }
 
-export const SpotifyWrapper: React.FC<SpotifyWrapperProps> = ({
+export const Spotify: React.FC<SpotifyWrapperProps> = ({
   brightest,
   setBrightest,
   data,
@@ -45,15 +45,6 @@ export const SpotifyWrapper: React.FC<SpotifyWrapperProps> = ({
     }
   }, [paletteData]);
 
-  return <Spotify {...{ brightest, data }} />;
-};
-
-interface SpotifyProps {
-  brightest: string | undefined;
-  data: SpotifyType;
-}
-
-const Spotify: React.FC<SpotifyProps> = ({ brightest, data }) => {
   const inner = (
     <div className="group relative h-[115px] w-80 overflow-hidden rounded-2xl transition-all">
       <div className="absolute h-full w-full overflow-hidden rounded-2xl p-0.5">

@@ -15,7 +15,7 @@ const Layout: React.FC<Props> = ({ children }) => {
   return (
     <div className="before:[calc(100vh+3.5rem)] h-screen overflow-hidden before:pointer-events-none before:absolute before:inset-0 before:-top-14 before:bg-grid-pattern before:bg-top before:bg-no-repeat before:opacity-70">
       <div className="relative z-10 flex h-screen flex-grow flex-col overflow-clip">
-        <div className="absolute bottom-[-6.25vw] flex w-screen items-center justify-center bg-gradient-to-r from-neutral-500 to-white bg-clip-text text-[12.5vw] font-extrabold opacity-5 [-webkit-text-stroke:4px_transparent]">
+        <div className="absolute bottom-[-6.25vw] flex w-screen select-none items-center justify-center bg-gradient-to-r from-neutral-500 to-white bg-clip-text text-[12.5vw] font-extrabold opacity-5 [-webkit-text-stroke:4px_transparent]">
           always learning
         </div>
         <div className="flex w-full flex-grow items-center justify-center">

@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Tag from "../components/Tag";
-import { SpotifyWrapper } from "../components/Spotify";
+import { Spotify } from "../components/Spotify";
 import { motion } from "framer-motion";
 import { NextPage } from "next";
 import { useLanyardWS } from "use-lanyard";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const user = useLanyardWS(process.env.NEXT_PUBLIC_DISCORD_ID as `${bigint}`);
@@ -41,7 +42,13 @@ const Home: NextPage = () => {
         }}
       />
       <motion.div variants={variants}>
-        <Tag background={brightest}>Bristol, United Kingdom</Tag>
+        <a
+          href="https://www.google.com/maps/place/Bristol,+United+Kingdom"
+          target="_blank"
+          referrerPolicy="no-referrer"
+        >
+          <Tag background={brightest}>Bristol, United Kingdom</Tag>
+        </a>
       </motion.div>
       <motion.div
         variants={variants}
@@ -59,10 +66,8 @@ const Home: NextPage = () => {
         user.spotify &&
         user.spotify?.album_art_url &&
         mountDelay && (
-          <motion.div variants={variants}>
-            <SpotifyWrapper
-              {...{ brightest, setBrightest, data: user.spotify }}
-            />
+          <motion.div variants={variants} className="mt-4">
+            <Spotify {...{ brightest, setBrightest, data: user.spotify }} />
           </motion.div>
         )}
     </motion.div>
