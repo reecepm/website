@@ -1,11 +1,23 @@
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons";
-import { MotionValue, useMotionValue, animate, motion } from "framer-motion";
+import {
+  IconArrowNarrowLeft,
+  IconArrowNarrowRight,
+  IconSearch,
+} from "@tabler/icons";
+import {
+  MotionValue,
+  useMotionValue,
+  animate,
+  motion,
+  AnimatePresence,
+} from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { projects } from "../../../data/projects";
 import CarouselItem from "./Item";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { getIconById } from "../../icons";
+import SearchModal from "../SearchModal";
+import { Button } from "../../Button";
 
 const snap = (width: number) => (value: number) => {
   const snapTo = Math.round(value / width) * width;
@@ -21,6 +33,7 @@ type PageViewContextProps = {
   viewWidth: number;
   viewHeight: number;
   trackXOffset: MotionValue;
+  mobileMargin: number;
 };
 
 const PageContext = React.createContext<PageViewContextProps | undefined>(
@@ -36,6 +49,7 @@ export const usePageContext = () => {
 };
 
 const CarouselBase = () => {
+  const MOBILE_MARGIN = 32;
   const [viewWidth, setViewWidth] = useState(912);
   const [viewHeight, setViewHeight] = useState(513);
 
@@ -58,20 +72,30 @@ const CarouselBase = () => {
   };
 
   useEffect(() => {
-    if (frameRef.current) setFrameWidth(frameRef.current.offsetWidth);
+    if (frameRef.current)
+      setFrameWidth(frameRef.current.offsetWidth - MOBILE_MARGIN);
   }, []);
 
   useEffect(() => {
     resizeObserverRef.current = new ResizeObserver(() => {
       if (frameRef.current) {
-        setFrameWidth(frameRef.current.offsetWidth);
-        if (frameRef.current.offsetWidth < viewWidth) {
+        setFrameWidth(frameRef.current.offsetWidth - MOBILE_MARGIN);
+        if (frameRef.current.offsetWidth - MOBILE_MARGIN < viewWidth) {
           // find next lowest 16:9 ratio from width
           const ratio = 16 / 9;
           const nextWidth =
-            Math.floor(frameRef.current.offsetWidth / ratio) * ratio;
+            Math.floor((frameRef.current.offsetWidth - MOBILE_MARGIN) / ratio) *
+            ratio;
           setViewWidth(nextWidth);
           setViewHeight(nextWidth / ratio);
+
+          if (nextWidth < 400) {
+            setViewWidth(nextWidth);
+            setViewHeight(nextWidth * 1.4);
+          } else {
+            setViewWidth(nextWidth);
+            setViewHeight(nextWidth / ratio);
+          }
 
           // setViewWidth(frameRef.current.offsetWidth);
           // trackXOffset.set(0);
@@ -86,8 +110,46 @@ const CarouselBase = () => {
       resizeObserverRef.current?.disconnect();
     };
   }, []);
+
+  const moveToIndex = (index: number) => {
+    if (index !== currentItem) {
+      // if its from start to end or end to start, only move by 1
+      // if its any other case, move by the difference
+      const isEndToStart = index === 0 && currentItem === projects.length - 1;
+      const isStartToEnd = index === projects.length - 1 && currentItem === 0;
+      moveTrackPosition(
+        ((index < currentItem && !isEndToStart) || isStartToEnd
+          ? viewWidth
+          : -viewWidth) *
+          (isEndToStart || isStartToEnd ? 1 : Math.abs(index - currentItem))
+      );
+    }
+  };
+
+  const [mobileNavigation, setMobileNavigation] = useState(false);
+
   return (
-    <div className="flex w-full flex-col gap-9 overflow-hidden">
+    <div className="flex w-full flex-col gap-4 overflow-hidden">
+      <div className="w-full md:hidden">
+        <AnimatePresence>
+          {mobileNavigation && (
+            <SearchModal
+              setOpen={setMobileNavigation}
+              selectedItem={currentItem}
+              setSelectedItem={moveToIndex}
+              items={projects.map((x, i) => ({
+                id: i,
+                type: "Project",
+                title: x.name,
+                desc: x.desc,
+                src: x.coverImagePath,
+              }))}
+              name="My Work"
+              type="Media"
+            />
+          )}
+        </AnimatePresence>
+      </div>
       <motion.div
         ref={frameRef}
         className="flex overflow-hidden"
@@ -119,6 +181,7 @@ const CarouselBase = () => {
               trackSize,
               viewHeight,
               viewWidth,
+              mobileMargin: MOBILE_MARGIN,
               trackXOffset: trackXOffset,
             }}
           >
@@ -142,7 +205,16 @@ const CarouselBase = () => {
           className="flex items-center justify-between py-2"
           style={{ width: viewWidth }}
         >
-          <div className="flex items-center gap-8">
+          <div className="flex md:hidden">
+            <div
+              className="flex w-full cursor-pointer items-center justify-between gap-4 rounded-xl border border-neutral-800 bg-neutral-900 px-5 py-3 text-sm text-white"
+              onClick={() => setMobileNavigation(true)}
+            >
+              Browse projects
+              <IconSearch className="h-4 w-4 text-white" />
+            </div>
+          </div>
+          <div className="hidden items-center gap-8 md:flex">
             {projects.map((item, index) => {
               const Icon = getIconById(item.id);
               return (
@@ -150,22 +222,7 @@ const CarouselBase = () => {
                   key={index}
                   className="group flex cursor-pointer items-center gap-1 text-sm transition-all"
                   onClick={() => {
-                    if (index !== currentItem) {
-                      // if its from start to end or end to start, only move by 1
-                      // if its any other case, move by the difference
-                      const isEndToStart =
-                        index === 0 && currentItem === projects.length - 1;
-                      const isStartToEnd =
-                        index === projects.length - 1 && currentItem === 0;
-                      moveTrackPosition(
-                        ((index < currentItem && !isEndToStart) || isStartToEnd
-                          ? viewWidth
-                          : -viewWidth) *
-                          (isEndToStart || isStartToEnd
-                            ? 1
-                            : Math.abs(index - currentItem))
-                      );
-                    }
+                    moveToIndex(index);
                   }}
                 >
                   <Icon

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import CarouselBase from "../../components/work/carousel/Base";
 

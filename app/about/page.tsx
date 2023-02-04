@@ -1,8 +1,9 @@
+"use client";
+
 import { GetStaticProps, NextPage } from "next";
 import React, { useState } from "react";
-import Layout from "../components/Layout";
 import Image from "next/image";
-import SpotlightContainer from "../components/SpotlightContainer";
+import SpotlightContainer from "../../components/SpotlightContainer";
 import { cva } from "class-variance-authority";
 import {
   IconArrowNarrowRight,
@@ -14,17 +15,17 @@ import {
   IconUser,
   TablerIcon,
 } from "@tabler/icons";
-import { technologies } from "../data/technologies";
+import { technologies } from "../../data/technologies";
 import { motion } from "framer-motion";
-import Technology from "../components/Technology";
-import { Button } from "../components/Button";
+import Technology from "../../components/Technology";
+import { Button } from "../../components/Button";
 import { twMerge } from "tailwind-merge";
 
 interface Props {
   technologies: (keyof typeof technologies)[];
 }
 
-const About: NextPage<Props> = ({ technologies }) => {
+const About: NextPage<Props> = () => {
   const [openItem, setOpenItem] = useState(-1);
 
   const handleOpen = (value: number) => {
@@ -122,9 +123,11 @@ const About: NextPage<Props> = ({ technologies }) => {
         >
           <div className="flex w-full flex-col gap-1">
             <div className="grid grid-cols-3 gap-y-1">
-              {technologies.map((x) => (
-                <Technology key={x} id={x} />
-              ))}
+              {(Object.keys(technologies) as (keyof typeof technologies)[]).map(
+                (x) => (
+                  <Technology key={x} id={x} />
+                )
+              )}
             </div>
             <div className="mt-0.5 flex w-full justify-end text-xs text-neutral-500">
               ...and plenty of other technologies!
@@ -137,11 +140,6 @@ const About: NextPage<Props> = ({ technologies }) => {
 };
 
 export default About;
-
-export const getStaticProps: GetStaticProps = async () => {
-  const tech = Object.keys(technologies);
-  return { props: { technologies: tech } };
-};
 
 interface ItemProps {
   title: string;
@@ -162,6 +160,7 @@ const Item: React.FC<ItemProps> = ({
 }) => {
   return (
     <motion.div
+      onClick={onClick}
       initial={{
         opacity: 0,
       }}
@@ -171,7 +170,6 @@ const Item: React.FC<ItemProps> = ({
       exit={{
         opacity: 0,
       }}
-      onClick={onClick}
       className="w-full cursor-pointer sm:flex sm:cursor-default"
     >
       <SpotlightContainer

@@ -10,7 +10,7 @@ import { projects } from "../../../data/projects";
 import Image from "next/image";
 import { IconArrowNarrowRight } from "@tabler/icons";
 import React from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Button } from "../../Button";
 
 const alignOptions = { start: 0, center: 0.5, end: 1 };
@@ -25,7 +25,7 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
   const {
     align,
     frameWidth: frameSize,
-
+    mobileMargin,
     trackSize,
     trackXOffset,
     viewWidth,
@@ -59,7 +59,7 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
       startOffset += trackSize;
     }
 
-    return startOffset + alignOffset;
+    return startOffset + alignOffset + mobileMargin / 2;
   });
 
   const normalOffset = useTransform(trackXOffset, (value) => {
@@ -122,13 +122,13 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
               width={48}
               height={48}
               quality={100}
-              className="pointer-events-none h-12 w-12"
+              className="pointer-events-none h-10 w-10 sm:h-12 sm:w-12"
             />
             <div className="flex flex-col items-center justify-center">
-              <h1 className="text-2xl font-bold text-white">
+              <h1 className="text-lg font-bold text-white sm:text-2xl">
                 {projects[index].name} {index}
               </h1>
-              <p className="text-lg font-medium text-neutral-400">
+              <p className="text-sm font-medium text-neutral-400 sm:text-lg">
                 {projects[index].desc}
               </p>
             </div>

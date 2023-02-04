@@ -1,10 +1,11 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import Tag from "../components/Tag";
 import { Spotify } from "../components/Spotify";
 import { motion } from "framer-motion";
 import { NextPage } from "next";
 import { useLanyardWS } from "use-lanyard";
-import Link from "next/link";
 
 const Home: NextPage = () => {
   const user = useLanyardWS(process.env.NEXT_PUBLIC_DISCORD_ID as `${bigint}`);
@@ -20,7 +21,6 @@ const Home: NextPage = () => {
       className="relative flex flex-col items-center justify-center gap-3"
       variants={parentVaraints}
       transition={{
-        duration: 1.5,
         staggerChildren: 0.2,
       }}
       initial="initial"
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
           }) 0%, rgba(0, 0, 0, 0) 100%)`,
         }}
         transition={{
-          duration: 3,
+          duration: 0.5,
           type: "tween",
           ease: [0, 0.25, 0, 1],
         }}
@@ -52,13 +52,13 @@ const Home: NextPage = () => {
       </motion.div>
       <motion.div
         variants={variants}
-        className="bg-gradient-to-br from-white to-neutral-500 bg-clip-text text-center text-6xl font-bold text-transparent"
+        className="bg-gradient-to-br from-white to-neutral-500 bg-clip-text text-center text-5xl font-bold text-transparent sm:text-6xl"
       >
         Reece Martin.
       </motion.div>
       <motion.div
         variants={variants}
-        className="text-center font-medium text-neutral-400"
+        className="px-8 text-center text-sm font-medium text-neutral-400 sm:px-0 sm:text-base"
       >
         Full stack developer devoted to creating fluid and easy to use software.
       </motion.div>
@@ -120,7 +120,7 @@ const variants = {
     y: 20,
     scale: 1.4,
     transition: {
-      duration: 1.0,
+      duration: 0.5,
     },
   },
   animate: {
@@ -128,7 +128,7 @@ const variants = {
     y: 0,
     scale: 1.0,
     transition: {
-      duration: 1.0,
+      duration: 0.5,
     },
   },
   exit: {

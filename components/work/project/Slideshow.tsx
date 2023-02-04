@@ -1,28 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
 import { Project } from "../../../data/projects";
-import { twMerge } from "tailwind-merge";
-import {
-  IconArrowNarrowLeft,
-  IconArrowNarrowRight,
-  IconChevronDown,
-  IconChevronUp,
-} from "@tabler/icons";
-import {
-  AnimatePresence,
-  LayoutGroup,
-  motion,
-  MotionValue,
-  transform,
-  useMotionValue,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import useOutsideClick from "../../../hooks/outsideCick";
-import useMeasure from "react-use-measure";
+import { IconChevronDown, IconChevronUp } from "@tabler/icons";
 import { ImageOrVideo } from "./ImageOrVideo";
-import SearchModal from "./SearchModal";
 
 interface Props {
   project: Project;
@@ -65,11 +44,11 @@ const Slideshow: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
   return (
     <>
       <div
-        className="col-span-3 flex cursor-pointer flex-col gap-3"
+        className="col-span-5 flex cursor-pointer flex-col gap-3 md:col-span-3"
         ref={frameRef}
       >
         <div
-          className="relative flex items-center justify-center overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900"
+          className="relative flex items-center justify-center overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 lg:rounded-3xl"
           style={{
             width: viewWidth,
             height: viewHeight,
@@ -78,16 +57,20 @@ const Slideshow: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
           <ImageOrVideo item={item.src} autoPlay />
         </div>
         <div
-          className="flex w-full items-center justify-between rounded-3xl border border-neutral-800 bg-neutral-900 px-9 py-5"
+          className="flex w-full items-center justify-between rounded-xl border border-neutral-800 bg-neutral-900 px-5 py-3 md:px-8 md:py-4 lg:rounded-3xl lg:px-9 lg:py-5"
           onClick={() => setOpen(true)}
         >
-          <div className="flex flex-col gap-1">
-            <div className="text-xl font-semibold text-white">{item.title}</div>
-            <div className="text-sm text-neutral-300">{item.desc}</div>
+          <div className="flex flex-col gap-1 truncate">
+            <div className="truncate text-sm font-semibold text-white sm:text-base md:text-lg lg:text-xl">
+              {item.title}
+            </div>
+            <div className="truncate text-xs text-neutral-300 md:text-sm">
+              {item.desc}
+            </div>
           </div>
           <div className="flex flex-col text-white">
-            <IconChevronUp />
-            <IconChevronDown />
+            <IconChevronUp className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" />
+            <IconChevronDown className="h-4 w-4 md:h-5 md:w-5 lg:h-6 lg:w-6" />
           </div>
         </div>
       </div>

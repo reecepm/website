@@ -1,8 +1,6 @@
-import { IconUser, TablerIcon } from "@tabler/icons";
 import { cva } from "class-variance-authority";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import Link from "next/link";
-import React, { useRef, useState, useId } from "react";
+import React from "react";
 
 type Props = typeof containerStyles extends (props: infer T) => any
   ? T & {

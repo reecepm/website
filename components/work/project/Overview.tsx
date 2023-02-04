@@ -1,13 +1,13 @@
 import { IconArrowNarrowLeft, IconArrowUpRight } from "@tabler/icons";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Project } from "../../../data/projects";
 import Details from "./Details";
 import Slideshow from "./Slideshow";
 import { Button } from "../../Button";
 import { AnimatePresence, motion } from "framer-motion";
-import SearchModal from "./SearchModal";
+import SearchModal from "../SearchModal";
 
 interface Props {
   project: Project;
@@ -19,9 +19,9 @@ const Overview: React.FC<Props> = ({ project }) => {
   const [selectedItem, setSelectedItem] = useState(0);
 
   return (
-    <div className="flex flex-col gap-9">
+    <div className="flex h-full w-full flex-col gap-5 overflow-hidden pt-24 md:h-auto md:gap-9 md:pt-0">
       <motion.div
-        className="flex w-full items-center justify-between"
+        className="flex w-full max-w-7xl items-center justify-between px-8"
         initial={{ opacity: 0 }}
         animate={{
           opacity: 1,
@@ -36,10 +36,10 @@ const Overview: React.FC<Props> = ({ project }) => {
           <IconArrowNarrowLeft height={16} width={16} />
           Browse
         </Button>
-        <div className="group">
+        <div className="group flex">
           <Link
             href={project.url}
-            className="flex items-center gap-1 text-base font-medium text-neutral-200 transition-all group-hover:text-white"
+            className="flex items-center gap-1 text-xs font-medium text-neutral-200 transition-all group-hover:text-white sm:text-sm"
           >
             Visit Website
             <IconArrowUpRight
@@ -51,7 +51,7 @@ const Overview: React.FC<Props> = ({ project }) => {
         </div>
       </motion.div>
       <motion.div
-        className="grid max-w-7xl grid-cols-5 gap-9"
+        className="grid h-full max-w-7xl grid-cols-5 gap-5 overflow-y-scroll px-8 pb-16 md:h-auto md:gap-9"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -65,7 +65,9 @@ const Overview: React.FC<Props> = ({ project }) => {
             setOpen={setOpen}
             selectedItem={selectedItem}
             setSelectedItem={setSelectedItem}
-            project={project}
+            items={project.media}
+            name={project.name}
+            type="Media"
           />
         )}
       </AnimatePresence>
