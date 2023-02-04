@@ -9,7 +9,7 @@ interface Props {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Slideshow: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
+const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
   const [viewWidth, setViewWidth] = useState(752);
   const [viewHeight, setViewHeight] = useState(423);
 
@@ -78,4 +78,4 @@ const Slideshow: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
   );
 };
 
-export default Slideshow;
+export default Media;

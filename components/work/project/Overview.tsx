@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { Project } from "../../../data/projects";
 import Details from "./Details";
-import Slideshow from "./Slideshow";
+import Media from "./Media";
 import { Button } from "../../Button";
 import { AnimatePresence, motion } from "framer-motion";
 import SearchModal from "../SearchModal";
@@ -57,7 +57,7 @@ const Overview: React.FC<Props> = ({ project }) => {
         exit={{ opacity: 0 }}
       >
         <Details project={project} />
-        <Slideshow {...{ project, setOpen, selectedItem }} />
+        <Media {...{ project, setOpen, selectedItem }} />
       </motion.div>
       <AnimatePresence>
         {open && (
