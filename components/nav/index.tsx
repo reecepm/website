@@ -2,18 +2,39 @@
 
 import { cva } from "class-variance-authority";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { useEffect, useState } from "react";
+import { twJoin } from "tailwind-merge";
 import ContactModal from "../Contact";
 import NavItem from "./item";
 
 const Nav: React.FC = () => {
   const [contactOpen, setContactOpen] = useState(false);
+  const [background, setBackground] = useState(false);
+  const [scrollVal, setScrollVal] = useState(0);
+
+  const checkScrollTop = () => {
+    setScrollVal(window.scrollY);
+    if (!background && window.scrollY > 0) {
+      setBackground(true);
+    } else if (window.scrollY <= 0) {
+      setBackground(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", checkScrollTop);
+    return () => {
+      window.removeEventListener("scroll", checkScrollTop);
+    };
+  }, []);
 
   return (
     <>
       <motion.div
-        className="fixed flex w-full items-center justify-center gap-8 pt-9"
+        className={twJoin(
+          "fixed flex w-full items-center justify-center gap-8 py-9 transition-all",
+          background && "bg-black/40 backdrop-blur-sm"
+        )}
         variants={navVariants}
         transition={{
           duration: 0.5,
