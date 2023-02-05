@@ -32,13 +32,13 @@ const Nav: React.FC = () => {
     <>
       <motion.div
         className={twJoin(
-          "fixed flex w-full items-center justify-center gap-8 py-9 transition-all",
-          background && "bg-black/40 backdrop-blur-sm"
+          "fixed flex w-full items-center justify-center gap-8 border-0 border-b border-b-white/0 py-9 transition-colors",
+          background && "border-b-white/10 bg-white/1 backdrop-blur-md"
         )}
         variants={navVariants}
         transition={{
-          duration: 0.5,
-          delay: 0.5,
+          duration: 0.3,
+          delay: 0,
         }}
         initial="initial"
         animate="animate"
