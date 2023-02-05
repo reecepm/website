@@ -3,6 +3,7 @@
 import { cva } from "class-variance-authority";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 import ContactModal from "../Contact";
 import NavItem from "./item";
 

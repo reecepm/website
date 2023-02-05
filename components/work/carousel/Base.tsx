@@ -91,7 +91,7 @@ const CarouselBase = () => {
 
           if (nextWidth < 400) {
             setViewWidth(nextWidth);
-            setViewHeight(nextWidth * 1.4);
+            setViewHeight(nextWidth * 1.3);
           } else {
             setViewWidth(nextWidth);
             setViewHeight(nextWidth / ratio);

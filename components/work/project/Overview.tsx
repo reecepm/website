@@ -19,7 +19,7 @@ const Overview: React.FC<Props> = ({ project }) => {
   const [selectedItem, setSelectedItem] = useState(0);
 
   return (
-    <div className="flex h-full w-full flex-col gap-5 overflow-hidden pt-24 md:h-auto md:gap-9 md:pt-0">
+    <div className="flex h-full w-full flex-col gap-5 overflow-hidden pt-24 md:h-auto md:items-center md:justify-center md:gap-9 md:pt-0">
       <motion.div
         className="flex w-full max-w-7xl items-center justify-between px-8"
         initial={{ opacity: 0 }}
@@ -51,7 +51,7 @@ const Overview: React.FC<Props> = ({ project }) => {
         </div>
       </motion.div>
       <motion.div
-        className="grid h-full max-w-7xl grid-cols-5 gap-5 overflow-y-scroll px-8 pb-16 md:h-auto md:gap-9"
+        className="grid h-full max-w-7xl grid-cols-5 gap-5 px-8 pb-16 md:h-auto md:gap-9"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
