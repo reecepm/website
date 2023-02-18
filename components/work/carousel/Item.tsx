@@ -114,7 +114,7 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
           quality={100}
           className="pointer-events-none max-w-none"
         />
-        <div className="absolute z-10 h-full w-full bg-gradient-to-t from-black to-black/0">
+        <div className="absolute z-10 h-full w-full bg-gradient-to-t from-black to-black/20">
           <div className="flex h-full flex-col items-center justify-center gap-4">
             <Image
               src={projects[index].logoPath}
@@ -122,11 +122,11 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
               width={48}
               height={48}
               quality={100}
-              className="pointer-events-none h-10 w-10 sm:h-12 sm:w-12"
+              className="pointer-events-none h-10 w-10 rounded-md sm:h-12 sm:w-12"
             />
             <div className="flex flex-col items-center justify-center">
               <h1 className="text-lg font-bold text-white sm:text-2xl">
-                {projects[index].name} {index}
+                {projects[index].name}
               </h1>
               <p className="text-sm font-medium text-neutral-400 sm:text-lg">
                 {projects[index].desc}

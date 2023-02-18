@@ -226,8 +226,10 @@ const CarouselBase = () => {
                   }}
                 >
                   <Icon
+                    width={18}
+                    height={18}
                     className={twMerge(
-                      "transition-all group-hover:fill-white",
+                      "h-[18px] w-[18px] transition-all group-hover:fill-white",
                       index === currentItem ? "fill-white" : "fill-neutral-400"
                     )}
                   />

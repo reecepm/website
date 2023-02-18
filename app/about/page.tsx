@@ -123,11 +123,11 @@ const About: NextPage<Props> = () => {
         >
           <div className="flex w-full flex-col gap-1">
             <div className="grid grid-cols-3 gap-y-1">
-              {(Object.keys(technologies) as (keyof typeof technologies)[]).map(
-                (x) => (
+              {(Object.keys(technologies) as (keyof typeof technologies)[])
+                .slice(0, 18)
+                .map((x) => (
                   <Technology key={x} id={x} />
-                )
-              )}
+                ))}
             </div>
             <div className="mt-0.5 flex w-full justify-end text-xs text-neutral-500">
               ...and plenty of other technologies!

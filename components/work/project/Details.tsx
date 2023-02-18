@@ -20,7 +20,7 @@ const Details: React.FC<Props> = ({ project }) => {
           height={96}
           quality={100}
           alt={project.name}
-          className="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24"
+          className="h-12 w-12 rounded-xl sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24"
         />
         <div className="flex w-full items-start justify-between gap-1 md:w-auto md:flex-col md:justify-start">
           <div className="flex flex-col">

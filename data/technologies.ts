@@ -6,6 +6,7 @@ import {
   Git,
   Githubactions,
   Go,
+  Graphql,
   Mongodb,
   Nextdotjs,
   Nodedotjs,
@@ -51,10 +52,6 @@ export const technologies = {
     Icon: Redis,
     name: "Redis",
   },
-  git: {
-    Icon: Git,
-    name: "Git",
-  },
   aws: {
     Icon: Amazonaws,
     name: "AWS",
@@ -87,9 +84,21 @@ export const technologies = {
     Icon: Framer,
     name: "Framer Motion",
   },
+  graphql: {
+    Icon: Graphql,
+    name: "GraphQL",
+  },
   webpack: {
     Icon: Webpack,
     name: "Webpack",
+  },
+  git: {
+    Icon: Git,
+    name: "Git",
+  },
+  reanimated: {
+    Icon: ReactJs,
+    name: "Reanimated",
   },
 };
 
