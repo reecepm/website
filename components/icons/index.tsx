@@ -2,6 +2,7 @@ import { Project } from "../../data/projects";
 import FlareIcon from "./Flare";
 import {
   IconCircleLetterM,
+  IconCircleLetterZ,
   IconGrave2,
   IconTriangleSquareCircle,
 } from "@tabler/icons";
@@ -22,6 +23,8 @@ export const getIconById = (id: Project["id"]) => {
       return { Icon: IconTriangleSquareCircle, fill: false };
     case "graveyard":
       return { Icon: IconGrave2, fill: false };
+    case "zephyr":
+      return { Icon: IconCircleLetterZ, fill: false };
     default:
       return { Icon: IconTriangleSquareCircle, fill: false };
   }
