@@ -1,7 +1,9 @@
 import {
   Amazonaws,
+  Dart,
   Docker,
   Electron,
+  Flutter,
   Framer,
   Git,
   Githubactions,
@@ -11,10 +13,14 @@ import {
   Nextdotjs,
   Nodedotjs,
   Postgresql,
+  Prisma,
   ReactJs,
   Redis,
+  Storybook,
   Styledcomponents,
+  Swift,
   Tailwindcss,
+  Trpc,
   Typescript,
   Webpack,
 } from "@icons-pack/react-simple-icons";
@@ -56,13 +62,13 @@ export const technologies = {
     Icon: Amazonaws,
     name: "AWS",
   },
-  node: {
-    Icon: Nodedotjs,
-    name: "Node.js",
-  },
   electron: {
     Icon: Electron,
     name: "Electron",
+  },
+  prisma: {
+    Icon: Prisma,
+    name: "Prisma",
   },
   docker: {
     Icon: Docker,
@@ -76,10 +82,6 @@ export const technologies = {
     Icon: Styledcomponents,
     name: "styled-components",
   },
-  githubActions: {
-    Icon: Githubactions,
-    name: "Github Actions",
-  },
   "framer-motion": {
     Icon: Framer,
     name: "Framer Motion",
@@ -87,6 +89,18 @@ export const technologies = {
   graphql: {
     Icon: Graphql,
     name: "GraphQL",
+  },
+  trpc: {
+    Icon: Trpc,
+    name: "TRPC",
+  },
+  githubActions: {
+    Icon: Githubactions,
+    name: "Github Actions",
+  },
+  node: {
+    Icon: Nodedotjs,
+    name: "Node.js",
   },
   webpack: {
     Icon: Webpack,
@@ -99,6 +113,26 @@ export const technologies = {
   reanimated: {
     Icon: ReactJs,
     name: "Reanimated",
+  },
+  storybook: {
+    Icon: Storybook,
+    name: "Storybook",
+  },
+  flutter: {
+    Icon: Flutter,
+    name: "Flutter",
+  },
+  dart: {
+    Icon: Dart,
+    name: "Dart",
+  },
+  swift: {
+    Icon: Swift,
+    name: "Swift",
+  },
+  swiftui: {
+    Icon: Swift,
+    name: "SwiftUI",
   },
 };
 

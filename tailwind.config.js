@@ -25,6 +25,9 @@ module.exports = {
       animation: {
         "spin-slow": "spin 5s linear infinite",
       },
+      screens: {
+        big: "960px",
+      },
     },
   },
   plugins: [require("tailwind-scrollbar-hide")],

@@ -3,7 +3,14 @@ import FlareIcon from "../components/icons/Flare";
 import { technologies } from "./technologies";
 
 export interface Project {
-  id: "flare" | "escape" | "malice" | "bliss";
+  id:
+    | "flare"
+    | "escape"
+    | "malice"
+    | "bliss"
+    | "upcoming"
+    | "zephyr"
+    | "graveyard";
   logoPath: string;
   coverImagePath: string;
   name: string;
@@ -159,7 +166,7 @@ export const projects: Project[] = [
       {
         id: 0,
         type: "image",
-        src: "/bliss.png",
+        src: "/bliss-mobile.png",
         title: "Bliss mobile app",
         desc: "Overview of the mobile application",
       },
@@ -190,6 +197,104 @@ export const projects: Project[] = [
         src: "/bliss-site.png",
         title: "Bliss landing page",
         desc: "Initial version of landing page",
+      },
+    ],
+  },
+  {
+    id: "upcoming",
+    logoPath: "/upcoming-logo.png",
+    coverImagePath: "/upcoming.png",
+    name: "????",
+    desc: "Coming soon",
+    url: "https://twitter.com/reece_pm",
+    status: "IN_PROGRESS",
+    overview: "Working on a new project, more details to come soon.",
+    completed: "September 2022 - Present",
+    responsibilities: "Full stack.",
+    technologies: [
+      "react",
+      "next",
+      "typescript",
+      "trpc",
+      "prisma",
+      "postgres",
+      "redis",
+      "tailwindcss",
+      "framer-motion",
+      "storybook",
+    ],
+    media: [
+      {
+        id: 0,
+        type: "image",
+        src: "/upcoming.png",
+        title: "Coming soon",
+        desc: "Teaser for the upcoming project",
+      },
+    ],
+  },
+  {
+    id: "zephyr",
+    logoPath: "/zephyr-logo.png",
+    coverImagePath: "/zephyr.png",
+    name: "Zephyr",
+    desc: "Service provider",
+    url: "https://zephyrmonitorsllc.com/",
+    status: "IN_PROGRESS",
+    overview:
+      "Zephyr is a service provider for the sneaker and resell industry. I have provided contracted frontend work for them for the last year for some of their tools. Unfortunately lots haven't reached production yet but I've displayed some of the work I've done for them.",
+    completed: "2022 - Present",
+    responsibilities:
+      "Frontend development for various tools. One project was full stack.",
+    technologies: [
+      "react",
+      "next",
+      "typescript",
+      "styled-components",
+      "prisma",
+      "postgres",
+    ],
+    media: [
+      {
+        id: 0,
+        type: "image",
+        src: "/upcoming.png",
+        title: "Coming soon",
+        desc: "Teaser for the upcoming project",
+      },
+    ],
+  },
+  {
+    id: "graveyard",
+    logoPath: "/upcoming-logo.png",
+    coverImagePath: "/upcoming.png",
+    name: "Graveyard",
+    desc: "Retired or unpublished projects",
+    url: "https://twitter.com/reece_pm",
+    status: "EOL",
+    overview:
+      "This is a collection of various projects that I have worked on in the past, but for different reasons aren't around today. Some reached end of life and others didn't make it to production. Although they do not stack up to my current standards, I still wanted to showcase them. Some (such as Peachy Pings) provided me with a lot of early experience which I am grateful for. It also shows how far I have come since then.",
+    completed: "2020-2021",
+    responsibilities: "Full stack on most of these projects.",
+    technologies: [
+      "react",
+      "electron",
+      "webpack",
+      "typescript",
+      "mongodb",
+      "styled-components",
+      "flutter",
+      "dart",
+      "swift",
+      "swiftui",
+    ],
+    media: [
+      {
+        id: 0,
+        type: "image",
+        src: "/upcoming.png",
+        title: "Coming soon",
+        desc: "Teaser for the upcoming project",
       },
     ],
   },

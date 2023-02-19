@@ -205,7 +205,7 @@ const CarouselBase = () => {
           className="flex items-center justify-between py-2"
           style={{ width: viewWidth }}
         >
-          <div className="flex md:hidden">
+          <div className="flex big:hidden">
             <div
               className="flex w-full cursor-pointer items-center justify-between gap-4 rounded-xl border border-neutral-800 bg-neutral-900 px-5 py-3 text-sm text-white"
               onClick={() => setMobileNavigation(true)}
@@ -214,9 +214,9 @@ const CarouselBase = () => {
               <IconSearch className="h-4 w-4 text-white" />
             </div>
           </div>
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-8 big:flex">
             {projects.map((item, index) => {
-              const Icon = getIconById(item.id);
+              const { Icon, fill } = getIconById(item.id);
               return (
                 <button
                   key={index}
@@ -229,8 +229,17 @@ const CarouselBase = () => {
                     width={18}
                     height={18}
                     className={twMerge(
-                      "h-[18px] w-[18px] transition-all group-hover:fill-white",
-                      index === currentItem ? "fill-white" : "fill-neutral-400"
+                      "h-[18px] w-[18px] transition-all",
+                      fill
+                        ? "group-hover:fill-white"
+                        : "group-hover:text-white",
+                      index === currentItem
+                        ? fill
+                          ? "fill-white"
+                          : "text-white"
+                        : fill
+                        ? "fill-neutral-400"
+                        : "text-neutral-400"
                     )}
                   />
                   <div

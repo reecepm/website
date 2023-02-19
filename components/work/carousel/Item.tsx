@@ -133,7 +133,7 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
               </p>
             </div>
             <Button onClick={() => router.push("/work/" + projects[index].id)}>
-              View Project
+              View Project{projects[index].id === "graveyard" && "s"}
               <IconArrowNarrowRight height={16} width={16} />
             </Button>
           </div>
