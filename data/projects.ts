@@ -294,7 +294,7 @@ export const projects: Project[] = [
         id: 1,
         type: "image",
         src: "/zephyr-dashboards.png",
-        title: "Zephyr Client Dashboard, Admin Dashboard & Links Dashboard",
+        title: "Client Dashboard, Admin Dashboard & Links Dashboard",
         desc: "Different dashboard projects for Zephyr. All are waiting to be released to clients.",
       },
     ],
