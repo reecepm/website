@@ -43,8 +43,16 @@ const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
   const nearestRatioByWidth = (
     width: number
   ): { width: number; height: number } => {
+    if (width > 1920) {
+      return {
+        width: 1920,
+        height: 1080,
+      };
+    }
+
     const ratio = 16 / 9;
     const nextWidth = Math.floor(width / ratio) * ratio;
+
     return {
       width: nextWidth,
       height: nextWidth / ratio,
@@ -62,7 +70,14 @@ const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
           <div className="flex h-full w-full flex-col items-center justify-center gap-5">
             <div
               className="relative flex items-center justify-center overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 lg:rounded-3xl"
-              style={nearestRatioByWidth(window.innerWidth - 100)}
+              style={nearestRatioByWidth(
+                window.innerWidth -
+                  (window.innerWidth > 768
+                    ? 100
+                    : window.innerWidth > 480
+                    ? 50
+                    : 20)
+              )}
             >
               <ImageOrVideo item={item.src} autoPlay />
             </div>

@@ -31,7 +31,7 @@ const Details: React.FC<Props> = ({ project }) => {
               {project.desc}
             </p>
           </div>
-          <Tag>{getStatusText(project.status)}</Tag>
+          <StatusTag status={project.status} />
         </div>
       </div>
       <div className="flex flex-col gap-3 md:gap-5 lg:gap-8">
@@ -68,15 +68,26 @@ const Details: React.FC<Props> = ({ project }) => {
 
 export default Details;
 
-const getStatusText = (status: Project["status"]) => {
-  switch (status) {
-    case "PRODUCTION":
-      return "In Production";
-    case "IN_PROGRESS":
-      return "In Development";
-    case "EOL":
-      return "End Of Life";
-    case "ARCHIVED":
-      return "Archived";
-  }
+const StatusTag = ({ status }: { status: Project["status"] }) => {
+  const { background, title } = statusDetails[status];
+  return <Tag background={background}>{title}</Tag>;
+};
+
+const statusDetails = {
+  PRODUCTION: {
+    background: "0, 170, 23",
+    title: "Production",
+  },
+  IN_PROGRESS: {
+    background: "235, 204, 84",
+    title: "In Development",
+  },
+  EOL: {
+    background: "200,200,200",
+    title: "End Of Life",
+  },
+  ARCHIVED: {
+    background: "100, 170, 193",
+    title: "Archived",
+  },
 };
