@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
-import { navItemStyles } from ".";
 import Link from "next/link";
+import { cva } from "class-variance-authority";
 
 interface NavItemProps {
   children: React.ReactNode;
@@ -26,3 +26,15 @@ const NavItem: React.FC<NavItemProps> = ({ children, route }) => {
 };
 
 export default NavItem;
+
+export const navItemStyles = cva(
+  "text-sm font-medium cursor-pointer transition-all pointer-events-auto",
+  {
+    variants: {
+      active: {
+        true: "text-white",
+        false: "text-neutral-400 hover:text-neutral-300",
+      },
+    },
+  }
+);

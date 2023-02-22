@@ -12,6 +12,7 @@ interface Props {
 const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
   const [viewWidth, setViewWidth] = useState(752);
   const [viewHeight, setViewHeight] = useState(423);
+  const [focusOpen, setFocusOpen] = useState(false);
 
   const frameRef = React.useRef<HTMLDivElement>(null);
   const resizeObserverRef = React.useRef<ResizeObserver>();
@@ -21,14 +22,12 @@ const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
   useEffect(() => {
     resizeObserverRef.current = new ResizeObserver(() => {
       if (frameRef.current) {
-        // setFrameWidth(frameRef.current.offsetWidth);
         if (frameRef.current.offsetWidth < viewWidth) {
-          // find next lowest 16:9 ratio from width
-          const ratio = 16 / 9;
-          const nextWidth =
-            Math.floor(frameRef.current.offsetWidth / ratio) * ratio;
+          const { width: nextWidth, height: nextHeight } = nearestRatioByWidth(
+            frameRef.current.offsetWidth
+          );
           setViewWidth(nextWidth);
-          setViewHeight(nextWidth / ratio);
+          setViewHeight(nextHeight);
         } else {
           setViewWidth(752);
           setViewHeight(423);
@@ -41,8 +40,35 @@ const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
     };
   }, []);
 
+  const nearestRatioByWidth = (
+    width: number
+  ): { width: number; height: number } => {
+    const ratio = 16 / 9;
+    const nextWidth = Math.floor(width / ratio) * ratio;
+    return {
+      width: nextWidth,
+      height: nextWidth / ratio,
+    };
+  };
+
   return (
     <>
+      {focusOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          onClick={() => setFocusOpen(false)}
+        >
+          <div className="absolute inset-0 bg-black bg-opacity-50" />
+          <div className="flex h-full w-full flex-col items-center justify-center gap-5">
+            <div
+              className="relative flex items-center justify-center overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 lg:rounded-3xl"
+              style={nearestRatioByWidth(window.innerWidth - 100)}
+            >
+              <ImageOrVideo item={item.src} autoPlay />
+            </div>
+          </div>
+        </div>
+      )}
       <div
         className="col-span-5 flex cursor-pointer flex-col gap-3 md:col-span-3"
         ref={frameRef}
@@ -53,6 +79,7 @@ const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
             width: viewWidth,
             height: viewHeight,
           }}
+          onClick={() => setFocusOpen(true)}
         >
           <ImageOrVideo item={item.src} autoPlay />
         </div>
