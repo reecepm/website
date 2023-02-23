@@ -2,6 +2,7 @@ import "./globals.css";
 import React from "react";
 import { Inter } from "@next/font/google";
 import Nav from "../components/nav";
+import { Metadata } from "next";
 
 interface Props {
   children: React.ReactNode;
@@ -39,12 +40,24 @@ const Layout: React.FC<Props> = ({ children }) => {
 
 export default Layout;
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     default: "Reece Martin",
     template: "%s - Reece Martin",
   },
   icons: {
     icon: "/favicon.png",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@reece_pm",
+    creator: "@reece_pm",
+    title: "Reece Martin",
+    description:
+      "A full stack web, mobile and desktop developer from Bristol United Kingdom.",
   },
 };
