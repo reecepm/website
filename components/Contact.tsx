@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import useOutsideClick from "../hooks/outsideCick";
 import {
   IconBrandDiscord,
@@ -8,7 +8,6 @@ import {
   IconCheck,
   IconCopy,
   IconMail,
-  IconSend,
 } from "@tabler/icons";
 import { Button } from "./Button";
 import { useRouter } from "next/navigation";
@@ -25,7 +24,7 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
   const [discordCheck, setDiscordCheck] = useState(false);
 
   return (
-    <motion.div
+    <m.div
       className="absolute inset-0 z-50 flex h-full w-full items-center justify-center bg-black/40 backdrop-blur"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -34,7 +33,7 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
         duration: 0.15,
       }}
     >
-      <motion.div
+      <m.div
         className="m-8 w-full max-w-2xl rounded-2xl border border-neutral-800 bg-neutral-900 px-10 py-8 shadow-lg sm:m-0 sm:px-12 sm:py-10"
         onClick={(e) => e.stopPropagation()}
         initial={{ opacity: 0, y: 40 }}
@@ -136,7 +135,7 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h3 className="sm:text-smfont-semibold text-xs text-neutral-100">
+                <h3 className="text-xs font-semibold text-neutral-100 sm:text-sm">
                   Socials
                 </h3>
                 <p className="text-xs text-neutral-400 sm:text-sm">
@@ -168,8 +167,8 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
             </div>
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 };
 

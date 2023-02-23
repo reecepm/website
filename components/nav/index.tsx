@@ -1,7 +1,5 @@
 "use client";
-
-import { cva } from "class-variance-authority";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, domAnimation, LazyMotion, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import { twJoin } from "tailwind-merge";
 import ContactModal from "../Contact";
@@ -28,33 +26,35 @@ const Nav: React.FC = () => {
 
   return (
     <>
-      <motion.div
-        className={twJoin(
-          "pointer-events-none fixed flex w-full items-center justify-center gap-8 border-0 border-b border-b-white/0 py-9 transition-colors",
-          background && "border-b-white/10 bg-white/1 backdrop-blur-md"
-        )}
-        variants={navVariants}
-        transition={{
-          duration: 0.3,
-          delay: 0,
-        }}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      >
-        <NavItem route="/">Home</NavItem>
-        <NavItem route="/about">About</NavItem>
-        <NavItem route="/work">Work</NavItem>
-        <div
-          className={navItemStyles({ active: false })}
-          onClick={() => setContactOpen(true)}
+      <LazyMotion features={domAnimation}>
+        <m.div
+          className={twJoin(
+            "pointer-events-none fixed flex w-full items-center justify-center gap-8 border-0 border-b border-b-white/0 py-9 transition-colors",
+            background && "border-b-white/10 bg-white/1 backdrop-blur-md"
+          )}
+          variants={navVariants}
+          transition={{
+            duration: 0.3,
+            delay: 0,
+          }}
+          initial="initial"
+          animate="animate"
+          exit="exit"
         >
-          Contact
-        </div>
-      </motion.div>
-      <AnimatePresence>
-        {contactOpen && <ContactModal setOpen={setContactOpen} />}
-      </AnimatePresence>
+          <NavItem route="/">Home</NavItem>
+          <NavItem route="/about">About</NavItem>
+          <NavItem route="/work">Work</NavItem>
+          <div
+            className={navItemStyles({ active: false })}
+            onClick={() => setContactOpen(true)}
+          >
+            Contact
+          </div>
+        </m.div>
+        <AnimatePresence>
+          {contactOpen && <ContactModal setOpen={setContactOpen} />}
+        </AnimatePresence>
+      </LazyMotion>
     </>
   );
 };

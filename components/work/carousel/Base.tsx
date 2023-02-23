@@ -7,17 +7,18 @@ import {
   MotionValue,
   useMotionValue,
   animate,
-  motion,
+  m,
   AnimatePresence,
+  domAnimation,
+  LazyMotion,
+  domMax,
 } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { projects } from "../../../data/projects";
 import CarouselItem from "./Item";
-import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { getIconById } from "../../icons";
 import SearchModal from "../SearchModal";
-import { Button } from "../../Button";
 
 const snap = (width: number) => (value: number) => {
   const snapTo = Math.round(value / width) * width;
@@ -130,7 +131,7 @@ const CarouselBase = () => {
 
   return (
     <div className="flex w-full flex-col gap-4 overflow-hidden">
-      <div className="w-full md:hidden">
+      <div className="w-full big:hidden">
         <AnimatePresence>
           {mobileNavigation && (
             <SearchModal
@@ -150,7 +151,7 @@ const CarouselBase = () => {
           )}
         </AnimatePresence>
       </div>
-      <motion.div
+      <m.div
         ref={frameRef}
         className="flex overflow-hidden"
         style={{
@@ -161,7 +162,7 @@ const CarouselBase = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <motion.div
+        <m.div
           drag="x"
           _dragX={trackXOffset}
           dragTransition={{
@@ -193,9 +194,9 @@ const CarouselBase = () => {
               />
             ))}
           </PageContext.Provider>
-        </motion.div>
-      </motion.div>
-      <motion.div
+        </m.div>
+      </m.div>
+      <m.div
         className="flex w-full items-center justify-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -269,7 +270,7 @@ const CarouselBase = () => {
             </button>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { cva } from "class-variance-authority";
-import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
+import { m, useMotionTemplate, useMotionValue } from "framer-motion";
 import React from "react";
 
 type Props = typeof containerStyles extends (props: infer T) => any
@@ -38,7 +38,7 @@ export const SpotlightContainer: React.FC<Props> = ({
       onMouseMove={onMouseMove}
       className={containerStyles({ highlights, ...props })}
     >
-      <motion.div
+      <m.div
         className={spotlightStyles({
           highlights,
         })}

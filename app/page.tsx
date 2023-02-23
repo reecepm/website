@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Tag from "../components/Tag";
 import { Spotify } from "../components/Spotify";
-import { motion } from "framer-motion";
+import { domAnimation, LazyMotion, m } from "framer-motion";
 import { NextPage } from "next";
 import { useLanyardWS } from "use-lanyard";
 
@@ -17,60 +17,63 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <motion.div
-      className="relative flex flex-col items-center justify-center gap-3"
-      variants={parentVaraints}
-      transition={{
-        staggerChildren: 0.2,
-      }}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-    >
-      <motion.div
-        className="absolute z-0"
-        variants={gradientVariants}
-        style={{
-          background: `radial-gradient(50% 50% at 50% 50%, rgba(${
-            (brightest && `${brightest},1`) || "255, 255, 255, 0.6"
-          }) 0%, rgba(0, 0, 0, 0) 100%)`,
-        }}
+    <LazyMotion features={domAnimation}>
+      <m.div
+        className="relative flex flex-col items-center justify-center gap-3"
+        variants={parentVaraints}
         transition={{
-          duration: 0.5,
-          type: "tween",
-          ease: [0, 0.25, 0, 1],
+          staggerChildren: 0.2,
         }}
-      />
-      <motion.div variants={variants}>
-        <a
-          href="https://www.google.com/maps/place/Bristol,+United+Kingdom"
-          target="_blank"
-          referrerPolicy="no-referrer"
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <m.div
+          className="absolute z-0"
+          variants={gradientVariants}
+          style={{
+            background: `radial-gradient(50% 50% at 50% 50%, rgba(${
+              (brightest && `${brightest},1`) || "255, 255, 255, 0.6"
+            }) 0%, rgba(0, 0, 0, 0) 100%)`,
+          }}
+          transition={{
+            duration: 0.5,
+            type: "tween",
+            ease: [0, 0.25, 0, 1],
+          }}
+        />
+        <m.div variants={variants}>
+          <a
+            href="https://www.google.com/maps/place/Bristol,+United+Kingdom"
+            target="_blank"
+            referrerPolicy="no-referrer"
+          >
+            <Tag background={brightest}>Bristol, United Kingdom</Tag>
+          </a>
+        </m.div>
+        <m.div
+          variants={variants}
+          className="bg-gradient-to-br from-white to-neutral-500 bg-clip-text text-center text-5xl font-bold text-transparent sm:text-6xl"
         >
-          <Tag background={brightest}>Bristol, United Kingdom</Tag>
-        </a>
-      </motion.div>
-      <motion.div
-        variants={variants}
-        className="bg-gradient-to-br from-white to-neutral-500 bg-clip-text text-center text-5xl font-bold text-transparent sm:text-6xl"
-      >
-        Reece Martin.
-      </motion.div>
-      <motion.div
-        variants={variants}
-        className="px-8 text-center text-sm font-medium text-neutral-400 sm:px-0 sm:text-base"
-      >
-        Full stack developer devoted to creating fluid and easy to use software.
-      </motion.div>
-      {user?.listening_to_spotify &&
-        user.spotify &&
-        user.spotify?.album_art_url &&
-        mountDelay && (
-          <motion.div variants={variants} className="mt-4">
-            <Spotify {...{ brightest, setBrightest, data: user.spotify }} />
-          </motion.div>
-        )}
-    </motion.div>
+          Reece Martin.
+        </m.div>
+        <m.div
+          variants={variants}
+          className="px-8 text-center text-sm font-medium text-neutral-400 sm:px-0 sm:text-base"
+        >
+          Full stack developer devoted to creating fluid and easy to use
+          software.
+        </m.div>
+        {user?.listening_to_spotify &&
+          user.spotify &&
+          user.spotify?.album_art_url &&
+          mountDelay && (
+            <m.div variants={variants} className="mt-4">
+              <Spotify {...{ brightest, setBrightest, data: user.spotify }} />
+            </m.div>
+          )}
+      </m.div>
+    </LazyMotion>
   );
 };
 

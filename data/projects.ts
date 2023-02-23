@@ -22,7 +22,6 @@ export interface Project {
   completed: string;
   technologies: (keyof typeof technologies)[];
   media: {
-    id: number;
     type: "image" | "video";
     src: string;
     title: string;
@@ -55,42 +54,36 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        id: 0,
         type: "image",
         src: "/flare.png",
         title: "Desktop application overview",
         desc: "Preview of the Flare AIO desktop application",
       },
       {
-        id: 1,
         type: "image",
         src: "/flare-site.png",
         title: "Website overview",
         desc: "Preview of the Flare AIO website",
       },
       {
-        id: 2,
         type: "video",
         src: "https://reece.b-cdn.net/task%20creation.mp4",
         title: "Task creation",
         desc: "Task creation process for the desktop application",
       },
       {
-        id: 3,
         type: "video",
         src: "https://reece.b-cdn.net/profiles.mp4",
         title: "Profiles",
         desc: "Profiles snippet for the desktop application",
       },
       {
-        id: 4,
         type: "video",
         src: "https://reece.b-cdn.net/task%20group%20actions.mp4",
         title: "Task group actions",
         desc: "Actions the user can use on a task group",
       },
       {
-        id: 5,
         type: "video",
         src: "https://reece.b-cdn.net/settings.mp4",
         title: "Settings",
@@ -122,7 +115,6 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        id: 0,
         type: "image",
         src: "/escape.png",
         title: "Coming soon",
@@ -156,11 +148,40 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        id: 0,
         type: "image",
         src: "/malice.png",
         title: "Malice App overview",
         desc: "Overview of the mobile application",
+      },
+      {
+        type: "video",
+        src: "https://reece.b-cdn.net/malice%20login.mp4",
+        title: "Login",
+        desc: "Login screen for the mobile application",
+      },
+      {
+        type: "video",
+        src: "https://reece.b-cdn.net/malice%20reminders.mp4",
+        title: "Calendar & Reminders",
+        desc: "Upcoming calendar events and reminders",
+      },
+      {
+        type: "video",
+        src: "https://reece.b-cdn.net/malice%20guides.mp4",
+        title: "Guides",
+        desc: "Guides for the user to read",
+      },
+      {
+        type: "video",
+        src: "https://reece.b-cdn.net/malice%20profile.mp4",
+        title: "Profile & Leaderboards",
+        desc: "User profile, points marketplace and leaderboards",
+      },
+      {
+        type: "image",
+        src: "/malice-admin.png",
+        title: "Admin dashboard",
+        desc: "Also created admin dashboard for project. Blurred for privacy.",
       },
     ],
   },
@@ -189,7 +210,6 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        id: 0,
         type: "image",
         src: "/upcoming.png",
         title: "Coming soon",
@@ -225,42 +245,36 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        id: 0,
         type: "image",
         src: "/bliss.png",
         title: "Bliss preview",
         desc: "Preview of the mobile application and dashboard",
       },
       {
-        id: 1,
         type: "image",
         src: "/bliss-mobile.png",
         title: "Bliss mobile app",
         desc: "Overview of the mobile application",
       },
       {
-        id: 2,
         type: "image",
         src: "/bliss-dash.png",
         title: "Bliss user dashboard",
         desc: "User dashboard to purchase bliss and manage their account",
       },
       {
-        id: 3,
         type: "image",
         src: "/bliss-admin.png",
         title: "Bliss admin dashboard",
         desc: "Admin dashboard to manage all content provided to users",
       },
       {
-        id: 4,
         type: "image",
         src: "/bliss-guides.png",
         title: "Bliss guides",
         desc: "Guides website for users to learn",
       },
       {
-        id: 5,
         type: "image",
         src: "/bliss-site.png",
         title: "Bliss landing page",
@@ -291,14 +305,12 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        id: 0,
         type: "image",
         src: "/zephyr.png",
         title: "Landing page",
         desc: "Landing page for Zephyr Monitors. Other pages transferred from previous site.",
       },
       {
-        id: 1,
         type: "image",
         src: "/zephyr-dashboards.png",
         title: "Client Dashboard, Admin Dashboard & Links Dashboard",
@@ -332,35 +344,30 @@ export const projects: Project[] = [
     ],
     media: [
       {
-        id: 0,
         type: "image",
         src: "/graveyard.png",
         title: "Graveyard Overview",
         desc: "Overview of the graveyard",
       },
       {
-        id: 1,
         type: "image",
         src: "/graveyard-peachydesktop.png",
         title: "Peachy Desktop",
         desc: "Electron/react desktop application for Peachy Pings with API. Project handed over to another developer.",
       },
       {
-        id: 2,
         type: "image",
         src: "/graveyard-peachymobile.png",
         title: "Peachy Mobile",
         desc: "Flutter mobile application for Peachy Pings with admin site and API. EOL due to lack of updates.",
       },
       {
-        id: 3,
         type: "image",
         src: "/graveyard-layout.png",
         title: "Layout Mobile",
         desc: "SwiftUI mobile application for Layout with API. Company closed down.",
       },
       {
-        id: 4,
         type: "image",
         src: "/graveyard-slap.png",
         title: "Slap Mobile",

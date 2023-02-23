@@ -6,7 +6,7 @@ import { Project } from "../../../data/projects";
 import Details from "./Details";
 import Media from "./Media";
 import { Button } from "../../Button";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import SearchModal from "../SearchModal";
 
 interface Props {
@@ -20,7 +20,7 @@ const Overview: React.FC<Props> = ({ project }) => {
 
   return (
     <div className="flex h-full w-full flex-col gap-5 overflow-hidden pt-24 md:h-auto md:items-center md:justify-center md:gap-9 md:pt-0">
-      <motion.div
+      <m.div
         className="flex w-full max-w-7xl items-center justify-between px-8"
         initial={{ opacity: 0 }}
         animate={{
@@ -49,8 +49,8 @@ const Overview: React.FC<Props> = ({ project }) => {
             />
           </Link>
         </div>
-      </motion.div>
-      <motion.div
+      </m.div>
+      <m.div
         className="grid h-full max-w-7xl grid-cols-5 gap-5 px-8 pb-16 md:h-auto md:gap-9"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -58,14 +58,14 @@ const Overview: React.FC<Props> = ({ project }) => {
       >
         <Details project={project} />
         <Media {...{ project, setOpen, selectedItem }} />
-      </motion.div>
+      </m.div>
       <AnimatePresence>
         {open && (
           <SearchModal
             setOpen={setOpen}
             selectedItem={selectedItem}
             setSelectedItem={setSelectedItem}
-            items={project.media}
+            items={project.media.map((x, i) => ({ ...x, id: i }))}
             name={project.name}
             type="Media"
           />

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { cva } from "class-variance-authority";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import ContactModal from "./Contact";
@@ -38,7 +38,7 @@ interface NavProps {
 
 const Nav: React.FC<NavProps> = ({ setContactOpen }) => {
   return (
-    <motion.div
+    <m.div
       className="fixed flex w-full items-center justify-center gap-8 pt-9"
       variants={navVariants}
       transition={{
@@ -58,7 +58,7 @@ const Nav: React.FC<NavProps> = ({ setContactOpen }) => {
       >
         Contact
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

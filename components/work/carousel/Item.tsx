@@ -1,7 +1,7 @@
 import {
   useTransform,
   transform,
-  motion,
+  m,
   useMotionValueEvent,
   useMotionValue,
 } from "framer-motion";
@@ -93,7 +93,7 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
   });
 
   return (
-    <motion.div
+    <m.div
       style={{
         x: startOffset,
         y: 0,
@@ -139,7 +139,7 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

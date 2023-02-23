@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-import { useLanyard, useLanyardWS, Spotify as SpotifyType } from "use-lanyard";
-import SpotlightContainer from "./SpotlightContainer";
+import { Spotify as SpotifyType } from "use-lanyard";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrayRGB } from "color-thief-react/lib/types";
 import { usePalette } from "color-thief-react";
 import tinycolor from "tinycolor2";
 

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { domMax, LazyMotion, m } from "framer-motion";
 import { useRef, useState, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 import useOutsideClick from "../../hooks/outsideCick";
@@ -53,7 +53,7 @@ const SearchModal: React.FC<ModalProps> = ({
   };
 
   return (
-    <motion.div
+    <m.div
       className="absolute inset-0 z-50 flex h-full w-full justify-center bg-black/40 backdrop-blur"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -88,7 +88,7 @@ const SearchModal: React.FC<ModalProps> = ({
         }
       }}
     >
-      <motion.div
+      <m.div
         className="mt-[25vh] w-full max-w-xl"
         ref={modalRef}
         initial={{ opacity: 0, y: 40 }}
@@ -97,7 +97,7 @@ const SearchModal: React.FC<ModalProps> = ({
         onClick={() => setOpen(false)}
         layout
       >
-        <motion.div
+        <m.div
           className="mx-6 border border-neutral-700 bg-neutral-900 shadow-lg sm:mx-0"
           onClick={(e) => e.stopPropagation()}
           layout
@@ -106,7 +106,7 @@ const SearchModal: React.FC<ModalProps> = ({
             borderRadius: 16, // fix jittering by setting it inline
           }}
         >
-          <motion.input
+          <m.input
             layout="position"
             type="text"
             placeholder="Search..."
@@ -118,22 +118,22 @@ const SearchModal: React.FC<ModalProps> = ({
               setSearch(e.target.value);
             }}
           />
-          <motion.div
+          <m.div
             className="z-0 flex max-h-80 flex-col overflow-auto py-2 px-3 sm:py-3 sm:px-4"
             layout="position"
             transition={spring}
             ref={listRef}
           >
             {filteredMedia.length === 0 ? (
-              <motion.div
+              <m.div
                 className="p-2 text-xs text-neutral-500 sm:p-3 sm:text-sm"
                 layout="position"
               >
                 No results found for "{search}"
-              </motion.div>
+              </m.div>
             ) : (
               filteredMedia.map((item, index) => (
-                <motion.div
+                <m.div
                   key={item.title}
                   className="relative cursor-pointer"
                   onClick={() => {
@@ -150,14 +150,14 @@ const SearchModal: React.FC<ModalProps> = ({
                   transition={spring}
                 >
                   {hoveredItem === index && (
-                    <motion.div
+                    <m.div
                       className="absolute z-0 h-full w-full rounded-lg bg-white/10 sm:rounded-xl"
                       layoutId="selected"
                       transition={spring}
                       layout
                     />
                   )}
-                  <motion.div
+                  <m.div
                     className="relative z-10 flex items-center gap-3 p-1.5 sm:p-2"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -181,11 +181,11 @@ const SearchModal: React.FC<ModalProps> = ({
                         {item.desc}
                       </div>
                     </div>
-                  </motion.div>
-                </motion.div>
+                  </m.div>
+                </m.div>
               ))
             )}
-          </motion.div>
+          </m.div>
           <div
             className="flex w-full items-center justify-between border-t border-neutral-800 px-6 py-3 sm:px-7 sm:py-4"
             // layout="position"
@@ -201,9 +201,9 @@ const SearchModal: React.FC<ModalProps> = ({
               </div>
             </div>
           </div>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        </m.div>
+      </m.div>
+    </m.div>
   );
 };
 

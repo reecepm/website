@@ -1,4 +1,3 @@
-import { ReactJs } from "@icons-pack/react-simple-icons";
 import { IconQuestionMark } from "@tabler/icons";
 import React from "react";
 import { technologies } from "../data/technologies";

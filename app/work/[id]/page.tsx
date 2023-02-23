@@ -1,5 +1,6 @@
 "use client";
 
+import { domAnimation, LazyMotion } from "framer-motion";
 import React from "react";
 import Overview from "../../../components/work/project/Overview";
 import { projects } from "../../../data/projects";
@@ -13,7 +14,11 @@ const Project: React.FC<Props> = ({ params }) => {
 
   const project = projects.find((project) => project.id === id);
 
-  return <Overview project={project!} />;
+  return (
+    <LazyMotion features={domAnimation}>
+      <Overview project={project!} />
+    </LazyMotion>
+  );
 };
 
 export default Project;
