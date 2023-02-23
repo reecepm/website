@@ -15,7 +15,6 @@ const NavItem: React.FC<NavItemProps> = ({ children, route }) => {
   return (
     <Link
       href={route}
-      prefetch={false}
       className={navItemStyles({
         active:
           route !== "/" ? pathname?.startsWith(route) : pathname === route,
