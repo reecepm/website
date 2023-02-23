@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import Tag from "../components/Tag";
 import { Spotify } from "../components/Spotify";
 import { domAnimation, LazyMotion, m } from "framer-motion";
-import { NextPage } from "next";
 import { useLanyardWS } from "use-lanyard";
 
-const Home: NextPage = () => {
+const Home: React.FC = () => {
   const user = useLanyardWS(process.env.NEXT_PUBLIC_DISCORD_ID as `${bigint}`);
   const [brightest, setBrightest] = useState<string | undefined>();
   const [mountDelay, setMountDelay] = useState(false);
