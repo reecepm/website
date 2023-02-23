@@ -38,3 +38,10 @@ const Layout: React.FC<Props> = ({ children }) => {
 };
 
 export default Layout;
+
+export const metadata = {
+  title: {
+    default: "Reece Martin",
+    template: "%s - Reece Martin",
+  },
+};

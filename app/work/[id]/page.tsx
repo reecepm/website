@@ -1,6 +1,3 @@
-"use client";
-
-import { domAnimation, LazyMotion } from "framer-motion";
 import React from "react";
 import Overview from "../../../components/work/project/Overview";
 import { projects } from "../../../data/projects";
@@ -15,13 +12,26 @@ const Project: React.FC<Props> = ({ params }) => {
   const project = projects.find((project) => project.id === id);
 
   return (
-    <LazyMotion features={domAnimation}>
+    <>
       <Overview project={project!} />
-    </LazyMotion>
+    </>
   );
 };
 
 export default Project;
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  console.log("?????????????????");
+  console.log(params);
+  console.log("niciiceiceincie");
+  const project = projects.find((project) => project.id === params.id);
+
+  const title = project?.name || "Project";
+  return {
+    title,
+    description: "A project by Reece Martin. " + project?.desc || "",
+  };
+}
 
 export const generateStaticParams = async () => {
   return projects.map((project) => ({
