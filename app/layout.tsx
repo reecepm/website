@@ -44,4 +44,7 @@ export const metadata = {
     default: "Reece Martin",
     template: "%s - Reece Martin",
   },
+  icons: {
+    icon: "/favicon.png",
+  },
 };
