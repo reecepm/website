@@ -36,7 +36,7 @@ export const projects: Project[] = [
     coverImagePath: "/flare.png",
     name: "Flare AIO",
     desc: "Automation software",
-    url: "https://flareaio.com",
+    url: "https://flarebots.com",
     status: "PRODUCTION",
     completed: "July 2022 - February 2023",
     overview:
