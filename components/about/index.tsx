@@ -64,7 +64,7 @@ const AboutPage: React.FC = () => {
               </div>
             </div>
           </m.div>
-          <div className="m-4 grid grid-cols-1 gap-4 sm:m-0 sm:grid-cols-2 md:gap-8">
+          <div className="m-4 grid grid-cols-1 gap-4 sm:m-0 sm:grid-cols-2 sm:p-4 md:gap-8">
             <Item
               title="About me"
               Icon={IconUser}
