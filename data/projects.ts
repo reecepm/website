@@ -292,7 +292,7 @@ export const projects: Project[] = [
     status: "IN_PROGRESS",
     overview:
       "Zephyr is a service provider for the sneaker and resell industry. I have provided contracted frontend work for them for the last year for some of their tools. Unfortunately lots haven't reached production yet but I've displayed some of the work I've done for them.",
-    completed: "2022 - Present",
+    completed: "December 2022 - Present",
     responsibilities:
       "Frontend development for various tools. One project was full stack.",
     technologies: [
