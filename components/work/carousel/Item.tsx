@@ -131,6 +131,9 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
               <p className="text-sm font-medium text-neutral-400 sm:text-lg">
                 {projects[index].desc}
               </p>
+              <p className="mt-1 text-xs font-medium text-neutral-500">
+                {projects[index].completed}
+              </p>
             </div>
             <Button onClick={() => router.push("/work/" + projects[index].id)}>
               View Project{projects[index].id === "graveyard" && "s"}
