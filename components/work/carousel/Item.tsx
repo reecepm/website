@@ -6,7 +6,7 @@ import {
   useMotionValue,
 } from "framer-motion";
 import { usePageContext } from "./Base";
-import { projects } from "../../../data/projects";
+import { Project } from "../../../data/projects";
 import Image from "next/image";
 import { IconArrowNarrowRight } from "@tabler/icons";
 import React from "react";
@@ -17,10 +17,11 @@ const alignOptions = { start: 0, center: 0.5, end: 1 };
 
 interface Props {
   index: number;
+  project: Project;
   onCurrent: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
+const CarouselItem: React.FC<Props> = ({ project, index, onCurrent }) => {
   const router = useRouter();
   const {
     align,
@@ -31,19 +32,6 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
     viewWidth,
     viewHeight,
   } = usePageContext();
-
-  let mouseX = useMotionValue(0);
-  let mouseY = useMotionValue(0);
-
-  const onMouseMove = ({
-    currentTarget,
-    clientX,
-    clientY,
-  }: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    let { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  };
 
   const initialOffset = index * viewWidth;
   const alignOffset = (frameSize - viewWidth) * alignOptions[align];
@@ -102,13 +90,12 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
         scale,
         opacity,
       }}
-      onMouseMove={onMouseMove}
       className="absolute flex items-center justify-center overflow-hidden rounded-3xl border border-neutral-800 bg-neutral-900"
     >
       <div className="relative flex items-center justify-center">
         <Image
-          src={projects[index].coverImagePath}
-          alt={projects[index].name + " cover image"}
+          src={project.coverImagePath}
+          alt={project.name + " cover image"}
           height={1920}
           width={1080}
           quality={100}
@@ -117,8 +104,8 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
         <div className="absolute z-10 h-full w-full bg-gradient-to-t from-black to-black/20">
           <div className="flex h-full flex-col items-center justify-center gap-4">
             <Image
-              src={projects[index].logoPath}
-              alt={projects[index].name}
+              src={project.logoPath}
+              alt={project.name}
               width={48}
               height={48}
               quality={100}
@@ -126,17 +113,17 @@ const CarouselItem: React.FC<Props> = ({ index, onCurrent }) => {
             />
             <div className="flex flex-col items-center justify-center">
               <h1 className="text-lg font-bold text-white sm:text-2xl">
-                {projects[index].name}
+                {project.name}
               </h1>
               <p className="text-sm font-medium text-neutral-400 sm:text-lg">
-                {projects[index].desc}
+                {project.desc}
               </p>
               <p className="mt-1 text-xs font-medium text-neutral-500">
-                {projects[index].completed}
+                {project.completed}
               </p>
             </div>
-            <Button onClick={() => router.push("/work/" + projects[index].id)}>
-              View Project{projects[index].id === "graveyard" && "s"}
+            <Button onClick={() => router.push("/work/" + project.id)}>
+              View Project{project.id === "graveyard" && "s"}
               <IconArrowNarrowRight height={16} width={16} />
             </Button>
           </div>

@@ -187,9 +187,10 @@ const CarouselBase = () => {
                 trackXOffset: trackXOffset,
               }}
             >
-              {projects.map((item, index) => (
+              {projects.map((p, index) => (
                 <CarouselItem
                   key={index}
+                  project={p}
                   index={index}
                   onCurrent={setCurrentItem}
                 />
@@ -233,15 +234,10 @@ const CarouselBase = () => {
                       className={twMerge(
                         "h-[18px] w-[18px] transition-all",
                         fill
-                          ? "group-hover:fill-white"
-                          : "group-hover:text-white",
-                        index === currentItem
-                          ? fill
-                            ? "fill-white"
-                            : "text-white"
-                          : fill
-                          ? "fill-neutral-400"
-                          : "text-neutral-400"
+                          ? "fill-neutral-400 group-hover:fill-white"
+                          : "text-neutral-400 group-hover:text-white",
+                        index === currentItem &&
+                          (fill ? "fill-white" : "text-white")
                       )}
                     />
                     <div
