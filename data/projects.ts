@@ -112,6 +112,7 @@ export const projects: Project[] = [
       "golang",
       "graphql",
       "postgres",
+      "react-query",
     ],
     media: [
       {
@@ -144,6 +145,7 @@ export const projects: Project[] = [
       "reanimated",
       "node",
       "graphql",
+      "react-query",
       "mongodb",
     ],
     media: [
@@ -205,6 +207,8 @@ export const projects: Project[] = [
       "postgres",
       "redis",
       "tailwindcss",
+      "react-query",
+      "react-hook-form",
       "framer-motion",
       "storybook",
     ],
@@ -238,6 +242,7 @@ export const projects: Project[] = [
       "golang",
       "graphql",
       "postgres",
+      "react-query",
       "redis",
       "styled-components",
       "framer-motion",
@@ -299,9 +304,12 @@ export const projects: Project[] = [
       "react",
       "next",
       "typescript",
+      "react-query",
       "styled-components",
       "prisma",
       "postgres",
+      "trpc",
+      "framer-motion",
     ],
     media: [
       {

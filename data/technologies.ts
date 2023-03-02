@@ -15,6 +15,8 @@ import {
   Sipostgresql,
   Siprisma,
   Sireact,
+  Sireacthookform,
+  Sireactquery,
   Siredis,
   Sistorybook,
   Sistyledcomponents,
@@ -82,10 +84,6 @@ export const technologies = {
     Icon: Sistyledcomponents,
     name: "styled-components",
   },
-  "framer-motion": {
-    Icon: Siframer,
-    name: "Framer Motion",
-  },
   graphql: {
     Icon: Sigraphql,
     name: "GraphQL",
@@ -93,6 +91,18 @@ export const technologies = {
   trpc: {
     Icon: Sitrpc,
     name: "TRPC",
+  },
+  "framer-motion": {
+    Icon: Siframer,
+    name: "Framer Motion",
+  },
+  "react-query": {
+    Icon: Sireactquery,
+    name: "React Query",
+  },
+  "react-hook-form": {
+    Icon: Sireacthookform,
+    name: "React Hook Form",
   },
   githubActions: {
     Icon: Sigithubactions,
