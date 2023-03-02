@@ -154,7 +154,7 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
                   />
                 </Button>
                 <Button
-                  onClick={() => router.push("https://github.com/cascoid")}
+                  onClick={() => router.push("https://github.com/reecepm")}
                 >
                   GitHub
                   <IconBrandGithub
