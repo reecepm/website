@@ -12,6 +12,7 @@ import { IconArrowNarrowRight } from "@tabler/icons";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "../../Button";
+import Link from "next/link";
 
 const alignOptions = { start: 0, center: 0.5, end: 1 };
 
@@ -95,7 +96,9 @@ const CarouselItem: React.FC<Props> = ({ project, index, onCurrent }) => {
       <div className="relative flex items-center justify-center">
         <Image
           src={project.coverImagePath}
+          placeholder="blur"
           alt={project.name + " cover image"}
+          priority
           height={1920}
           width={1080}
           quality={100}
@@ -106,6 +109,7 @@ const CarouselItem: React.FC<Props> = ({ project, index, onCurrent }) => {
             <Image
               src={project.logoPath}
               alt={project.name}
+              placeholder={project.id !== "malice" ? "blur" : undefined}
               width={48}
               height={48}
               quality={100}
@@ -122,10 +126,12 @@ const CarouselItem: React.FC<Props> = ({ project, index, onCurrent }) => {
                 {project.completed}
               </p>
             </div>
-            <Button onClick={() => router.push("/work/" + project.id)}>
-              View Project{project.id === "graveyard" && "s"}
-              <IconArrowNarrowRight height={16} width={16} />
-            </Button>
+            <Link href="/work/[id]" as={`/work/${project.id}`}>
+              <Button>
+                View Project{project.id === "graveyard" && "s"}
+                <IconArrowNarrowRight height={16} width={16} />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

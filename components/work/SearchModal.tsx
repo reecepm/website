@@ -1,4 +1,7 @@
-import { domMax, LazyMotion, m } from "framer-motion";
+"use client";
+
+import { m } from "framer-motion";
+import { StaticImageData } from "next/image";
 import { useRef, useState, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 import useOutsideClick from "../../hooks/outsideCick";
@@ -12,7 +15,7 @@ interface ModalProps {
     id: number;
     title: string;
     desc: string;
-    src: string;
+    src: StaticImageData | string;
   }[];
   name: string;
   type: string;

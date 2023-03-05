@@ -1,6 +1,19 @@
-import { SVGProps } from "react";
-import FlareIcon from "../components/icons/Flare";
 import { technologies } from "./technologies";
+import flareCoverImage from "../public/flare.png";
+import escapeCoverImage from "../public/escape.png";
+import maliceCoverImage from "../public/malice.png";
+import blissCoverImage from "../public/bliss.png";
+import upcomingCoverImage from "../public/upcoming.png";
+import zephyrCoverImage from "../public/zephyr.png";
+import graveyardCoverImage from "../public/graveyard.png";
+import flareLogo from "../public/flarelogo.png";
+import escapeLogo from "../public/escapelogo.png";
+import maliceLogo from "../public/malicelogo.gif";
+import blissLogo from "../public/blisslogo.png";
+import upcomingLogo from "../public/upcoming-logo.png";
+import zephyrLogo from "../public/zephyr-logo.png";
+import graveyardLogo from "../public/graveyard-logo.png";
+import { StaticImageData } from "next/image";
 
 export interface Project {
   id:
@@ -11,8 +24,8 @@ export interface Project {
     | "upcoming"
     | "zephyr"
     | "graveyard";
-  logoPath: string;
-  coverImagePath: string;
+  logoPath: StaticImageData;
+  coverImagePath: StaticImageData;
   name: string;
   desc: string;
   url: string;
@@ -23,7 +36,7 @@ export interface Project {
   technologies: (keyof typeof technologies)[];
   media: {
     type: "image" | "video";
-    src: string;
+    src: StaticImageData | string;
     title: string;
     desc: string;
   }[];
@@ -32,8 +45,8 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "flare",
-    logoPath: "/flarelogo.png",
-    coverImagePath: "/flare.png",
+    logoPath: flareLogo,
+    coverImagePath: flareCoverImage,
     name: "Flare AIO",
     desc: "Automation software",
     url: "https://flarebots.com",
@@ -55,7 +68,7 @@ export const projects: Project[] = [
     media: [
       {
         type: "image",
-        src: "/flare.png",
+        src: flareCoverImage,
         title: "Desktop application overview",
         desc: "Preview of the Flare AIO desktop application",
       },
@@ -93,8 +106,8 @@ export const projects: Project[] = [
   },
   {
     id: "escape",
-    logoPath: "/escapelogo.png",
-    coverImagePath: "/escape.png",
+    logoPath: escapeLogo,
+    coverImagePath: escapeCoverImage,
     name: "Escape Notify",
     desc: "Information provider",
     url: "https://escapenotify.com",
@@ -117,7 +130,7 @@ export const projects: Project[] = [
     media: [
       {
         type: "image",
-        src: "/escape.png",
+        src: escapeCoverImage,
         title: "Coming soon",
         desc: "Small tease of the mobile application",
       },
@@ -125,8 +138,8 @@ export const projects: Project[] = [
   },
   {
     id: "malice",
-    logoPath: "/malicelogo.gif",
-    coverImagePath: "/malice.png",
+    logoPath: maliceLogo,
+    coverImagePath: maliceCoverImage,
     name: "Malice",
     desc: "Information provider",
     url: "https://wearemalice.com",
@@ -151,7 +164,7 @@ export const projects: Project[] = [
     media: [
       {
         type: "image",
-        src: "/malice.png",
+        src: maliceCoverImage,
         title: "Malice App overview",
         desc: "Overview of the mobile application",
       },
@@ -189,8 +202,8 @@ export const projects: Project[] = [
   },
   {
     id: "upcoming",
-    logoPath: "/upcoming-logo.png",
-    coverImagePath: "/upcoming.png",
+    logoPath: upcomingLogo,
+    coverImagePath: upcomingCoverImage,
     name: "????",
     desc: "Coming soon",
     url: "https://twitter.com/reece_pm",
@@ -215,7 +228,7 @@ export const projects: Project[] = [
     media: [
       {
         type: "image",
-        src: "/upcoming.png",
+        src: upcomingCoverImage,
         title: "Coming soon",
         desc: "Teaser for the upcoming project",
       },
@@ -223,8 +236,8 @@ export const projects: Project[] = [
   },
   {
     id: "bliss",
-    logoPath: "/blisslogo.png",
-    coverImagePath: "/bliss.png",
+    logoPath: blissLogo,
+    coverImagePath: blissCoverImage,
     name: "Bliss Notify",
     desc: "Information provider",
     url: "https://tiktok.com/@blissnotify",
@@ -251,7 +264,7 @@ export const projects: Project[] = [
     media: [
       {
         type: "image",
-        src: "/bliss.png",
+        src: blissCoverImage,
         title: "Bliss preview",
         desc: "Preview of the mobile application and dashboard",
       },
@@ -289,8 +302,8 @@ export const projects: Project[] = [
   },
   {
     id: "zephyr",
-    logoPath: "/zephyr-logo.png",
-    coverImagePath: "/zephyr.png",
+    logoPath: zephyrLogo,
+    coverImagePath: zephyrCoverImage,
     name: "Zephyr",
     desc: "Service provider",
     url: "https://zephyrmonitorsllc.com/",
@@ -314,7 +327,7 @@ export const projects: Project[] = [
     media: [
       {
         type: "image",
-        src: "/zephyr.png",
+        src: zephyrCoverImage,
         title: "Landing page",
         desc: "Landing page for Zephyr Monitors. Other pages transferred from previous site.",
       },
@@ -328,8 +341,8 @@ export const projects: Project[] = [
   },
   {
     id: "graveyard",
-    logoPath: "/graveyard-logo.png",
-    coverImagePath: "/graveyard.png",
+    logoPath: graveyardLogo,
+    coverImagePath: graveyardCoverImage,
     name: "Graveyard",
     desc: "Retired or unpublished projects",
     url: "https://twitter.com/reece_pm",
@@ -353,7 +366,7 @@ export const projects: Project[] = [
     media: [
       {
         type: "image",
-        src: "/graveyard.png",
+        src: graveyardCoverImage,
         title: "Graveyard Overview",
         desc: "Overview of the graveyard",
       },

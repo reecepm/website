@@ -14,6 +14,7 @@ import Technology from "../../components/Technology";
 import { Button } from "../../components/Button";
 import ContactModal from "../../components/Contact";
 import Item from "./Item";
+import profilePic from "../../public/reece.jpeg";
 
 const AboutPage: React.FC = () => {
   const [openItem, setOpenItem] = useState(-1);
@@ -43,9 +44,10 @@ const AboutPage: React.FC = () => {
             }}
           >
             <Image
-              src="/reece.jpeg"
+              src={profilePic}
               width={72}
               height={72}
+              placeholder="blur"
               alt="Reece Martin"
               className="rounded-xl"
               quality={100}

@@ -1,15 +1,19 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { Project } from "../../../data/projects";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons";
 import { ImageOrVideo } from "./ImageOrVideo";
+import SearchModal from "../SearchModal";
+import { AnimatePresence, domMax, LazyMotion } from "framer-motion";
 
 interface Props {
   project: Project;
-  selectedItem: number;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
+const Media: React.FC<Props> = ({ project }) => {
+  const [selectedItem, setSelectedItem] = useState(0);
+  const [open, setOpen] = useState(false);
   const [viewWidth, setViewWidth] = useState(752);
   const [viewHeight, setViewHeight] = useState(423);
   const [focusOpen, setFocusOpen] = useState(false);
@@ -18,27 +22,6 @@ const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
   const resizeObserverRef = React.useRef<ResizeObserver>();
 
   const item = project.media[selectedItem];
-
-  useEffect(() => {
-    resizeObserverRef.current = new ResizeObserver(() => {
-      if (frameRef.current) {
-        if (frameRef.current.offsetWidth < viewWidth) {
-          const { width: nextWidth, height: nextHeight } = nearestRatioByWidth(
-            frameRef.current.offsetWidth
-          );
-          setViewWidth(nextWidth);
-          setViewHeight(nextHeight);
-        } else {
-          setViewWidth(752);
-          setViewHeight(423);
-        }
-      }
-    });
-    resizeObserverRef.current.observe(frameRef.current!);
-    return () => {
-      resizeObserverRef.current?.disconnect();
-    };
-  }, []);
 
   const nearestRatioByWidth = (
     width: number
@@ -61,6 +44,20 @@ const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
 
   return (
     <>
+      <LazyMotion features={domMax}>
+        <AnimatePresence>
+          {open && (
+            <SearchModal
+              setOpen={setOpen}
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+              items={project.media.map((x, i) => ({ ...x, id: i }))}
+              name={project.name}
+              type="Media"
+            />
+          )}
+        </AnimatePresence>
+      </LazyMotion>
       {focusOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center"
@@ -89,11 +86,7 @@ const Media: React.FC<Props> = ({ project, selectedItem, setOpen }) => {
         ref={frameRef}
       >
         <div
-          className="relative flex items-center justify-center overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 lg:rounded-3xl"
-          style={{
-            width: viewWidth,
-            height: viewHeight,
-          }}
+          className="relative flex aspect-[16/9] items-center justify-center overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 lg:rounded-3xl"
           onClick={() => setFocusOpen(true)}
         >
           <ImageOrVideo item={item.src} autoPlay />

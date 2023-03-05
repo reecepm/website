@@ -1,8 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import { Project } from "../../../data/projects";
-import Link from "next/link";
-import { IconArrowUpRight } from "@tabler/icons";
 import Tag from "../../Tag";
 import Technology from "../../Technology";
 
