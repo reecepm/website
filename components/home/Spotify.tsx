@@ -1,50 +1,18 @@
-import React, { useEffect } from "react";
-import { Spotify as SpotifyType } from "use-lanyard";
+import React from "react";
+import { Spotify as SpotifyType } from "../../types/lanyard";
 import Image from "next/image";
 import Link from "next/link";
-import { usePalette } from "color-thief-react";
-import tinycolor from "tinycolor2";
 
 interface SpotifyWrapperProps {
-  brightest: string | undefined;
-  setBrightest: React.Dispatch<React.SetStateAction<string | undefined>>;
-  data: SpotifyType;
+  data?: SpotifyType;
+  brightest?: string;
 }
 
-export const Spotify: React.FC<SpotifyWrapperProps> = ({
-  brightest,
-  setBrightest,
-  data,
-}) => {
-  const {
-    data: paletteData,
-    loading,
-    error,
-  } = usePalette(data.album_art_url!, 6, "rgbArray", {
-    crossOrigin: "*",
-    quality: 100,
-  });
-
-  useEffect(() => {
-    if (!loading && !error && paletteData && paletteData.length > 0) {
-      const mapped = paletteData.map((rgb) =>
-        tinycolor(`rgb(${rgb.join(",")})`)
-      );
-      if (!mapped) return undefined;
-
-      const isFirstBright = mapped[0].getLuminance() > 0.05;
-      const color = isFirstBright
-        ? mapped[0]
-        : mapped.find((color) => color.getLuminance() > 0.05 !== isFirstBright);
-      if (!color) return undefined;
-
-      const rgb = color.toRgb();
-      setBrightest(`${rgb.r}, ${rgb.g}, ${rgb.b}`);
-    }
-  }, [paletteData]);
+export const Spotify: React.FC<SpotifyWrapperProps> = ({ data, brightest }) => {
+  if (!data) return null;
 
   const inner = (
-    <div className="group relative h-[115px] w-80 overflow-hidden rounded-2xl transition-all">
+    <div className="group relative mt-4 h-[115px] w-80 overflow-hidden rounded-2xl transition-all animate-in fade-in zoom-in-105 slide-in-from-bottom-8 duration-1000">
       <div className="absolute h-full w-full overflow-hidden rounded-2xl p-0.5">
         <div className="relative h-full w-full overflow-hidden rounded-[14px] p-0.5">
           <div
