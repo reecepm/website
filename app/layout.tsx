@@ -21,17 +21,15 @@ const Layout: React.FC<Props> = ({ children }) => {
       <head>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
       </head>
-      <body className={`${inter.variable} h-screen bg-[#050505] font-sans`}>
-        <div className="before:[calc(100vh+3.5rem)] h-screen overflow-hidden before:pointer-events-none before:absolute before:inset-0 before:-top-64 before:bg-grid-pattern before:bg-top before:bg-no-repeat before:opacity-70 ">
-          <div className="relative z-10 flex h-screen flex-grow flex-col overflow-clip">
-            <div className="absolute bottom-[-6.25vw] flex w-screen select-none items-center justify-center bg-gradient-to-r from-neutral-500 to-white bg-clip-text text-[12.5vw] font-extrabold opacity-5 [-webkit-text-stroke:4px_transparent]">
-              always learning
-            </div>
-            <div className="flex h-full w-full flex-grow items-center justify-center">
-              {children}
-            </div>
-            <Nav />
+      <body className={`${inter.variable} bg-[#050505] font-sans`}>
+        <Nav />
+        <div className="pointer-events-none fixed h-screen w-screen overflow-clip">
+          <div className="absolute bottom-[-6.25vw] mx-auto w-screen select-none bg-gradient-to-r from-neutral-500 to-white bg-clip-text text-[12.5vw] font-extrabold opacity-5 [-webkit-text-stroke:4px_transparent]">
+            always learning
           </div>
+        </div>
+        <div className="flex min-h-screen w-screen items-center justify-center before:pointer-events-none before:fixed before:inset-0 before:-top-64 before:bg-grid-pattern before:bg-top before:bg-no-repeat before:opacity-70">
+          {children}
         </div>
       </body>
     </html>

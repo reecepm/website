@@ -14,12 +14,9 @@ interface Props {
 const Media: React.FC<Props> = ({ project }) => {
   const [selectedItem, setSelectedItem] = useState(0);
   const [open, setOpen] = useState(false);
-  const [viewWidth, setViewWidth] = useState(752);
-  const [viewHeight, setViewHeight] = useState(423);
   const [focusOpen, setFocusOpen] = useState(false);
 
   const frameRef = React.useRef<HTMLDivElement>(null);
-  const resizeObserverRef = React.useRef<ResizeObserver>();
 
   const item = project.media[selectedItem];
 

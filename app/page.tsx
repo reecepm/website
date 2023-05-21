@@ -36,15 +36,12 @@ async function getSongData(): Promise<SongData> {
 
   if (!mapped) return {};
 
-  console.log(mapped[0]);
-
   const isFirstBright = mapped[0].getLuminance() > 0.1;
   const color = isFirstBright
     ? mapped[0]
     : mapped.find((color) => color.getLuminance() > 0.1 !== isFirstBright);
 
   if (!color) return {};
-  console.log(color, "???");
 
   const rgb = color.toRgb();
 
@@ -58,7 +55,7 @@ const Home = async () => {
   const { brightest, spotifyData } = await getSongData();
 
   return (
-    <div className="relative flex flex-col items-center justify-center gap-3">
+    <div className="relative flex h-screen w-full flex-col items-center justify-center gap-3 overflow-x-clip">
       <div
         className="absolute z-0 h-[1000px] w-[1000px] opacity-30 animate-in fade-in zoom-in-0 duration-1000 ease-out"
         style={{

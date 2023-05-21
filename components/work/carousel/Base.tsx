@@ -82,7 +82,6 @@ const CarouselBase = () => {
       if (frameRef.current) {
         setFrameWidth(frameRef.current.offsetWidth - MOBILE_MARGIN);
         if (frameRef.current.offsetWidth - MOBILE_MARGIN < viewWidth) {
-          // find next lowest 16:9 ratio from width
           const ratio = 16 / 9;
           const nextWidth =
             Math.floor((frameRef.current.offsetWidth - MOBILE_MARGIN) / ratio) *
@@ -97,9 +96,6 @@ const CarouselBase = () => {
             setViewWidth(nextWidth);
             setViewHeight(nextWidth / ratio);
           }
-
-          // setViewWidth(frameRef.current.offsetWidth);
-          // trackXOffset.set(0);
         } else {
           setViewWidth(912);
           setViewHeight(513);
@@ -131,30 +127,30 @@ const CarouselBase = () => {
 
   return (
     <LazyMotion features={domMax}>
+      <div className="big:hidden">
+        <AnimatePresence>
+          {mobileNavigation && (
+            <SearchModal
+              setOpen={setMobileNavigation}
+              selectedItem={currentItem}
+              setSelectedItem={moveToIndex}
+              items={projects.map((x, i) => ({
+                id: i,
+                type: "Project",
+                title: x.name,
+                desc: x.desc,
+                src: x.coverImagePath,
+              }))}
+              name="My Work"
+              type="Media"
+            />
+          )}
+        </AnimatePresence>
+      </div>
       <div className="flex w-full flex-col gap-4 overflow-hidden">
-        <div className="w-full big:hidden">
-          <AnimatePresence>
-            {mobileNavigation && (
-              <SearchModal
-                setOpen={setMobileNavigation}
-                selectedItem={currentItem}
-                setSelectedItem={moveToIndex}
-                items={projects.map((x, i) => ({
-                  id: i,
-                  type: "Project",
-                  title: x.name,
-                  desc: x.desc,
-                  src: x.coverImagePath,
-                }))}
-                name="My Work"
-                type="Media"
-              />
-            )}
-          </AnimatePresence>
-        </div>
         <m.div
           ref={frameRef}
-          className="flex overflow-hidden"
+          className="mt-auto flex overflow-hidden"
           style={{
             height: viewHeight + 40,
             padding: "20px 0",
@@ -199,7 +195,7 @@ const CarouselBase = () => {
           </m.div>
         </m.div>
         <m.div
-          className="flex w-full items-center justify-center"
+          className="mb-auto flex w-full items-center justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
