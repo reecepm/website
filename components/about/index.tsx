@@ -100,10 +100,18 @@ const AboutPage: React.FC = () => {
               onClick={() => handleOpen(2)}
             >
               <div className="flex flex-col gap-2">
-                Currently working as an independent contractor for web, mobile
-                and desktop projects. Also building some cool side projects
-                (coming soon).
-                <br />
+                <span>
+                  Currently working as a full stack engineer at{" "}
+                  <a
+                    href="https://dimension.dev"
+                    target="_blank"
+                    className="font-medium underline underline-offset-2"
+                  >
+                    Dimension
+                  </a>
+                  . Also working on side projects and freelance for web, mobile
+                  and desktop projects.
+                </span>
                 <br /> Feel free to reach out if you are interested in working
                 with me, I'm always open to new opportunities!
                 <div className="self-end">
