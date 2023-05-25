@@ -25,6 +25,7 @@ import {
   Sitrpc,
   Sitypescript,
   Siwebpack,
+  Siexpo,
 } from "@icons-pack/react-simple-icons";
 
 export const technologies = {
@@ -143,5 +144,9 @@ export const technologies = {
   swiftui: {
     Icon: Siswift,
     name: "SwiftUI",
+  },
+  expo: {
+    Icon: Siexpo,
+    name: "Expo",
   },
 };

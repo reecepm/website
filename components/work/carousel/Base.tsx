@@ -266,6 +266,14 @@ const CarouselBase = () => {
             </div>
           </div>
         </m.div>
+        <m.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="text-center text-xs text-neutral-800"
+        >
+          Some of my freelance projects
+        </m.div>
       </div>
     </LazyMotion>
   );

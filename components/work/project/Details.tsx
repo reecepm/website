@@ -88,4 +88,8 @@ const statusDetails = {
     background: "100, 170, 193",
     title: "Archived",
   },
+  PAUSE: {
+    background: "158, 94, 33",
+    title: "Paused",
+  },
 };

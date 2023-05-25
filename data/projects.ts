@@ -29,7 +29,7 @@ export interface Project {
   name: string;
   desc: string;
   url: string;
-  status: "PRODUCTION" | "IN_PROGRESS" | "EOL" | "ARCHIVED";
+  status: "PRODUCTION" | "IN_PROGRESS" | "EOL" | "ARCHIVED" | "PAUSE";
   overview: string;
   responsibilities: string;
   completed: string;
@@ -111,8 +111,8 @@ export const projects: Project[] = [
     name: "Escape Notify",
     desc: "Information provider",
     url: "https://escapenotify.com",
-    status: "IN_PROGRESS",
-    completed: "In Development",
+    status: "PRODUCTION",
+    completed: "2022 (Public April 2023)",
     overview:
       "Escape notify is an information provider created to help users acquire limited goods like sneakers, collectibles and clothing. This project involved creating a mobile application to provide their users with information directly.",
     responsibilities:
@@ -120,6 +120,7 @@ export const projects: Project[] = [
     technologies: [
       "reactNative",
       "typescript",
+      "expo",
       "styled-components",
       "reanimated",
       "golang",
@@ -131,8 +132,32 @@ export const projects: Project[] = [
       {
         type: "image",
         src: escapeCoverImage,
-        title: "Coming soon",
-        desc: "Small tease of the mobile application",
+        title: "Escape Notify App overview",
+        desc: "Overview of the mobile application",
+      },
+      {
+        type: "video",
+        src: "https://reece.b-cdn.net/escape-calendar.mp4",
+        title: "Calendar",
+        desc: "Calendar snippet for the mobile application",
+      },
+      {
+        type: "video",
+        src: "https://reece.b-cdn.net/escape-inventory.mp4",
+        title: "Inventory",
+        desc: "Inventory tracking system",
+      },
+      {
+        type: "video",
+        src: "https://reece.b-cdn.net/escape-guides.mp4",
+        title: "Guides",
+        desc: "Guides system for new users",
+      },
+      {
+        type: "video",
+        src: "https://reece.b-cdn.net/escape-browsers.mp4",
+        title: "Browsers",
+        desc: "Multi browser system",
       },
     ],
   },
@@ -204,13 +229,15 @@ export const projects: Project[] = [
     id: "upcoming",
     logoPath: upcomingLogo,
     coverImagePath: upcomingCoverImage,
-    name: "????",
-    desc: "Coming soon",
+    name: "Puffin",
+    desc: "Digital product marketplace",
     url: "https://twitter.com/reece_pm",
-    status: "IN_PROGRESS",
-    overview: "Working on a new project, more details to come soon.",
+    status: "PAUSE",
+    overview:
+      "Digital product marketplace platform and admin dashboard, similar to Gumroad, Lemonsqueezy and Whop. This project is near completion but unsure if it will be released, sold, etc.",
     completed: "September 2022 - Present",
-    responsibilities: "Full stack.",
+    responsibilities:
+      "Full stack development of the marketplace, dashboard and API. Joint development project with a friend.",
     technologies: [
       "react",
       "next",
@@ -229,8 +256,8 @@ export const projects: Project[] = [
       {
         type: "image",
         src: upcomingCoverImage,
-        title: "Coming soon",
-        desc: "Teaser for the upcoming project",
+        title: "Puffin",
+        desc: "Preview of Puffin",
       },
     ],
   },
@@ -310,7 +337,7 @@ export const projects: Project[] = [
     status: "IN_PROGRESS",
     overview:
       "Zephyr is a service provider for the sneaker and resell industry. I have provided contracted frontend work for them for the last year for some of their tools. Unfortunately lots haven't reached production yet but I've displayed some of the work I've done for them.",
-    completed: "December 2022 - Present",
+    completed: "December 2021 - Present",
     responsibilities:
       "Frontend development for various tools. One project was full stack.",
     technologies: [
