@@ -99,7 +99,7 @@ const AboutPage: React.FC = () => {
               open={openItem === 2}
               onClick={() => handleOpen(2)}
             >
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-1">
                 <span>
                   Currently working as a full stack engineer at{" "}
                   <a
