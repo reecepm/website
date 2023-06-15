@@ -94,9 +94,7 @@ const ContactModal: React.FC<Props> = ({ setOpen }) => {
                 <h3 className="text-xs font-semibold text-neutral-100 sm:text-sm">
                   Discord
                 </h3>
-                <p className="text-xs text-neutral-400 sm:text-sm">
-                  Reece#9999
-                </p>
+                <p className="text-xs text-neutral-400 sm:text-sm">reece_pm</p>
               </div>
               <div className="flex items-center gap-3">
                 <Button

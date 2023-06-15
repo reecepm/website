@@ -26,6 +26,8 @@ import {
   Sitypescript,
   Siwebpack,
   Siexpo,
+  Simysql,
+  Sijavascript,
 } from "@icons-pack/react-simple-icons";
 
 export const technologies = {
@@ -49,9 +51,17 @@ export const technologies = {
     Icon: Sigo,
     name: "Golang",
   },
+  javascript: {
+    Icon: Sijavascript,
+    name: "JavaScript",
+  },
   postgres: {
     Icon: Sipostgresql,
     name: "Postgres",
+  },
+  mysql: {
+    Icon: Simysql,
+    name: "MySQL",
   },
   mongodb: {
     Icon: Simongodb,
@@ -81,13 +91,21 @@ export const technologies = {
     Icon: Sitailwindcss,
     name: "TailwindCSS",
   },
-  "styled-components": {
-    Icon: Sistyledcomponents,
-    name: "styled-components",
-  },
   graphql: {
     Icon: Sigraphql,
     name: "GraphQL",
+  },
+  node: {
+    Icon: Sinodedotjs,
+    name: "Node.js",
+  },
+  git: {
+    Icon: Sigit,
+    name: "Git",
+  },
+  "styled-components": {
+    Icon: Sistyledcomponents,
+    name: "styled-components",
   },
   trpc: {
     Icon: Sitrpc,
@@ -109,17 +127,9 @@ export const technologies = {
     Icon: Sigithubactions,
     name: "Github Actions",
   },
-  node: {
-    Icon: Sinodedotjs,
-    name: "Node.js",
-  },
   webpack: {
     Icon: Siwebpack,
     name: "Webpack",
-  },
-  git: {
-    Icon: Sigit,
-    name: "Git",
   },
   reanimated: {
     Icon: Sireact,
