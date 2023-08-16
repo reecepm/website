@@ -101,16 +101,8 @@ const AboutPage: React.FC = () => {
             >
               <div className="flex flex-col gap-1">
                 <span>
-                  Currently working as a full stack engineer at{" "}
-                  <a
-                    href="https://dimension.dev"
-                    target="_blank"
-                    className="font-medium underline underline-offset-2"
-                  >
-                    Dimension
-                  </a>
-                  . Also working on side projects and freelance for web, mobile
-                  and desktop projects.
+                  Currently working as a full stack engineer. Building some side 
+                  projects.
                 </span>
                 <br /> Feel free to reach out if you are interested in working
                 with me, I'm always open to new opportunities!
