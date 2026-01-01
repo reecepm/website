@@ -1,0 +1,104 @@
+---
+import '@/styles/global.css';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const formatDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  return `${year}.${month}`;
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>Blog - Reece Martin</title>
+    <script is:inline>
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    </script>
+  </head>
+  <body class="min-h-screen font-sans leading-relaxed">
+    <div class="max-w-[640px] mx-auto px-6 py-12 md:py-16">
+      <!-- Header -->
+      <header class="flex justify-between items-center mb-16 pb-6 border-b border-border">
+        <a href="/" class="font-mono text-sm flex items-center gap-0.5 no-underline">
+          <span class="text-muted">~/</span>
+          <span class="text-text font-medium">reece-martin</span>
+        </a>
+        <nav class="flex items-center gap-6">
+          <a href="/blog" class="font-mono text-sm text-text">blog</a>
+          <button id="theme-toggle" class="p-2 border border-border text-muted hover:text-accent hover:border-accent transition-all cursor-pointer bg-transparent" aria-label="Toggle theme">
+            <svg id="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg id="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="hidden">
+              <circle cx="12" cy="12" r="5"></circle>
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+            </svg>
+          </button>
+        </nav>
+      </header>
+
+      <!-- Page Title -->
+      <section class="mb-8 pb-8 border-b border-border">
+        <h1 class="font-mono text-[28px] font-semibold text-text mb-2 tracking-tight">Blog</h1>
+        <p class="text-base text-muted">Thoughts on systems design, tooling, and things I'm learning.</p>
+      </section>
+
+      <!-- Posts List -->
+      <section>
+        {sortedPosts.length === 0 ? (
+          <p class="font-mono text-sm text-muted p-6 border border-dashed border-border text-center">No posts yet.</p>
+        ) : (
+          <div class="flex flex-col border-t border-dashed border-border">
+            {sortedPosts.map((post) => (
+              <a href={`/blog/${post.id}`} class="flex gap-4 items-baseline py-4 pl-2 -ml-0.5 border-l-2 border-transparent border-b border-b-border border-dashed hover:border-l-accent transition-colors no-underline max-md:flex-col max-md:gap-1">
+                <span class="font-mono text-xs text-muted shrink-0 w-16 max-md:w-auto">{formatDate(post.data.date)}</span>
+                <span class="text-[15px] text-text hover:text-accent transition-colors">{post.data.title}</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <!-- Footer -->
+      <footer class="mt-16 pt-8 border-t border-border">
+        <a href="/" class="text-muted no-underline font-mono text-[13px] hover:text-accent transition-colors">
+          &larr; back home
+        </a>
+      </footer>
+    </div>
+
+    <script>
+      function updateThemeIcons() {
+        const theme = document.documentElement.getAttribute('data-theme');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        if (sunIcon && moonIcon) {
+          sunIcon.classList.toggle('hidden', theme !== 'dark');
+          moonIcon.classList.toggle('hidden', theme === 'dark');
+        }
+      }
+
+      updateThemeIcons();
+
+      document.getElementById('theme-toggle')?.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateThemeIcons();
+      });
+    </script>
+  </body>
+</html>
