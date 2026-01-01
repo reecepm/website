@@ -1,0 +1,9 @@
+{
+  "company": "Freelance",
+  "role": "Full Stack Engineer",
+  "dateRange": "Mar 2020–Aug 2023",
+  "description": "Independent contract work. Building using various tech stacks for many projects, predominantly in the sneaker community. Short stint at Dimension building collaborative tools.",
+  "tags": ["golang", "typescript", "postgres", "mysql", "react", "react native", "electron", "swiftui", "flutter"],
+  "order": 3,
+  "url": "https://2023.reece.so"
+}

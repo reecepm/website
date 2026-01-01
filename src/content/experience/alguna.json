@@ -1,0 +1,9 @@
+{
+  "company": "Alguna",
+  "role": "Product Engineer",
+  "dateRange": "Mar 2025–now",
+  "description": "Building product at Alguna.",
+  "tags": ["golang", "clickhouse", "postgres", "typescript", "react"],
+  "url": "https://alguna.com",
+  "order": 1
+}
