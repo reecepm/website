@@ -2,7 +2,7 @@
   "company": "KOMI",
   "role": "Full Stack Engineer",
   "dateRange": "Aug 2023–Mar 2025",
-  "description": "Full stack development across the platform.",
+  "description": "Built tools for creators to manage and grow their online businesses.",
   "tags": ["typescript", "postgres", "clickhouse", "react"],
   "order": 2
 }
