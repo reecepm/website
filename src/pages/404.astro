@@ -1,0 +1,38 @@
+---
+import '@/styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>404 - Reece Martin</title>
+    <script is:inline>
+      const theme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+    </script>
+  </head>
+  <body class="min-h-screen font-sans leading-relaxed">
+    <div class="max-w-[640px] mx-auto px-6 py-12 md:py-16">
+      <header class="flex justify-between items-center mb-16 pb-6 border-b border-border">
+        <a href="/" class="font-mono text-sm flex items-center gap-0.5 no-underline">
+          <span class="text-muted">~/</span>
+          <span class="text-text font-medium">reece-martin</span>
+        </a>
+      </header>
+
+      <section class="flex flex-col items-center justify-center py-24 text-center">
+        <span class="font-mono text-6xl font-bold text-accent mb-4">404</span>
+        <p class="text-lg text-muted mb-8">Page not found</p>
+        <a href="/" class="font-mono text-[13px] text-accent hover:text-accent-hover transition-colors no-underline">
+          &larr; back home
+        </a>
+      </section>
+    </div>
+  </body>
+</html>
