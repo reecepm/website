@@ -37,7 +37,7 @@ const formatDate = (date: Date) => {
     </script>
   </head>
   <body class="min-h-screen font-sans leading-relaxed">
-    <div class="max-w-[640px] mx-auto px-6 py-12 md:py-16">
+    <div class="max-w-[640px] mx-auto px-6 py-12 md:py-16" data-scramble-in>
       <!-- Header -->
       <header class="flex justify-between items-center mb-16 pb-6 border-b border-border">
         <div class="font-mono text-sm flex items-center gap-0.5">
@@ -64,11 +64,11 @@ const formatDate = (date: Date) => {
         <p class="text-base text-muted mb-6">Software Engineer</p>
         <div class="flex flex-wrap gap-6 max-md:flex-col max-md:gap-3">
           <span class="flex items-center gap-2 font-mono text-[13px]">
-            <span class="text-accent after:content-[':']">location</span>
+            <span class="text-accent">location:</span>
             <span class="text-text-secondary">Bristol, UK</span>
           </span>
           <span class="flex items-center gap-2 font-mono text-[13px]">
-            <span class="text-accent after:content-[':']">focus</span>
+            <span class="text-accent">focus:</span>
             <span class="text-text-secondary">Backend & AI</span>
           </span>
         </div>
@@ -173,7 +173,7 @@ const formatDate = (date: Date) => {
                 ))}
               </div>
               <a href="/blog" class="inline-flex items-center gap-1 mt-4 font-mono text-[13px] text-accent hover:gap-2 transition-all no-underline">
-                view all posts <span>&rarr;</span>
+                <span>view all posts</span> <span>&rarr;</span>
               </a>
             </>
           ) : (
@@ -212,13 +212,14 @@ const formatDate = (date: Date) => {
           <span class="text-muted" id="year"></span>
           <div class="flex-1 h-px bg-border mx-4"></div>
           <span class="text-muted inline-flex items-center">
-            always learning<span class="w-0.5 h-3.5 bg-accent ml-0.5 animate-blink"></span>
+            <span>always learning</span><span class="w-0.5 h-3.5 bg-accent ml-0.5 animate-blink"></span>
           </span>
         </div>
       </footer>
     </div>
 
     <script>
+      import '@/scripts/scramble-in';
       document.getElementById('year')!.textContent = new Date().getFullYear().toString();
 
       document.querySelectorAll('[data-expandable]').forEach(item => {

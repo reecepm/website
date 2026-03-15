@@ -116,3 +116,10 @@ body {
 @utility animate-blink {
   animation: blink 1.2s step-end infinite;
 }
+
+/* Sections start hidden, JS reveals them progressively (skip header) */
+[data-scramble-in] > *:not(:first-child) {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
