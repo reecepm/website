@@ -44,4 +44,24 @@ const socials = defineCollection({
   }),
 });
 
-export const collections = { blog, experiments, experience, socials };
+const profile = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/profile' }),
+  schema: z.object({
+    name: z.string(),
+    role: z.string(),
+    location: z.string(),
+    focus: z.string(),
+    bio: z.string(),
+  }),
+});
+
+const site = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/site' }),
+  schema: z.object({
+    title: z.string(),
+    tagline: z.string(),
+    description: z.string(),
+  }),
+});
+
+export const collections = { blog, experiments, experience, socials, profile, site };

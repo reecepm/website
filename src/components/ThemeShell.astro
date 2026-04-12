@@ -1,0 +1,33 @@
+---
+import '@/styles/global.css';
+import { colorSchemeBootScript } from '@/theme-runtime/prefs';
+import type { ThemeMeta } from '@/theme-runtime/types';
+
+interface Props {
+  meta: ThemeMeta;
+  title?: string;
+  description?: string;
+}
+
+const { meta, title, description } = Astro.props;
+const pageTitle = title ?? 'Reece Martin';
+const currentSlug = `${meta.date}-${meta.id}`;
+---
+
+<!doctype html>
+<html lang="en" data-theme-id={meta.id} data-theme-slug={currentSlug}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    {description && <meta name="description" content={description} />}
+    <title>{pageTitle}</title>
+    <script is:inline set:html={colorSchemeBootScript} />
+  </head>
+  <body class="min-h-screen">
+    <slot />
+  </body>
+</html>
