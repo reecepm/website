@@ -97,6 +97,10 @@ export default function ThemeRoot({ content, pathname: initialPathname }: Props)
     // Initial-mount resolution: if the user's stored preference differs from
     // the latest that static HTML prerendered, load + commit it SILENTLY.
     // A reload should feel like a reload, not replay the swap animation.
+    const unhide = () => {
+      document.documentElement.style.opacity = '';
+    };
+
     const stored = readStoredTheme();
     if (stored && stored !== latest.slug) {
       const entry = getThemeBySlug(stored);
@@ -108,11 +112,19 @@ export default function ThemeRoot({ content, pathname: initialPathname }: Props)
               setDynamicTheme(() => mod.default);
             });
             updateHtmlAttrs(stored);
+            unhide();
             window.dispatchEvent(new CustomEvent('theme:changed', { detail: { slug: stored } }));
           },
-          (err) => console.error(`[ThemeRoot] failed to restore ${stored}`, err),
+          (err) => {
+            console.error(`[ThemeRoot] failed to restore ${stored}`, err);
+            unhide();
+          },
         );
+      } else {
+        unhide();
       }
+    } else {
+      unhide();
     }
 
     return () => {

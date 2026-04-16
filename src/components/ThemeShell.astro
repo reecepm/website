@@ -26,6 +26,23 @@ const currentSlug = `${meta.date}-${meta.id}`;
     {description && <meta name="description" content={description} />}
     <title>{pageTitle}</title>
     <script is:inline set:html={colorSchemeBootScript} />
+    <script is:inline define:vars={{ prerenderedSlug: currentSlug }}>
+      // If the user has a stored theme that differs from what the static build
+      // prerendered, strip the theme scoping attributes and hide the page so
+      // the wrong theme's styles never paint. ThemeRoot restores everything
+      // after its silent swap commits the correct theme.
+      (function () {
+        try {
+          var match = document.cookie.match(/(?:^|;\s*)theme=([^;]+)/);
+          var stored = match ? decodeURIComponent(match[1]) : null;
+          if (stored && stored !== prerenderedSlug) {
+            document.documentElement.removeAttribute('data-theme-id');
+            document.documentElement.removeAttribute('data-theme-slug');
+            document.documentElement.style.opacity = '0';
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="min-h-screen">
     <slot />
