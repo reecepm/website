@@ -1,4 +1,4 @@
-import type { ThemeContent, BlogEntry } from '@/theme-runtime/types';
+import type { ThemeContent, BlogEntry, ExperimentEntry } from '@/theme-runtime/types';
 import type { ReactNode } from 'react';
 import { themes, formatDisplayDate } from '@/themes/manifest';
 import { writeStoredTheme } from '@/theme-runtime/theme-cookie';
@@ -11,6 +11,7 @@ export type CommandContext = {
   navigate: (path: string) => void;
   history: string[];
   openPost: (post: BlogEntry) => void;
+  openExperiment: (exp: ExperimentEntry) => void;
   colorScheme: string;
   toggleTheme: () => void;
 };
@@ -171,41 +172,66 @@ const COMMANDS: Record<string, Command> = {
     desc: 'Side projects & experiments',
     handler: (_, ctx) => {
       const projs = ctx.content.experiments;
+      ctx.navigate('/experiments');
       ctx.output(
         <div className="py-2">
           <div className="text-[var(--pt-accent)] mb-2">Projects</div>
           <div className="text-[var(--pt-muted)] mb-3">{'─'.repeat(40)}</div>
-          <div className="space-y-3">
-            {projs.map((p, i) => (
-              <div key={i}>
-                <div className="flex items-center gap-2">
-                  {p.url ? (
-                    <a
-                      href={p.url}
-                      target="_blank"
-                      rel="noopener"
-                      className="text-[var(--pt-link)] hover:underline"
-                      data-theme-external=""
-                    >
-                      {p.name}
-                    </a>
-                  ) : (
-                    <span className="text-[var(--pt-text)]">{p.name}</span>
-                  )}
+          {projs.length === 0 ? (
+            <div className="text-[var(--pt-text-dim)]">No experiments yet.</div>
+          ) : (
+            <div className="space-y-1">
+              {projs.map((p) => (
+                <div key={p.id} className="flex gap-4">
+                  <span className="text-[var(--pt-muted)] shrink-0">
+                    {p.date.toISOString().slice(0, 10)}
+                  </span>
+                  <span
+                    data-terminal-cmd={`exp ${p.id}`}
+                    className="text-[var(--pt-link)] hover:text-[var(--pt-accent)] cursor-pointer hover:underline"
+                  >
+                    {p.title}
+                  </span>
                   {p.tags.map((t) => (
                     <span
                       key={t}
-                      className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--pt-border)] text-[var(--pt-text-dim)]"
+                      className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--pt-border)] text-[var(--pt-text-dim)] self-center"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
-                <div className="text-[var(--pt-text-dim)] text-sm">{p.description}</div>
-              </div>
-            ))}
+              ))}
+            </div>
+          )}
+          <div className="mt-3 text-[var(--pt-text-dim)] text-xs">
+            Click a title or type{' '}
+            <span className="text-[var(--pt-prompt)]">exp &lt;slug&gt;</span> to open.
           </div>
         </div>,
+      );
+    },
+  },
+
+  exp: {
+    desc: 'Open an experiment',
+    handler: (args, ctx) => {
+      const slug = args.join(' ');
+      if (!slug) {
+        ctx.error('Usage: exp <experiment-slug>');
+        return;
+      }
+      const exp = ctx.content.experiments.find(
+        (p) => p.id === slug || p.title.toLowerCase().includes(slug.toLowerCase()),
+      );
+      if (!exp) {
+        ctx.error(`Experiment not found: ${slug}`);
+        return;
+      }
+      ctx.navigate(`/experiments/${exp.id}`);
+      ctx.openExperiment(exp);
+      ctx.output(
+        <span className="text-[var(--pt-text-dim)]">Opened: {exp.title}</span>,
       );
     },
   },

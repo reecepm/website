@@ -33,7 +33,6 @@ export default function Landing() {
         .v4-row:focus-within .v4-detail { grid-template-rows: 1fr; opacity: 1; }
         .v4-detail-inner { padding-top: 0.6rem; display: flex; flex-direction: column; gap: 0.5rem; }
         .v4-tags { display: flex; flex-wrap: wrap; gap: 0.3rem 0.6rem; margin: 0; padding: 0; list-style: none; }
-        .v4-proj + .v4-proj { margin-top: 1.1rem; padding-top: 1.1rem; border-top: 1px solid var(--qd-line); }
       `}</style>
 
       <div className="mx-auto max-w-[600px] px-6 py-20 flex flex-col gap-12">
@@ -43,9 +42,14 @@ export default function Landing() {
           <a href="/" className="qd-mono text-[13px] text-[var(--qd-text)] no-underline hover:text-[var(--qd-accent)] transition-colors">
             reece.so
           </a>
-          <a href="/blog" className="qd-mono text-[13px] text-[var(--qd-muted)] no-underline hover:text-[var(--qd-accent)] transition-colors">
-            writing
-          </a>
+          <nav className="qd-mono flex items-baseline gap-4 text-[13px]">
+            <a href="/experiments" className="text-[var(--qd-muted)] no-underline hover:text-[var(--qd-accent)] transition-colors">
+              experiments
+            </a>
+            <a href="/blog" className="text-[var(--qd-muted)] no-underline hover:text-[var(--qd-accent)] transition-colors">
+              writing
+            </a>
+          </nav>
         </header>
 
         {/* Hero — centered */}
@@ -109,38 +113,21 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Experiments — shown in full (this is what people want to read) */}
+        {/* Experiments */}
         <section className="flex flex-col gap-4">
           <Eyebrow>Experiments</Eyebrow>
           {projects.length > 0 ? (
-            <div>
+            <div className="flex flex-col gap-3">
               {projects.map((p) => (
-                <div key={p.name} className="v4-proj flex flex-col gap-1.5">
-                  <span className="text-[14px] text-[var(--qd-text)]">
-                    {p.url ? (
-                      <a
-                        href={p.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="no-underline text-[var(--qd-text)] hover:text-[var(--qd-accent)] transition-colors"
-                      >
-                        {p.name}
-                      </a>
-                    ) : (
-                      p.name
-                    )}
+                <a key={p.id} href={`/experiments/${p.id}`} className="flex flex-col gap-0.5 no-underline group">
+                  <span className="text-[14px] text-[var(--qd-text)] group-hover:text-[var(--qd-accent)] transition-colors">
+                    {p.title}
                   </span>
-                  {p.description && (
-                    <p className="text-[14px] leading-[1.6] text-[var(--qd-text-soft)] m-0">{p.description}</p>
-                  )}
-                  {p.tags.length > 0 && (
-                    <ul className="v4-tags">
-                      {p.tags.map((tag) => (
-                        <li key={tag} className="qd-mono text-[12px] text-[var(--qd-muted)]">{tag}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+                  <span className="qd-mono text-[12px] text-[var(--qd-muted)]">
+                    {monthYear(p.date)}
+                    {p.description ? ` · ${p.description}` : ''}
+                  </span>
+                </a>
               ))}
             </div>
           ) : (

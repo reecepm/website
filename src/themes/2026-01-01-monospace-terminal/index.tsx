@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ContentProvider, Reece, Experience, Projects, Blog, Socials } from '@/theme-runtime/content';
 import { useColorScheme } from '@/theme-runtime/prefs';
 import type { ThemeComponentProps } from '@/themes/manifest';
-import type { BlogEntry } from '@/theme-runtime/types';
+import type { BlogEntry, ExperimentEntry } from '@/theme-runtime/types';
 import { runScrambleIn } from './scramble-in';
 import { meta } from './meta';
 import Navigator from './Navigator';
@@ -90,7 +90,7 @@ const Body = () => {
           <span className="text-[var(--mt-text)] font-medium">reece-martin</span>
         </div>
         <nav className="flex items-center gap-6">
-          <a href="/blog" className="font-mono text-sm text-[var(--mt-muted)] hover:text-[var(--mt-accent)] transition-colors">blog</a>
+          <a href="/experiments" className="font-mono text-sm text-[var(--mt-muted)] hover:text-[var(--mt-accent)] transition-colors">experiments</a><a href="/blog" className="font-mono text-sm text-[var(--mt-muted)] hover:text-[var(--mt-accent)] transition-colors">blog</a>
           <ThemeToggle />
         </nav>
       </header>
@@ -167,24 +167,21 @@ const Body = () => {
         <div className="flex-1">
           <h2 className="font-mono text-xs font-medium uppercase tracking-widest text-[var(--mt-muted)] mb-5">Experiments</h2>
           {Projects.useAll().length > 0 ? (
-            <div className="flex flex-col gap-px bg-[var(--mt-border)] border border-[var(--mt-border)]">
-              <Projects.List>
-                {(exp, i) => (
-                  <a key={i} href={exp.url || '#'} className="block p-5 bg-[var(--mt-bg)] hover:bg-[var(--mt-bg-elevated)] transition-colors no-underline group">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-mono text-[15px] font-medium text-[var(--mt-text)]">{exp.name}</span>
-                      <span className="text-[var(--mt-muted)] group-hover:text-[var(--mt-accent)] group-hover:translate-x-1 transition-all">&rarr;</span>
-                    </div>
-                    <p className="text-sm text-[var(--mt-muted)] leading-normal mb-3">{exp.description}</p>
-                    <div className="flex gap-2">
-                      {exp.tags.map((tag) => (
-                        <span key={tag} className="font-mono text-[11px] px-2 py-1 bg-[var(--mt-tag-bg)] text-[var(--mt-tag-text)] border border-[var(--mt-border)]">{tag}</span>
-                      ))}
-                    </div>
-                  </a>
-                )}
-              </Projects.List>
-            </div>
+            <>
+              <div className="flex flex-col border-t border-dashed border-[var(--mt-border)]">
+                <Projects.List limit={3}>
+                  {(exp, i) => (
+                    <a key={i} href={`/experiments/${exp.id}`} className="flex gap-4 items-baseline py-4 pl-2 -ml-0.5 border-l-2 border-transparent border-b border-b-[var(--mt-border)] border-dashed hover:border-l-[var(--mt-accent)] transition-colors no-underline max-md:flex-col max-md:gap-1">
+                      <span className="font-mono text-xs text-[var(--mt-muted)] shrink-0 w-16 max-md:w-auto">{formatDate(exp.date)}</span>
+                      <span className="text-[15px] text-[var(--mt-text)] hover:text-[var(--mt-accent)] transition-colors">{exp.title}</span>
+                    </a>
+                  )}
+                </Projects.List>
+              </div>
+              <a href="/experiments" className="inline-flex items-center gap-1 mt-4 font-mono text-[13px] text-[var(--mt-accent)] hover:gap-2 transition-all no-underline">
+                <span>view all experiments</span> <span>&rarr;</span>
+              </a>
+            </>
           ) : (
             <p className="font-mono text-sm text-[var(--mt-muted)] p-6 border border-dashed border-[var(--mt-border)] text-center">Nothing here yet. Check back soon.</p>
           )}
@@ -260,7 +257,7 @@ const PageHeader = () => (
       <span className="text-[var(--mt-text)] font-medium">reece-martin</span>
     </a>
     <nav className="flex items-center gap-6">
-      <a href="/blog" className="font-mono text-sm text-[var(--mt-muted)] hover:text-[var(--mt-accent)] transition-colors">blog</a>
+      <a href="/experiments" className="font-mono text-sm text-[var(--mt-muted)] hover:text-[var(--mt-accent)] transition-colors">experiments</a><a href="/blog" className="font-mono text-sm text-[var(--mt-muted)] hover:text-[var(--mt-accent)] transition-colors">blog</a>
     </nav>
   </header>
 );
@@ -342,17 +339,120 @@ const matchBlogPostPath = (pathname: string): string | null => {
   return m ? m[1] : null;
 };
 
+const matchExperimentPath = (pathname: string): string | null => {
+  const m = pathname.match(/^\/experiments\/(.+?)\/?$/);
+  return m ? m[1] : null;
+};
+
+const ExperimentsIndexView = () => {
+  const experiments = Projects.useAll();
+  return (
+    <div className="max-w-[640px] mx-auto px-6 py-12 md:py-16">
+      <PageHeader />
+      <section className="mb-8 pb-8 border-b border-[var(--mt-border)]">
+        <h1 className="font-mono text-[28px] font-semibold text-[var(--mt-text)] mb-2 tracking-tight">Experiments</h1>
+        <p className="text-base text-[var(--mt-muted)]">Things I've built, explored, and tinkered with.</p>
+      </section>
+      <section>
+        {experiments.length === 0 ? (
+          <p className="font-mono text-sm text-[var(--mt-muted)] p-6 border border-dashed border-[var(--mt-border)] text-center">No experiments yet.</p>
+        ) : (
+          <div className="flex flex-col border-t border-dashed border-[var(--mt-border)]">
+            {experiments.map((exp) => (
+              <a
+                key={exp.id}
+                href={`/experiments/${exp.id}`}
+                className="flex gap-4 items-baseline py-4 pl-2 -ml-0.5 border-l-2 border-transparent border-b border-b-[var(--mt-border)] border-dashed hover:border-l-[var(--mt-accent)] transition-colors no-underline max-md:flex-col max-md:gap-1"
+              >
+                <span className="font-mono text-xs text-[var(--mt-muted)] shrink-0 w-16 max-md:w-auto">{formatDate(exp.date)}</span>
+                <span className="text-[15px] text-[var(--mt-text)] hover:text-[var(--mt-accent)] transition-colors">{exp.title}</span>
+              </a>
+            ))}
+          </div>
+        )}
+      </section>
+      <footer className="mt-16 pt-8 border-t border-[var(--mt-border)]">
+        <a href="/" className="text-[var(--mt-muted)] no-underline font-mono text-[13px] hover:text-[var(--mt-accent)] transition-colors">
+          &larr; back home
+        </a>
+      </footer>
+    </div>
+  );
+};
+
+const ExperimentDetailView = ({ exp }: { exp: ExperimentEntry }) => (
+  <div className="max-w-[640px] mx-auto px-6 py-12 md:py-16">
+    <PageHeader />
+    <article>
+      <header className="mb-12 pb-6 border-b border-[var(--mt-border)]">
+        <h1 className="font-mono text-[28px] font-semibold text-[var(--mt-text)] mb-2 tracking-tight">{exp.title}</h1>
+        <div className="font-mono text-[13px] text-[var(--mt-muted)] flex flex-wrap items-center gap-x-3.5 gap-y-1">
+          <span>
+            <span className="text-[var(--mt-text-secondary)]">Published</span>{' '}
+            <time dateTime={exp.date.toISOString()}>{formatFullDate(exp.date)}</time>
+          </span>
+          {exp.period && (
+            <>
+              <span aria-hidden className="inline-block h-3 w-px bg-[var(--mt-muted)] opacity-40" />
+              <span>
+                <span className="text-[var(--mt-text-secondary)]">Experiment period</span> {exp.period}
+              </span>
+            </>
+          )}
+        </div>
+        {exp.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-4">
+            {exp.tags.map((tag) => (
+              <span key={tag} className="font-mono text-[11px] px-2 py-1 bg-[var(--mt-tag-bg)] text-[var(--mt-tag-text)] border border-[var(--mt-border)]">{tag}</span>
+            ))}
+          </div>
+        )}
+        {exp.github && (
+          <a
+            href={exp.github}
+            className="inline-flex items-center gap-1 mt-4 font-mono text-[13px] text-[var(--mt-accent)] hover:text-[var(--mt-accent-hover)] hover:gap-2 transition-all no-underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub &rarr;
+          </a>
+        )}
+      </header>
+      {exp.body && (
+        <div
+          className="mt-prose pb-12 border-b border-[var(--mt-border)]"
+          dangerouslySetInnerHTML={{ __html: exp.body }}
+        />
+      )}
+    </article>
+    <footer className="mt-16 pt-8 border-t border-[var(--mt-border)]">
+      <a href="/experiments" className="text-[var(--mt-muted)] no-underline font-mono text-[13px] hover:text-[var(--mt-accent)] transition-colors">
+        &larr; back to experiments
+      </a>
+    </footer>
+  </div>
+);
+
 export default function MonospaceTerminal({ content, pathname }: ThemeComponentProps) {
   const postId = matchBlogPostPath(pathname);
   const post = postId ? content.blog.find((p) => p.id === postId) : undefined;
 
-  const view = post
-    ? <BlogPostView post={post} />
-    : postId
-      ? <NotFoundView title="Post not found" />
-      : pathname === '/blog'
-        ? <BlogIndexView />
-        : <Body />;
+  const experimentId = matchExperimentPath(pathname);
+  const experiment = experimentId ? content.experiments.find((e) => e.id === experimentId) : undefined;
+
+  const view = experiment
+    ? <ExperimentDetailView exp={experiment} />
+    : experimentId
+      ? <NotFoundView title="Experiment not found" />
+      : pathname === '/experiments'
+        ? <ExperimentsIndexView />
+        : post
+          ? <BlogPostView post={post} />
+          : postId
+            ? <NotFoundView title="Post not found" />
+            : pathname === '/blog'
+              ? <BlogIndexView />
+              : <Body />;
 
   return (
     <ContentProvider content={content}>

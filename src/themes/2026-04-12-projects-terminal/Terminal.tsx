@@ -5,7 +5,7 @@ import {
   showWelcomeContent,
   type CommandContext,
 } from './commands';
-import type { ThemeContent, BlogEntry } from '@/theme-runtime/types';
+import type { ThemeContent, BlogEntry, ExperimentEntry } from '@/theme-runtime/types';
 
 type LineType = 'command' | 'output' | 'error' | 'system';
 type OutputLine = { id: number; content: ReactNode; type: LineType };
@@ -14,6 +14,8 @@ type Props = {
   content: ThemeContent;
   pathname: string;
   onOpenPost: (post: BlogEntry) => void;
+  onOpenExperiment: (exp: ExperimentEntry) => void;
+  navRef: { current: string | null };
   colorScheme: string;
   onToggleTheme: () => void;
 };
@@ -25,10 +27,17 @@ const matchBlogPostPath = (p: string): string | null => {
   return m ? m[1] : null;
 };
 
+const matchExperimentPath = (p: string): string | null => {
+  const m = p.match(/^\/experiments\/(.+?)\/?$/);
+  return m ? m[1] : null;
+};
+
 export default function Terminal({
   content,
   pathname,
   onOpenPost,
+  onOpenExperiment,
+  navRef,
   colorScheme,
   onToggleTheme,
 }: Props) {
@@ -41,7 +50,6 @@ export default function Terminal({
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const lineIdRef = useRef(0);
-  const lastCmdNavRef = useRef<string | null>(null);
   const prevPathRef = useRef(pathname);
   const mountedRef = useRef(false);
   const isAtBottomRef = useRef(true);
@@ -67,7 +75,7 @@ export default function Terminal({
   const navigate = useCallback((path: string) => {
     const current = window.location.pathname.replace(/\/+$/, '') || '/';
     if (current === path) return;
-    lastCmdNavRef.current = path;
+    navRef.current = path;
     window.history.pushState({}, '', path);
     window.dispatchEvent(new PopStateEvent('popstate'));
   }, []);
@@ -82,10 +90,11 @@ export default function Terminal({
       navigate,
       history: cmdHistory,
       openPost: onOpenPost,
+      openExperiment: onOpenExperiment,
       colorScheme,
       toggleTheme: onToggleTheme,
     }),
-    [content, addLine, navigate, cmdHistory, onOpenPost, colorScheme, onToggleTheme],
+    [content, addLine, navigate, cmdHistory, onOpenPost, onOpenExperiment, colorScheme, onToggleTheme],
   );
 
   const persistCmds = useCallback((cmds: string[]) => {
@@ -124,6 +133,7 @@ export default function Terminal({
             ...ctx,
             navigate: () => {},
             openPost: () => {},
+            openExperiment: () => {},
             toggleTheme: () => {},
           };
           showWelcomeContent(replayCtx);
@@ -142,13 +152,34 @@ export default function Terminal({
       if (pathname === '/blog') {
         addCommand('blog');
         processCommand('blog', ctx);
+      } else if (pathname === '/experiments') {
+        addCommand('projects');
+        processCommand('projects', ctx);
       } else if (pathname !== '/') {
         const postId = matchBlogPostPath(pathname);
         if (postId) {
           addCommand(`read ${postId}`);
           processCommand(`read ${postId}`, ctx);
+        } else {
+          const expId = matchExperimentPath(pathname);
+          if (expId) {
+            addCommand(`exp ${expId}`);
+            processCommand(`exp ${expId}`, ctx);
+          }
         }
       }
+    }
+
+    // Ensure the window for the current URL is open on mount (covers session
+    // restore and switching themes onto a /blog or /experiments path).
+    const mountPostId = matchBlogPostPath(pathname);
+    const mountExpId = matchExperimentPath(pathname);
+    if (mountPostId) {
+      const post = content.blog.find((p) => p.id === mountPostId);
+      if (post) onOpenPost(post);
+    } else if (mountExpId) {
+      const exp = content.experiments.find((e) => e.id === mountExpId);
+      if (exp) onOpenExperiment(exp);
     }
 
     mountedRef.current = true;
@@ -161,8 +192,8 @@ export default function Terminal({
     if (pathname === prevPathRef.current) return;
     prevPathRef.current = pathname;
 
-    if (pathname === lastCmdNavRef.current) {
-      lastCmdNavRef.current = null;
+    if (pathname === navRef.current) {
+      navRef.current = null;
       return;
     }
 
@@ -173,9 +204,18 @@ export default function Terminal({
     } else if (pathname === '/blog') {
       addCommand('blog');
       processCommand('blog', ctx);
-    } else if (pathname === '/') {
-      addCommand('home');
-      processCommand('home', ctx);
+    } else {
+      const expId = matchExperimentPath(pathname);
+      if (expId) {
+        addCommand(`exp ${expId}`);
+        processCommand(`exp ${expId}`, ctx);
+      } else if (pathname === '/experiments') {
+        addCommand('projects');
+        processCommand('projects', ctx);
+      } else if (pathname === '/') {
+        addCommand('home');
+        processCommand('home', ctx);
+      }
     }
   }, [pathname, addCommand, ctx]);
 

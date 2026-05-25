@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ContentProvider, Blog } from '@/theme-runtime/content';
+import { ContentProvider, Blog, Projects } from '@/theme-runtime/content';
 import { useColorScheme } from '@/theme-runtime/prefs';
 import type { ThemeComponentProps } from '@/themes/manifest';
-import type { BlogEntry, ColorScheme } from '@/theme-runtime/types';
+import type { BlogEntry, ColorScheme, ExperimentEntry } from '@/theme-runtime/types';
 import { getColors } from './palette';
 import { meta } from './meta';
 import Navigator from './Navigator';
@@ -22,14 +22,24 @@ const matchBlogPostPath = (pathname: string): string | null => {
   return m ? m[1] : null;
 };
 
+const matchExperimentPath = (pathname: string): string | null => {
+  const m = pathname.match(/^\/experiments\/(.+?)\/?$/);
+  return m ? m[1] : null;
+};
+
 const Header = () => (
   <header className="flex items-baseline justify-between">
     <a href="/" className="qd-mono text-[13px] text-[var(--qd-text)] no-underline hover:text-[var(--qd-accent)] transition-colors">
       reece.so
     </a>
-    <a href="/blog" className="qd-mono text-[13px] text-[var(--qd-muted)] no-underline hover:text-[var(--qd-accent)] transition-colors">
-      writing
-    </a>
+    <nav className="qd-mono flex items-baseline gap-4 text-[13px]">
+      <a href="/experiments" className="text-[var(--qd-muted)] no-underline hover:text-[var(--qd-accent)] transition-colors">
+        experiments
+      </a>
+      <a href="/blog" className="text-[var(--qd-muted)] no-underline hover:text-[var(--qd-accent)] transition-colors">
+        writing
+      </a>
+    </nav>
   </header>
 );
 
@@ -103,12 +113,104 @@ const NotFoundView = ({ title }: { title: string }) => (
   </div>
 );
 
+const ExperimentsIndexView = () => {
+  const items = Projects.useAll();
+  return (
+    <div className="flex flex-col gap-10">
+      <Header />
+      <section className="flex flex-col gap-2">
+        <h1 className="text-[1.5rem] font-semibold tracking-[-0.02em] text-[var(--qd-text)]">Experiments</h1>
+        <p className="text-[14px] text-[var(--qd-muted)]">Things I&rsquo;m building.</p>
+      </section>
+      <Rule />
+      {items.length === 0 ? (
+        <p className="qd-mono text-[13px] text-[var(--qd-muted)]">Coming soon.</p>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {items.map((p) => (
+            <a key={p.id} href={`/experiments/${p.id}`} className="flex flex-col gap-0.5 no-underline group">
+              <span className="text-[14px] text-[var(--qd-text)] group-hover:text-[var(--qd-accent)] transition-colors">
+                {p.title}
+              </span>
+              <span className="qd-mono text-[12px] text-[var(--qd-muted)]">
+                {monthYear(p.date)}
+                {p.description ? ` · ${p.description}` : ''}
+              </span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const ExperimentDetailView = ({ experiment }: { experiment: ExperimentEntry }) => (
+  <div className="flex flex-col gap-8">
+    <Header />
+    <article className="flex flex-col gap-6">
+      <header className="flex flex-col gap-3">
+        <h1 className="text-[1.5rem] font-semibold tracking-[-0.02em] leading-[1.2] text-[var(--qd-text)]">
+          {experiment.title}
+        </h1>
+        <div className="flex flex-wrap items-center gap-x-3.5 gap-y-1.5 qd-mono text-[12px] text-[var(--qd-muted)]">
+          <span>
+            <span className="text-[var(--qd-text-soft)]">Published</span>{' '}
+            <time dateTime={experiment.date.toISOString()}>{monthYear(experiment.date)}</time>
+          </span>
+          {experiment.period && (
+            <>
+              <span aria-hidden className="h-3 w-px bg-[var(--qd-muted)] opacity-40" />
+              <span>
+                <span className="text-[var(--qd-text-soft)]">Experiment period</span> {experiment.period}
+              </span>
+            </>
+          )}
+        </div>
+        {experiment.tags.length > 0 && (
+          <div className="flex flex-wrap gap-x-3 gap-y-1">
+            {experiment.tags.map((tag) => (
+              <span key={tag} className="qd-mono text-[12px] text-[var(--qd-muted)]">{tag}</span>
+            ))}
+          </div>
+        )}
+        {experiment.description && (
+          <p className="text-[15px] leading-[22.5px] text-[var(--qd-text-soft)] m-0">{experiment.description}</p>
+        )}
+        {experiment.github && (
+          <a
+            href={experiment.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="qd-mono inline-flex w-fit items-center gap-1.5 text-[13px] text-[var(--qd-accent)] no-underline border border-[var(--qd-accent)] rounded-md px-3 py-1.5 hover:bg-[var(--qd-accent)] hover:text-[var(--qd-paper)] transition-colors"
+          >
+            View on GitHub ↗
+          </a>
+        )}
+      </header>
+      {experiment.body && <div className="qd-prose" dangerouslySetInnerHTML={{ __html: experiment.body }} />}
+    </article>
+    <a
+      href="/"
+      className="qd-mono text-[13px] text-[var(--qd-muted)] no-underline hover:text-[var(--qd-accent)] transition-colors"
+    >
+      ← home
+    </a>
+  </div>
+);
+
 const renderView = (path: string, content: ThemeComponentProps['content']) => {
   const postId = matchBlogPostPath(path);
   const post = postId ? content.blog.find((p) => p.id === postId) : undefined;
   if (post) return <PageContainer><BlogPostView post={post} /></PageContainer>;
   if (postId) return <PageContainer><NotFoundView title="Post not found." /></PageContainer>;
   if (path === '/blog') return <PageContainer><BlogIndexView /></PageContainer>;
+
+  const expId = matchExperimentPath(path);
+  const experiment = expId ? content.experiments.find((e) => e.id === expId) : undefined;
+  if (experiment) return <PageContainer><ExperimentDetailView experiment={experiment} /></PageContainer>;
+  if (expId) return <PageContainer><NotFoundView title="Experiment not found." /></PageContainer>;
+  if (path === '/experiments') return <PageContainer><ExperimentsIndexView /></PageContainer>;
+
   return <Landing />;
 };
 
