@@ -19,10 +19,17 @@ export type ExperienceEntry = {
 };
 
 export type ExperimentEntry = {
-  name: string;
-  description: string;
-  url?: string;
+  id: string;
+  title: string;
+  date: Date;
+  description?: string;
   tags: string[];
+  github?: string;
+  period?: string;
+  body: string;
+  // name/url/order: back-compat for the pre-markdown themes
+  name: string;
+  url?: string;
   order: number;
 };
 

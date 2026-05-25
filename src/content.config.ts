@@ -11,13 +11,14 @@ const blog = defineCollection({
 });
 
 const experiments = defineCollection({
-  loader: glob({ pattern: '**/*.json', base: './src/content/experiments' }),
+  loader: glob({ pattern: '**/*.md', base: './src/content/experiments' }),
   schema: z.object({
-    name: z.string(),
-    description: z.string(),
-    url: z.string().optional(),
-    tags: z.array(z.string()),
-    order: z.number(),
+    title: z.string(),
+    date: z.coerce.date(),
+    description: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    github: z.string().optional(),
+    period: z.string().optional(),
   }),
 });
 

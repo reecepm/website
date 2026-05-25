@@ -1,0 +1,13 @@
+---
+import ThemeShell from '@/components/ThemeShell.astro';
+import ThemeRoot from '@/components/ThemeRoot';
+import { getLatestTheme } from '@/themes/manifest';
+import { loadThemeContent } from '@/theme-runtime';
+
+const latest = getLatestTheme();
+const content = await loadThemeContent();
+---
+
+<ThemeShell meta={latest.meta} title="Experiments — Reece Martin">
+  <ThemeRoot client:load content={content} pathname={Astro.url.pathname} />
+</ThemeShell>

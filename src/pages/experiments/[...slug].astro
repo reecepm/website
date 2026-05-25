@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import ThemeShell from '@/components/ThemeShell.astro';
+import ThemeRoot from '@/components/ThemeRoot';
+import { getLatestTheme } from '@/themes/manifest';
+import { loadThemeContent } from '@/theme-runtime';
+
+export async function getStaticPaths() {
+  const experiments = await getCollection('experiments');
+  return experiments.map((experiment) => ({
+    params: { slug: experiment.id },
+    props: { experiment },
+  }));
+}
+
+const { experiment } = Astro.props;
+const latest = getLatestTheme();
+const content = await loadThemeContent();
+---
+
+<ThemeShell
+  meta={latest.meta}
+  title={`${experiment.data.title} — Reece Martin`}
+  description={experiment.data.description}
+>
+  <ThemeRoot client:load content={content} pathname={Astro.url.pathname} />
+</ThemeShell>

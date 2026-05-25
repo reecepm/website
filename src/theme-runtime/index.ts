@@ -50,10 +50,32 @@ export const loadThemeContent = async (): Promise<ThemeContent> => {
       }),
     );
 
+    const experiments = await Promise.all(
+      experimentEntries.map(async (e) => {
+        const { Content } = await render(e);
+        const body = await container.renderToString(Content);
+        return {
+          id: e.id,
+          title: e.data.title,
+          date: e.data.date,
+          description: e.data.description,
+          tags: e.data.tags,
+          github: e.data.github,
+          period: e.data.period,
+          body,
+          name: e.data.title,
+          url: e.data.github,
+          order: 0,
+        };
+      }),
+    );
+    experiments.sort((a, b) => b.date.getTime() - a.date.getTime());
+    experiments.forEach((e, i) => (e.order = i));
+
     return {
       profile: reece.data,
       experience: experienceEntries.map((e) => e.data).sort((a, b) => a.order - b.order),
-      experiments: experimentEntries.map((e) => e.data).sort((a, b) => a.order - b.order),
+      experiments,
       socials: socialEntries.map((e) => e.data).sort((a, b) => a.order - b.order),
       blog: blog.sort((a, b) => b.date.getTime() - a.date.getTime()),
       about: about.data,
