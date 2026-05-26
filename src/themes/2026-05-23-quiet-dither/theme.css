@@ -57,10 +57,11 @@ html[data-theme-id='quiet-dither'] .qd-nav-text {
   transition: color 500ms ease;
 }
 
-/* stacking: ambient (1) < page (2) < ripple (3) < develop (4) < navigator (100) */
+/* stacking: ambient (-1) < page (auto) < ripple (3) < develop (4) < navigator (100).
+   Page keeps no z-index so it isn't a stacking context — lets a fixed overlay
+   inside the post body (e.g. an image lightbox) rise above the navigator. */
 html[data-theme-id='quiet-dither'] .qd-page {
   position: relative;
-  z-index: 2;
 }
 html[data-theme-id='quiet-dither'] .qd-ambient,
 html[data-theme-id='quiet-dither'] .qd-ripple,
@@ -71,7 +72,7 @@ html[data-theme-id='quiet-dither'] .qd-develop {
   height: 100vh;
   pointer-events: none;
 }
-html[data-theme-id='quiet-dither'] .qd-ambient { z-index: 1; }
+html[data-theme-id='quiet-dither'] .qd-ambient { z-index: -1; }
 html[data-theme-id='quiet-dither'] .qd-ripple { z-index: 3; }
 html[data-theme-id='quiet-dither'] .qd-develop { z-index: 4; }
 

@@ -12,6 +12,10 @@ import type { ThemeContent } from './types';
  *  every markdown post for every prerendered page. */
 let cached: Promise<ThemeContent> | null = null;
 
+/** Mark every content image/video as zoomable so the global lightbox in
+ *  ThemeRoot can expand them on click, across every theme. */
+const markZoomable = (html: string) => html.replace(/<(img|video)(\s|>)/g, '<$1 data-zoom$2');
+
 /** Loads the full, normalized content payload used by every theme. Blog
  *  post bodies are pre-rendered to HTML strings at build time so themes
  *  can render any post purely from content, supporting client-side
@@ -39,7 +43,7 @@ export const loadThemeContent = async (): Promise<ThemeContent> => {
     const blog = await Promise.all(
       blogEntries.map(async (e) => {
         const { Content } = await render(e);
-        const body = await container.renderToString(Content);
+        const body = markZoomable(await container.renderToString(Content));
         return {
           id: e.id,
           title: e.data.title,
@@ -53,7 +57,7 @@ export const loadThemeContent = async (): Promise<ThemeContent> => {
     const experiments = await Promise.all(
       experimentEntries.map(async (e) => {
         const { Content } = await render(e);
-        const body = await container.renderToString(Content);
+        const body = markZoomable(await container.renderToString(Content));
         return {
           id: e.id,
           title: e.data.title,

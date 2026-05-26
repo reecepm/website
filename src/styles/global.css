@@ -1,1 +1,50 @@
 @import "tailwindcss";
+
+/* Global media lightbox — works across every theme. The clicked node is
+   moved into .lb-holder (not cloned) so videos keep playing from where they
+   were rather than restarting. */
+[data-zoom] {
+  cursor: zoom-in;
+}
+.lb-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vmin;
+  background: rgba(0, 0, 0, 0.86);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+  cursor: zoom-out;
+}
+.lb-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.lb-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+.lb-overlay .lb-holder > :is(img, video) {
+  max-width: 94vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  margin: 0;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
+}
+.lb-overlay.open .lb-holder > :is(img, video) {
+  animation: lb-zoom 240ms cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+@keyframes lb-zoom {
+  from { transform: scale(0.93); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

@@ -161,7 +161,61 @@ export default function ThemeRoot({ content, pathname: initialPathname }: Props)
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
+  // Global media lightbox. Any content image/video tagged `data-zoom` (by the
+  // loader) expands on click. The actual node is moved into the overlay rather
+  // than cloned, so a playing video continues instead of restarting.
+  const [zoomed, setZoomed] = useState(false);
+  const holderRef = useRef<HTMLDivElement | null>(null);
+  const restoreRef = useRef<{ media: HTMLElement; placeholder: Comment; cssText: string } | null>(null);
+
+  const closeZoom = () => {
+    const r = restoreRef.current;
+    if (!r) return;
+    r.media.style.cssText = r.cssText;
+    r.placeholder.parentNode?.replaceChild(r.media, r.placeholder);
+    restoreRef.current = null;
+    document.body.style.overflow = '';
+    setZoomed(false);
+  };
+
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (restoreRef.current) return;
+      const media = (e.target as HTMLElement | null)?.closest<HTMLElement>('img[data-zoom], video[data-zoom]');
+      if (!media || !holderRef.current) return;
+      e.preventDefault();
+      const placeholder = document.createComment('lb');
+      media.parentNode?.insertBefore(placeholder, media);
+      restoreRef.current = { media, placeholder, cssText: media.style.cssText };
+      media.style.cssText = '';
+      holderRef.current.appendChild(media);
+      document.body.style.overflow = 'hidden';
+      setZoomed(true);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeZoom();
+    };
+    document.addEventListener('click', onClick);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('click', onClick);
+      document.removeEventListener('keydown', onKey);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const Theme: ThemeComponent = DynamicTheme ?? LatestTheme;
 
-  return <Theme content={content} pathname={pathname} />;
+  return (
+    <>
+      <Theme content={content} pathname={pathname} />
+      <div
+        className={`lb-overlay${zoomed ? ' open' : ''}`}
+        aria-hidden={!zoomed}
+        onClick={closeZoom}
+      >
+        <div className="lb-holder" ref={holderRef} />
+      </div>
+    </>
+  );
 }
