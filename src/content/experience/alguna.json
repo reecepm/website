@@ -2,7 +2,7 @@
   "company": "Alguna",
   "role": "Product Engineer",
   "dateRange": "Mar 2025–now",
-  "description": "Building a modern billing platform.",
+  "description": "Building a modern billing platform and its AI capabilities.",
   "tags": ["golang", "clickhouse", "postgres", "typescript", "react"],
   "url": "https://alguna.com",
   "order": 1
