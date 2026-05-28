@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ContentProvider, Reece, Experience, Projects, Blog, Socials } from '@/theme-runtime/content';
+import { ContentProvider, Reece, Experience, Projects, Blog, Socials, ProseHtml } from '@/theme-runtime/content';
 import { useColorScheme } from '@/theme-runtime/prefs';
 import type { ThemeComponentProps } from '@/themes/manifest';
 import type { BlogEntry, ExperimentEntry } from '@/theme-runtime/types';
@@ -312,9 +312,9 @@ const BlogPostView = ({ post }: { post: BlogEntry }) => (
           {formatFullDate(post.date)}
         </time>
       </header>
-      <div
+      <ProseHtml
         className="mt-prose pb-12 border-b border-[var(--mt-border)]"
-        dangerouslySetInnerHTML={{ __html: post.body }}
+        html={post.body}
       />
     </article>
     <footer className="mt-16 pt-8 border-t border-[var(--mt-border)]">
@@ -419,9 +419,9 @@ const ExperimentDetailView = ({ exp }: { exp: ExperimentEntry }) => (
         )}
       </header>
       {exp.body && (
-        <div
+        <ProseHtml
           className="mt-prose pb-12 border-b border-[var(--mt-border)]"
-          dangerouslySetInnerHTML={{ __html: exp.body }}
+          html={exp.body}
         />
       )}
     </article>
@@ -434,6 +434,17 @@ const ExperimentDetailView = ({ exp }: { exp: ExperimentEntry }) => (
 );
 
 export default function MonospaceTerminal({ content, pathname }: ThemeComponentProps) {
+  // Content swaps instantly on route change (no cover transition), so reset
+  // scroll to the top of the new page. Skips the initial mount.
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const postId = matchBlogPostPath(pathname);
   const post = postId ? content.blog.find((p) => p.id === postId) : undefined;
 

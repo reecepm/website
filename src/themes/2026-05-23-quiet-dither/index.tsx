@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ContentProvider, Blog, Projects } from '@/theme-runtime/content';
+import { ContentProvider, Blog, Projects, ProseHtml } from '@/theme-runtime/content';
 import { useColorScheme } from '@/theme-runtime/prefs';
 import type { ThemeComponentProps } from '@/themes/manifest';
 import type { BlogEntry, ColorScheme, ExperimentEntry } from '@/theme-runtime/types';
@@ -49,6 +49,8 @@ const PageContainer = ({ children }: { children: React.ReactNode }) => (
   <div className="mx-auto max-w-[600px] px-6 pt-[clamp(2.5rem,7vh,5rem)] pb-24">{children}</div>
 );
 
+const Prose = ({ html }: { html: string }) => <ProseHtml className="qd-prose" html={html} />;
+
 const BlogIndexView = () => {
   const posts = Blog.useAll();
   return (
@@ -92,7 +94,7 @@ const BlogPostView = ({ post }: { post: BlogEntry }) => (
           {monthYear(post.date)}
         </time>
       </header>
-      <div className="qd-prose" dangerouslySetInnerHTML={{ __html: post.body }} />
+      <Prose html={post.body} />
     </article>
     <a
       href="/blog"
@@ -187,13 +189,13 @@ const ExperimentDetailView = ({ experiment }: { experiment: ExperimentEntry }) =
           </a>
         )}
       </header>
-      {experiment.body && <div className="qd-prose" dangerouslySetInnerHTML={{ __html: experiment.body }} />}
+      {experiment.body && <Prose html={experiment.body} />}
     </article>
     <a
-      href="/"
+      href="/experiments"
       className="qd-mono text-[13px] text-[var(--qd-muted)] no-underline hover:text-[var(--qd-accent)] transition-colors"
     >
-      ← home
+      ← all experiments
     </a>
   </div>
 );

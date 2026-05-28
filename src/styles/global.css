@@ -1,10 +1,23 @@
 @import "tailwindcss";
 
+/* viewport-fit=cover lets the dither paint into the safe areas; keep in-flow
+   page content clear of the top notch (matches the pre-cover top inset).
+   Fixed background/overlay layers ignore this and still fill edge to edge. */
+body {
+  padding-top: env(safe-area-inset-top);
+}
+
 /* Global media lightbox — works across every theme. The clicked node is
    moved into .lb-holder (not cloned) so videos keep playing from where they
    were rather than restarting. */
 [data-zoom] {
   cursor: zoom-in;
+}
+
+/* Carousels (markdown `.oc-carousel`) support horizontal swipe via JS; keep
+   vertical scrolling native while we own the horizontal gesture. */
+.oc-carousel {
+  touch-action: pan-y;
 }
 .lb-overlay {
   position: fixed;

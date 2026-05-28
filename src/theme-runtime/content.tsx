@@ -1,5 +1,19 @@
-import { createContext, useContext, type ReactNode } from 'react';
+import { createContext, memo, useContext, type ReactNode } from 'react';
 import type { ThemeContent, ExperienceEntry, ExperimentEntry, SocialEntry, BlogEntry } from './types';
+
+// Pre-rendered markdown body. Memoized so an unrelated theme re-render (opening
+// the global lightbox, a colour toggle, dragging a window) can't re-run
+// dangerouslySetInnerHTML — rebuilding the subtree would reset any open carousel
+// and reload its videos. `html` is build-time stable, so this never re-renders.
+export const ProseHtml = memo(function ProseHtml({
+  html,
+  className,
+}: {
+  html: string;
+  className?: string;
+}) {
+  return <div className={className} dangerouslySetInnerHTML={{ __html: html }} />;
+});
 
 const ContentContext = createContext<ThemeContent | null>(null);
 
@@ -34,9 +48,10 @@ export const Experience = {
 
 export const Projects = {
   useAll: () => useContent().experiments,
-  List: ({ children }: { children: RenderFn<ExperimentEntry> }) => {
+  List: ({ limit, children }: { limit?: number; children: RenderFn<ExperimentEntry> }) => {
     const items = useContent().experiments;
-    return <>{items.map((item, i) => children(item, i))}</>;
+    const sliced = typeof limit === 'number' ? items.slice(0, limit) : items;
+    return <>{sliced.map((item, i) => children(item, i))}</>;
   },
 };
 

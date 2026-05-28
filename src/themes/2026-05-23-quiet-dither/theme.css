@@ -40,7 +40,13 @@ html[data-theme-id='quiet-dither'][data-theme='light'] {
 
 html[data-theme-id='quiet-dither'] body {
   background-color: var(--qd-paper);
-  padding-bottom: 88px; /* clear the floating version picker */
+  /* clear the floating version picker + the home-indicator safe area */
+  padding-bottom: calc(88px + env(safe-area-inset-bottom));
+}
+
+/* Floating version picker: 12px above the home-indicator safe area. */
+html[data-theme-id='quiet-dither'] .qd-nav {
+  bottom: calc(12px + env(safe-area-inset-bottom));
 }
 
 html[data-theme-id='quiet-dither'] ::selection {

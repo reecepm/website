@@ -38,7 +38,7 @@ export default function QuietDitherNavigator({ initialSlug, about, scheme, onTog
   return (
     <div
       ref={wrapRef}
-      className="qd-mono fixed left-1/2 bottom-5 -translate-x-1/2 z-[100] text-[12px] pointer-events-none [&>*]:pointer-events-auto"
+      className="qd-nav qd-mono fixed left-1/2 -translate-x-1/2 z-[100] text-[12px] pointer-events-none [&>*]:pointer-events-auto"
     >
       {expanded && (
         <div

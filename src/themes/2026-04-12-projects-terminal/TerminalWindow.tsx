@@ -161,9 +161,11 @@ export default function TerminalWindow({
     const isOverlay = !!onClose;
     return (
       <div
-        className="fixed inset-0 bottom-10 flex flex-col overflow-hidden"
+        className="fixed inset-0 flex flex-col overflow-hidden"
         style={{
           zIndex,
+          bottom: 'calc(2.5rem + env(safe-area-inset-bottom))',
+          paddingTop: 'env(safe-area-inset-top)',
           background: 'var(--pt-surface)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',

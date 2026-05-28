@@ -3,6 +3,7 @@ import { flushSync } from 'react-dom';
 import { getLatestTheme, getThemeBySlug, type ThemeComponent } from '@/themes/manifest';
 import { readStoredTheme, writeStoredTheme } from '@/theme-runtime/theme-cookie';
 import { playSwap } from '@/theme-runtime/transitions';
+import { initCarouselSwipe } from '@/theme-runtime/carousel-swipe';
 import type { ThemeContent } from '@/theme-runtime/types';
 
 // Static import of the latest theme resolved at build time by
@@ -137,7 +138,9 @@ export default function ThemeRoot({ content, pathname: initialPathname }: Props)
 
   // Intercept internal link clicks and drive navigation entirely client-side.
   // ThemeRoot stays mounted across intra-site navigation — no theme re-mount,
-  // no flash, no replay of initial-swap logic.
+  // no flash, no replay of initial-swap logic. Scroll reset is left to the
+  // theme: themes with a cover transition (e.g. quiet-dither) reset scroll
+  // behind the cover so there's no visible jump-to-top before the animation.
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const anchor = isInternalLinkClick(e);
@@ -148,7 +151,6 @@ export default function ThemeRoot({ content, pathname: initialPathname }: Props)
       if (href === current) return;
       window.history.pushState({}, '', href);
       setPathname(normalizePath(window.location.pathname));
-      window.scrollTo(0, 0);
     };
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);
@@ -161,12 +163,18 @@ export default function ThemeRoot({ content, pathname: initialPathname }: Props)
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
+  // Touch/pen swipe for markdown `.oc-carousel` blocks. Delegated, so it covers
+  // carousels rendered after client-side navigation.
+  useEffect(() => initCarouselSwipe(), []);
+
   // Global media lightbox. Any content image/video tagged `data-zoom` (by the
   // loader) expands on click. The actual node is moved into the overlay rather
-  // than cloned, so a playing video continues instead of restarting.
+  // than cloned, so a playing video continues instead of restarting. A
+  // same-size placeholder holds its spot so the page doesn't reflow — otherwise
+  // pulling a slide's media out collapses the carousel behind the overlay.
   const [zoomed, setZoomed] = useState(false);
   const holderRef = useRef<HTMLDivElement | null>(null);
-  const restoreRef = useRef<{ media: HTMLElement; placeholder: Comment; cssText: string } | null>(null);
+  const restoreRef = useRef<{ media: HTMLElement; placeholder: HTMLElement; cssText: string } | null>(null);
 
   const closeZoom = () => {
     const r = restoreRef.current;
@@ -175,6 +183,7 @@ export default function ThemeRoot({ content, pathname: initialPathname }: Props)
     r.placeholder.parentNode?.replaceChild(r.media, r.placeholder);
     restoreRef.current = null;
     document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
     setZoomed(false);
   };
 
@@ -184,12 +193,19 @@ export default function ThemeRoot({ content, pathname: initialPathname }: Props)
       const media = (e.target as HTMLElement | null)?.closest<HTMLElement>('img[data-zoom], video[data-zoom]');
       if (!media || !holderRef.current) return;
       e.preventDefault();
-      const placeholder = document.createComment('lb');
+      const rect = media.getBoundingClientRect();
+      const placeholder = document.createElement('div');
+      placeholder.style.width = `${rect.width}px`;
+      placeholder.style.height = `${rect.height}px`;
+      placeholder.style.margin = getComputedStyle(media).margin;
       media.parentNode?.insertBefore(placeholder, media);
       restoreRef.current = { media, placeholder, cssText: media.style.cssText };
       media.style.cssText = '';
       holderRef.current.appendChild(media);
+      // Compensate for the scrollbar so locking scroll doesn't shift the page.
+      const scrollbar = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
+      if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`;
       setZoomed(true);
     };
     const onKey = (e: KeyboardEvent) => {

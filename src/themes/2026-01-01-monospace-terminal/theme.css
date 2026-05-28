@@ -95,7 +95,7 @@ html[data-theme-id="monospace-terminal"][data-theme="dark"] {
 html[data-theme-id="monospace-terminal"] body {
   background-color: var(--mt-bg);
   color: var(--mt-text);
-  padding-bottom: 56px;
+  padding-bottom: calc(56px + env(safe-area-inset-bottom));
 }
 
 html[data-theme-id="monospace-terminal"] .font-mono {

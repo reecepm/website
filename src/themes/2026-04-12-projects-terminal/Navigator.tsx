@@ -79,10 +79,11 @@ export default function Navigator({ initialSlug, about, colorScheme, onToggleThe
       )}
 
       <div
-        className="flex items-center justify-between px-4 h-10"
+        className="flex items-center justify-between px-4 min-h-10"
         style={{
           background: 'var(--pt-surface-solid)',
           borderTop: '1px solid var(--pt-border)',
+          paddingBottom: 'env(safe-area-inset-bottom)',
         }}
       >
         <div className="flex items-center gap-3">

@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { ContentProvider } from '@/theme-runtime/content';
+import { ContentProvider, ProseHtml } from '@/theme-runtime/content';
 import { useColorScheme } from '@/theme-runtime/prefs';
 import type { ThemeComponentProps } from '@/themes/manifest';
 import type { BlogEntry, ExperimentEntry } from '@/theme-runtime/types';
@@ -175,10 +175,7 @@ export default function ProjectsTerminal({ content, pathname }: ThemeComponentPr
             <div className="text-[var(--pt-muted)] text-xs mb-4">
               {entry.post.date.toISOString().slice(0, 10)}
             </div>
-            <div
-              className="pt-prose"
-              dangerouslySetInnerHTML={{ __html: entry.post.body }}
-            />
+            <ProseHtml className="pt-prose" html={entry.post.body} />
           </div>
         </TerminalWindow>
       ))}
@@ -230,10 +227,7 @@ export default function ProjectsTerminal({ content, pathname }: ThemeComponentPr
                 GitHub →
               </a>
             )}
-            <div
-              className="pt-prose"
-              dangerouslySetInnerHTML={{ __html: entry.experiment.body }}
-            />
+            <ProseHtml className="pt-prose" html={entry.experiment.body} />
           </div>
         </TerminalWindow>
       ))}

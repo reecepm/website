@@ -96,7 +96,7 @@ html[data-theme-id='projects-terminal'][data-theme='light'] {
 
 html[data-theme-id='projects-terminal'] body {
   background-color: var(--pt-bg);
-  padding-bottom: 40px;
+  padding-bottom: calc(40px + env(safe-area-inset-bottom));
 }
 
 html[data-theme-id='projects-terminal'] ::selection {
