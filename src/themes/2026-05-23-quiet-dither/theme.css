@@ -74,10 +74,15 @@ html[data-theme-id='quiet-dither'] .qd-page {
 html[data-theme-id='quiet-dither'] .qd-ambient,
 html[data-theme-id='quiet-dither'] .qd-ripple,
 html[data-theme-id='quiet-dither'] .qd-develop {
+  /* Canvas is a replaced element, so it needs an explicit size (inset:0 alone
+     leaves it at its intrinsic size). width/height:100% resolve against the
+     fixed element's containing block, which under viewport-fit=cover is the
+     whole screen incl. the notch / home-indicator safe areas — unlike 100vh,
+     which iOS leaves cut off behind them. */
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 html[data-theme-id='quiet-dither'] .qd-ambient { z-index: 1; }
