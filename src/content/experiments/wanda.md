@@ -3,7 +3,7 @@ title: "Wanda: Agent Orchestration"
 description: "Yes, another agent orchestrator"
 date: 2026-05-24
 period: "Feb 2026 – May 2026" 
-# github: ""
+github: "https://github.com/reecepm/wanda"
 ---
 
 ## What is Wanda
