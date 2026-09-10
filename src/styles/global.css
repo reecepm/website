@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss/index.css";
 
 /* viewport-fit=cover lets the dither paint into the safe areas; keep in-flow
    page content clear of the top notch (matches the pre-cover top inset).
