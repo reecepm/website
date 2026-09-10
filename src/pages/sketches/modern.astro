@@ -1,0 +1,757 @@
+---
+import '@/styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sketch — Modern POS</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+  </head>
+  <body>
+    <div class="scene">
+      <!-- soft warm wall -->
+      <div class="wall">
+        <div class="lamp"></div>
+        <div class="lamp-glow"></div>
+      </div>
+
+      <!-- oak counter -->
+      <div class="counter"></div>
+      <div class="counter-edge"></div>
+
+      <!-- floor: poured concrete -->
+      <div class="floor"></div>
+
+      <!-- product menu mounted on wall -->
+      <div class="menu-board">
+        <div class="menu-header">
+          <span class="menu-title">— Today —</span>
+          <span class="menu-sub">reece.so · est. 2026</span>
+        </div>
+        <div class="menu-row">
+          <span class="menu-name">About</span>
+          <span class="menu-dots"></span>
+          <span class="menu-price">2</span>
+        </div>
+        <div class="menu-row">
+          <span class="menu-name">Journal</span>
+          <span class="menu-tag">new</span>
+          <span class="menu-dots"></span>
+          <span class="menu-price">5</span>
+        </div>
+        <div class="menu-row">
+          <span class="menu-name">Projects</span>
+          <span class="menu-dots"></span>
+          <span class="menu-price">7</span>
+        </div>
+        <div class="menu-row">
+          <span class="menu-name">Contact</span>
+          <span class="menu-dots"></span>
+          <span class="menu-price">1</span>
+        </div>
+        <div class="menu-foot">all prices in arbitrary units · grown with care</div>
+      </div>
+
+      <!-- a tiny ceramic vase with a sprig -->
+      <div class="vase">
+        <div class="stem"></div>
+        <div class="leaf l1"></div>
+        <div class="leaf l2"></div>
+        <div class="leaf l3"></div>
+        <div class="vase-body"></div>
+      </div>
+
+      <!-- THE TABLET POS -->
+      <div class="pos">
+        <!-- thermal printer dock to the right of tablet -->
+        <div class="printer">
+          <div class="printer-top"></div>
+          <div class="printer-cylinder"></div>
+          <div class="printer-window"></div>
+          <div class="printer-feed"></div>
+          <div class="printer-paper">
+            <div class="r-logo">~ reece.so ~</div>
+            <div class="r-sub">2026 · may 13 · 14:22</div>
+            <div class="r-spacer"></div>
+            <div class="r-row"><span>about</span><span>2</span></div>
+            <div class="r-row"><span>journal</span><span>5</span></div>
+            <div class="r-row"><span>projects</span><span>7</span></div>
+            <div class="r-rule"></div>
+            <div class="r-row r-total"><span>total</span><span>14</span></div>
+            <div class="r-spacer"></div>
+            <div class="r-thanks">thank you</div>
+            <div class="r-id">#0024-0513-A</div>
+          </div>
+        </div>
+
+        <!-- aluminum stand -->
+        <div class="stand">
+          <div class="stand-neck"></div>
+          <div class="stand-base"></div>
+        </div>
+
+        <!-- tablet -->
+        <div class="tablet">
+          <div class="tablet-bezel">
+            <div class="tablet-cam"></div>
+            <div class="tablet-screen">
+              <!-- top bar -->
+              <div class="t-top">
+                <span class="t-dot"></span>
+                <span class="t-title">reece.so · checkout</span>
+                <span class="t-time">14:22</span>
+              </div>
+
+              <!-- product grid -->
+              <div class="t-grid">
+                <div class="t-card t-card--a">
+                  <div class="t-card-emoji">◐</div>
+                  <div class="t-card-name">About</div>
+                  <div class="t-card-price">$2</div>
+                </div>
+                <div class="t-card t-card--b">
+                  <div class="t-card-emoji">✶</div>
+                  <div class="t-card-name">Journal</div>
+                  <div class="t-card-price">$5</div>
+                  <div class="t-card-badge">new</div>
+                </div>
+                <div class="t-card t-card--c">
+                  <div class="t-card-emoji">◆</div>
+                  <div class="t-card-name">Projects</div>
+                  <div class="t-card-price">$7</div>
+                </div>
+                <div class="t-card t-card--d">
+                  <div class="t-card-emoji">✦</div>
+                  <div class="t-card-name">Contact</div>
+                  <div class="t-card-price">$1</div>
+                </div>
+              </div>
+
+              <!-- cart bar -->
+              <div class="t-cart">
+                <div class="t-cart-info">
+                  <span class="t-cart-count">3 items</span>
+                  <span class="t-cart-total">$14.00</span>
+                </div>
+                <button class="t-cart-pay">Charge $14.00</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- caption -->
+      <div class="caption">
+        <span class="caption-era">Era III</span>
+        <span class="caption-title">2026 — Specialty Counter</span>
+        <span class="caption-note">tablet &amp; thermal · sans · warm minimal</span>
+      </div>
+
+      <a href="/sketches" class="back-link">&larr; back to sketches</a>
+    </div>
+
+    <style>
+      :root {
+        --bg: #f4ede1;
+        --bg-warm: #ece1cd;
+        --oak: #c79868;
+        --oak-d: #9a6a40;
+        --oak-l: #d8b287;
+        --ink: #1f1a14;
+        --ink-soft: #5a4f42;
+        --accent: #c8553d;
+        --accent-soft: #e0a194;
+        --sage: #7a8a6a;
+        --paper: #fbf6ec;
+        --line: rgba(31, 26, 20, 0.12);
+        --metal: #d6d2cc;
+        --metal-d: #a8a39c;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: var(--bg);
+        overflow: hidden;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--ink);
+      }
+
+      .scene {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .wall {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 38%;
+        background:
+          radial-gradient(
+            ellipse at 70% 14%,
+            rgba(255, 220, 170, 0.35),
+            transparent 50%
+          ),
+          linear-gradient(180deg, #f6efe1 0%, #ece0c8 100%);
+      }
+
+      .lamp {
+        position: absolute;
+        top: 4%;
+        right: 12%;
+        width: 60px;
+        height: 80px;
+      }
+      .lamp::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 1px;
+        height: 22px;
+        background: #6a5a40;
+      }
+      .lamp::after {
+        content: '';
+        position: absolute;
+        top: 22px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 36px;
+        background: linear-gradient(180deg, #2a2a26 0%, #1a1a16 100%);
+        clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+        border-radius: 0 0 6px 6px;
+      }
+      .lamp-glow {
+        position: absolute;
+        top: 7%;
+        right: 9%;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(
+          ellipse at 50% 0%,
+          rgba(255, 220, 150, 0.6),
+          transparent 50%
+        );
+        pointer-events: none;
+      }
+
+      .counter {
+        position: absolute;
+        bottom: 6%;
+        left: 0;
+        right: 0;
+        height: 32%;
+        background:
+          repeating-linear-gradient(
+            90deg,
+            transparent 0 28px,
+            rgba(0, 0, 0, 0.04) 28px 29px,
+            transparent 29px 92px,
+            rgba(0, 0, 0, 0.06) 92px 93px
+          ),
+          linear-gradient(180deg, var(--oak-l) 0%, var(--oak) 50%, var(--oak-d) 100%);
+      }
+
+      .counter-edge {
+        position: absolute;
+        bottom: 38%;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(180deg, #b08a5c 0%, #6a4a28 100%);
+      }
+
+      .floor {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 6%;
+        background:
+          radial-gradient(circle at 22% 40%, rgba(0, 0, 0, 0.08) 0 1px, transparent 2px),
+          radial-gradient(circle at 64% 70%, rgba(0, 0, 0, 0.08) 0 1px, transparent 2px),
+          radial-gradient(circle at 84% 20%, rgba(0, 0, 0, 0.08) 0 1px, transparent 2px),
+          linear-gradient(180deg, #c8c0b0 0%, #a8a090 100%);
+        background-size: 40px 40px, 50px 50px, 30px 30px, auto;
+      }
+
+      /* MENU BOARD */
+      .menu-board {
+        position: absolute;
+        top: 9%;
+        left: 6%;
+        width: 280px;
+        background: var(--paper);
+        padding: 22px 24px 18px;
+        border: 1px solid var(--line);
+        border-radius: 2px;
+        box-shadow:
+          0 18px 32px rgba(0, 0, 0, 0.08),
+          0 1px 2px rgba(0, 0, 0, 0.04);
+        font-family: 'Inter', sans-serif;
+      }
+
+      .menu-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      .menu-title {
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        color: var(--ink);
+      }
+      .menu-sub {
+        font-size: 11px;
+        color: var(--ink-soft);
+        margin-top: 4px;
+        font-family: 'JetBrains Mono', monospace;
+        letter-spacing: 0.06em;
+      }
+
+      .menu-row {
+        display: flex;
+        align-items: baseline;
+        font-size: 14px;
+        gap: 8px;
+        padding: 6px 0;
+      }
+      .menu-name {
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .menu-tag {
+        background: var(--accent);
+        color: white;
+        font-size: 9px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 1px 6px;
+        border-radius: 999px;
+        font-weight: 600;
+      }
+      .menu-dots {
+        flex: 1;
+        border-bottom: 1px dotted rgba(31, 26, 20, 0.3);
+        margin-bottom: 4px;
+      }
+      .menu-price {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .menu-foot {
+        margin-top: 14px;
+        text-align: center;
+        font-size: 10px;
+        color: var(--ink-soft);
+        font-style: italic;
+      }
+
+      /* VASE */
+      .vase {
+        position: absolute;
+        bottom: 32%;
+        left: 35%;
+        width: 60px;
+        height: 130px;
+      }
+      .stem {
+        position: absolute;
+        bottom: 60px;
+        left: 30px;
+        width: 1.5px;
+        height: 70px;
+        background: var(--sage);
+        transform: rotate(-2deg);
+      }
+      .leaf {
+        position: absolute;
+        background: var(--sage);
+        width: 14px;
+        height: 5px;
+        border-radius: 50%;
+      }
+      .l1 { bottom: 110px; left: 22px; transform: rotate(-30deg); }
+      .l2 { bottom: 95px;  left: 36px; transform: rotate(40deg); }
+      .l3 { bottom: 80px;  left: 18px; transform: rotate(-50deg); }
+      .vase-body {
+        position: absolute;
+        bottom: 0;
+        left: 14px;
+        width: 32px;
+        height: 60px;
+        background: linear-gradient(180deg, var(--paper) 0%, #d8cfbc 100%);
+        border-radius: 4px 4px 14px 14px / 4px 4px 18px 18px;
+        box-shadow:
+          inset -4px 0 8px rgba(0, 0, 0, 0.1),
+          0 6px 10px rgba(0, 0, 0, 0.18);
+      }
+
+      /* POS */
+      .pos {
+        position: absolute;
+        bottom: 14%;
+        left: 50%;
+        transform: translateX(-25%);
+        display: flex;
+        align-items: flex-end;
+        gap: 36px;
+      }
+
+      .tablet {
+        position: relative;
+      }
+
+      .tablet-bezel {
+        background: linear-gradient(180deg, #0e0e0d 0%, #1a1a18 100%);
+        padding: 14px;
+        border-radius: 22px;
+        box-shadow:
+          0 18px 36px rgba(0, 0, 0, 0.28),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        position: relative;
+      }
+      .tablet-cam {
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        height: 5px;
+        background: #2a2a26;
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+      }
+
+      .tablet-screen {
+        width: 380px;
+        height: 290px;
+        background: var(--paper);
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .t-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+        color: var(--ink-soft);
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .t-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--sage);
+        box-shadow: 0 0 0 2px rgba(122, 138, 106, 0.18);
+      }
+      .t-title {
+        flex: 1;
+        color: var(--ink);
+        font-weight: 500;
+      }
+
+      .t-grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .t-card {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        position: relative;
+        cursor: pointer;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .t-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+      }
+      .t-card-emoji {
+        font-size: 18px;
+        color: var(--accent);
+        line-height: 1;
+      }
+      .t-card-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .t-card-price {
+        font-size: 12px;
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--ink-soft);
+      }
+      .t-card-badge {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        background: rgba(200, 85, 61, 0.12);
+        padding: 2px 6px;
+        border-radius: 999px;
+      }
+
+      .t-cart {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 14px;
+        border-top: 1px solid var(--line);
+        background: rgba(0, 0, 0, 0.02);
+      }
+      .t-cart-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .t-cart-count {
+        font-size: 10px;
+        color: var(--ink-soft);
+        letter-spacing: 0.06em;
+      }
+      .t-cart-total {
+        font-size: 16px;
+        font-weight: 600;
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .t-cart-pay {
+        background: var(--ink);
+        color: var(--paper);
+        border: none;
+        padding: 10px 18px;
+        border-radius: 8px;
+        font-family: 'Inter', sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.05s ease;
+      }
+      .t-cart-pay:active { transform: translateY(1px); }
+
+      /* STAND */
+      .stand {
+        position: absolute;
+        bottom: -34px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90px;
+        height: 34px;
+      }
+      .stand-neck {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 26px;
+        height: 18px;
+        background: linear-gradient(180deg, var(--metal) 0%, var(--metal-d) 100%);
+        border-radius: 0 0 4px 4px;
+      }
+      .stand-base {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 8px;
+        background: linear-gradient(180deg, var(--metal) 0%, var(--metal-d) 100%);
+        border-radius: 4px;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+      }
+
+      /* PRINTER (modern thermal cylinder) */
+      .printer {
+        position: relative;
+        width: 130px;
+        height: 290px;
+      }
+      .printer-top {
+        position: absolute;
+        top: 0;
+        left: 8px;
+        right: 8px;
+        height: 30px;
+        background: linear-gradient(180deg, var(--metal) 0%, var(--metal-d) 100%);
+        border-radius: 8px 8px 0 0;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      }
+      .printer-cylinder {
+        position: absolute;
+        top: 24px;
+        left: 0;
+        right: 0;
+        height: 110px;
+        background:
+          radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.4), transparent 50%),
+          linear-gradient(180deg, #f0ecdf 0%, #e2d8c0 100%);
+        border-radius: 50% 50% 8px 8px / 22% 22% 8px 8px;
+        box-shadow:
+          inset -8px 0 14px rgba(0, 0, 0, 0.08),
+          0 12px 24px rgba(0, 0, 0, 0.16);
+      }
+      .printer-window {
+        position: absolute;
+        top: 60px;
+        left: 18px;
+        right: 18px;
+        height: 36px;
+        background: rgba(31, 26, 20, 0.35);
+        border-radius: 4px;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+      }
+      .printer-window::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 70%;
+        height: 18px;
+        background: var(--paper);
+        border-radius: 2px;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+      }
+      .printer-feed {
+        position: absolute;
+        top: 134px;
+        left: 18px;
+        right: 18px;
+        height: 4px;
+        background: #1a1a16;
+        border-radius: 2px;
+      }
+      .printer-paper {
+        position: absolute;
+        top: 138px;
+        left: 22px;
+        right: 22px;
+        background: var(--paper);
+        padding: 12px 14px 16px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        line-height: 1.45;
+        color: var(--ink);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+        clip-path: polygon(
+          0 0, 100% 0, 100% 100%,
+          92% 96%, 84% 100%, 76% 95%, 68% 100%, 60% 95%, 52% 100%, 44% 95%,
+          36% 100%, 28% 95%, 20% 100%, 12% 95%, 4% 100%, 0 95%
+        );
+      }
+      .r-logo {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 12px;
+        text-align: center;
+        letter-spacing: 0.04em;
+      }
+      .r-sub {
+        text-align: center;
+        font-size: 9px;
+        color: var(--ink-soft);
+        margin-bottom: 6px;
+      }
+      .r-spacer { height: 6px; }
+      .r-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 10px;
+      }
+      .r-rule {
+        border-top: 1px dashed var(--line);
+        margin: 4px 0;
+      }
+      .r-total {
+        font-weight: 700;
+        font-size: 11px;
+      }
+      .r-thanks {
+        text-align: center;
+        font-style: italic;
+        font-size: 9px;
+        color: var(--ink-soft);
+      }
+      .r-id {
+        text-align: center;
+        font-size: 8px;
+        color: var(--ink-soft);
+        margin-top: 4px;
+        letter-spacing: 0.08em;
+      }
+
+      /* CAPTION */
+      .caption {
+        position: absolute;
+        top: 22px;
+        right: 24px;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .caption-era {
+        font-size: 11px;
+        letter-spacing: 0.4em;
+        color: var(--ink-soft);
+        text-transform: uppercase;
+      }
+      .caption-title {
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .caption-note {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: var(--ink-soft);
+      }
+
+      .back-link {
+        position: absolute;
+        bottom: 18px;
+        left: 24px;
+        color: var(--ink-soft);
+        text-decoration: none;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+      }
+      .back-link:hover { color: var(--ink); }
+    </style>
+  </body>
+</html>

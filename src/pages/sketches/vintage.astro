@@ -1,0 +1,701 @@
+---
+import '@/styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sketch — Vintage Register</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Special+Elite&family=IM+Fell+English+SC&display=swap"
+    />
+  </head>
+  <body>
+    <div class="scene">
+      <!-- backdrop: dark wood paneling with vertical seams -->
+      <div class="wall"></div>
+      <div class="wall-trim"></div>
+
+      <!-- counter: dark wood -->
+      <div class="counter"></div>
+      <div class="counter-edge"></div>
+
+      <!-- floor -->
+      <div class="floor"></div>
+
+      <!-- shelf with product hangtags up on the wall -->
+      <div class="shelf">
+        <div class="shelf-board"></div>
+        <div class="hangtags">
+          <div class="hangtag">
+            <span class="ht-name">ABOUT</span>
+            <span class="ht-sku">№ 001</span>
+            <span class="ht-price">$0.05</span>
+          </div>
+          <div class="hangtag">
+            <span class="ht-name">JOURNAL</span>
+            <span class="ht-sku">№ 014</span>
+            <span class="ht-price">$0.10</span>
+          </div>
+          <div class="hangtag">
+            <span class="ht-name">PROJECTS</span>
+            <span class="ht-sku">№ 027</span>
+            <span class="ht-price">$0.25</span>
+          </div>
+          <div class="hangtag">
+            <span class="ht-name">CONTACT</span>
+            <span class="ht-sku">№ 042</span>
+            <span class="ht-price">$0.02</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- the brass register -->
+      <div class="register">
+        <!-- ornate top crown with price flags -->
+        <div class="crown">
+          <div class="flag-window">
+            <span class="flag-label">AMOUNT</span>
+            <div class="flag">$&nbsp;0.40</div>
+          </div>
+          <div class="crown-arch"></div>
+        </div>
+
+        <!-- engraved name plate -->
+        <div class="nameplate">REECE &amp; CO.</div>
+        <div class="subnameplate">EST. 2026 — PURVEYORS OF NOTIONS</div>
+
+        <!-- mechanical keyboard of category keys -->
+        <div class="keybank">
+          <button class="mkey"><span>A</span><em>about</em></button>
+          <button class="mkey"><span>J</span><em>journal</em></button>
+          <button class="mkey"><span>P</span><em>projects</em></button>
+          <button class="mkey"><span>C</span><em>contact</em></button>
+          <button class="mkey mkey--accent"><span>$</span><em>total</em></button>
+          <button class="mkey mkey--accent"><span>✕</span><em>void</em></button>
+        </div>
+
+        <!-- chrome lever on the right -->
+        <div class="lever">
+          <div class="lever-knob"></div>
+          <div class="lever-arm"></div>
+          <div class="lever-pivot"></div>
+        </div>
+
+        <!-- drawer at the base -->
+        <div class="drawer">
+          <div class="drawer-pull"></div>
+        </div>
+      </div>
+
+      <!-- receipt slip emerging from a slot to the right -->
+      <div class="slip-slot">
+        <div class="slip">
+          <div class="slip-head">
+            REECE &amp; CO.<br />
+            <span>— receipt of purchase —</span>
+          </div>
+          <div class="slip-row"><span>About</span><span>$0.05</span></div>
+          <div class="slip-row"><span>Journal</span><span>$0.10</span></div>
+          <div class="slip-row"><span>Projects</span><span>$0.25</span></div>
+          <div class="slip-rule">~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~</div>
+          <div class="slip-row slip-total"><span>Total</span><span>$0.40</span></div>
+          <div class="slip-foot">— much obliged —</div>
+        </div>
+      </div>
+
+      <!-- floor pile of receipts (visual stub) -->
+      <div class="floor-pile">
+        <div class="curled-slip slip-a"></div>
+        <div class="curled-slip slip-b"></div>
+      </div>
+
+      <!-- top warm light glow -->
+      <div class="lamp-glow"></div>
+
+      <!-- caption -->
+      <div class="caption">
+        <span class="caption-era">Era I</span>
+        <span class="caption-title">1910 — General Store</span>
+        <span class="caption-note">brass &amp; ledger paper · serif · mechanical</span>
+      </div>
+
+      <a href="/sketches" class="back-link">&larr; back to sketches</a>
+    </div>
+
+    <style>
+      :root {
+        --paper: #f1e3c4;
+        --paper-deep: #e6d4ac;
+        --ink: #2b1d10;
+        --brass: #b8893a;
+        --brass-hi: #e9c779;
+        --brass-lo: #6b4a1a;
+        --wood: #2a1a10;
+        --wood-light: #3a2615;
+        --green: #2b3c2a;
+        --crimson: #7a1d1d;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #0e0907;
+        overflow: hidden;
+        font-family: 'IM Fell English SC', 'DM Serif Display', Georgia, serif;
+        color: var(--ink);
+      }
+
+      .scene {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        background: radial-gradient(
+          ellipse at 50% 28%,
+          #2a1a10 0%,
+          #150b06 65%,
+          #0a0503 100%
+        );
+        overflow: hidden;
+      }
+
+      /* WALL — wood paneling */
+      .wall {
+        position: absolute;
+        inset: 0 0 42% 0;
+        background:
+          repeating-linear-gradient(
+            90deg,
+            transparent 0 119px,
+            rgba(0, 0, 0, 0.5) 119px 121px
+          ),
+          linear-gradient(180deg, #1a0e08 0%, #2c1a10 60%, #1f1108 100%);
+      }
+
+      .wall-trim {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 58%;
+        height: 18px;
+        background: linear-gradient(180deg, var(--brass-lo) 0%, var(--brass) 50%, #3a2410 100%);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+      }
+
+      /* COUNTER */
+      .counter {
+        position: absolute;
+        bottom: 8%;
+        left: 0;
+        right: 0;
+        height: 34%;
+        background:
+          repeating-linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.18) 0 2px,
+            transparent 2px 80px
+          ),
+          linear-gradient(180deg, #4a2e18 0%, #2a1a0d 100%);
+      }
+
+      .counter-edge {
+        position: absolute;
+        bottom: 42%;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(180deg, var(--brass-hi) 0%, var(--brass) 100%);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      .floor {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 8%;
+        background: linear-gradient(180deg, #0a0503 0%, #1a0e08 100%);
+      }
+
+      /* lamp glow from top */
+      .lamp-glow {
+        position: absolute;
+        top: -20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 60%;
+        background: radial-gradient(
+          ellipse at 50% 60%,
+          rgba(255, 200, 130, 0.18),
+          transparent 65%
+        );
+        pointer-events: none;
+      }
+
+      /* SHELF & HANGTAGS */
+      .shelf {
+        position: absolute;
+        top: 8%;
+        left: 6%;
+        width: 36%;
+      }
+
+      .shelf-board {
+        height: 10px;
+        background: linear-gradient(180deg, #3a2615, #1a0a05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+      }
+
+      .hangtags {
+        display: flex;
+        gap: 20px;
+        margin-top: -2px;
+        padding-left: 12px;
+      }
+
+      .hangtag {
+        width: 90px;
+        height: 130px;
+        background: var(--paper);
+        color: var(--ink);
+        clip-path: polygon(
+          50% 0,
+          100% 8px,
+          100% 100%,
+          0 100%,
+          0 8px
+        );
+        padding: 16px 8px 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        position: relative;
+        font-family: 'IM Fell English SC', serif;
+        box-shadow:
+          inset 0 0 0 1px rgba(43, 29, 16, 0.4),
+          0 6px 12px rgba(0, 0, 0, 0.55);
+        transition: transform 0.2s ease;
+        cursor: pointer;
+      }
+
+      .hangtag::before {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 50%;
+        width: 6px;
+        height: 6px;
+        background: #1a0e08;
+        border-radius: 50%;
+        transform: translateX(-50%);
+      }
+
+      .hangtag::after {
+        content: '';
+        position: absolute;
+        top: -34px;
+        left: 50%;
+        width: 1px;
+        height: 36px;
+        background: linear-gradient(180deg, #d9b478 0%, #8a6020 100%);
+        transform: translateX(-50%);
+      }
+
+      .hangtag:hover {
+        transform: translateY(-4px) rotate(-1deg);
+      }
+
+      .ht-name {
+        font-family: 'DM Serif Display', serif;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        margin-top: 8px;
+      }
+
+      .ht-sku {
+        font-size: 10px;
+        opacity: 0.65;
+        letter-spacing: 0.1em;
+      }
+
+      .ht-price {
+        margin-top: auto;
+        font-family: 'DM Serif Display', serif;
+        font-size: 18px;
+        color: var(--crimson);
+      }
+
+      /* REGISTER */
+      .register {
+        position: absolute;
+        bottom: 12%;
+        left: 50%;
+        transform: translateX(-58%);
+        width: 380px;
+        height: 380px;
+      }
+
+      .crown {
+        position: relative;
+        height: 130px;
+        background: linear-gradient(
+          180deg,
+          var(--brass-hi) 0%,
+          var(--brass) 35%,
+          var(--brass-lo) 100%
+        );
+        border-radius: 50% 50% 14px 14px / 80% 80% 14px 14px;
+        box-shadow:
+          inset 0 6px 12px rgba(255, 220, 150, 0.4),
+          inset 0 -8px 16px rgba(0, 0, 0, 0.4),
+          0 12px 24px rgba(0, 0, 0, 0.55);
+      }
+
+      .crown::before {
+        content: '';
+        position: absolute;
+        top: 8px;
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        border: 2px solid rgba(60, 40, 10, 0.5);
+        border-radius: 50% 50% 8px 8px / 80% 80% 8px 8px;
+      }
+
+      .flag-window {
+        position: absolute;
+        top: 26px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        text-align: center;
+      }
+
+      .flag-label {
+        font-family: 'IM Fell English SC', serif;
+        font-size: 10px;
+        letter-spacing: 0.3em;
+        color: var(--brass-lo);
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .flag {
+        background: var(--paper);
+        border: 1px solid var(--brass-lo);
+        font-family: 'DM Serif Display', serif;
+        font-size: 26px;
+        color: var(--ink);
+        padding: 6px 18px;
+        box-shadow:
+          inset 0 -2px 0 rgba(0, 0, 0, 0.2),
+          inset 0 2px 0 rgba(255, 255, 255, 0.5);
+      }
+
+      .nameplate {
+        text-align: center;
+        background: linear-gradient(180deg, var(--brass) 0%, var(--brass-lo) 100%);
+        color: var(--paper);
+        font-family: 'DM Serif Display', serif;
+        font-size: 18px;
+        letter-spacing: 0.25em;
+        padding: 6px 0 4px;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+        box-shadow: inset 0 1px 0 var(--brass-hi);
+      }
+
+      .subnameplate {
+        text-align: center;
+        background: var(--brass-lo);
+        color: var(--paper-deep);
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        padding: 2px 0;
+      }
+
+      .keybank {
+        background: linear-gradient(180deg, var(--brass-lo) 0%, #3a2410 100%);
+        padding: 18px 22px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.6);
+      }
+
+      .mkey {
+        background: linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
+        border: 1px solid var(--brass-lo);
+        border-radius: 8px 8px 6px 6px;
+        padding: 8px 6px 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        cursor: pointer;
+        font-family: 'IM Fell English SC', serif;
+        color: var(--ink);
+        box-shadow:
+          inset 0 -3px 0 rgba(0, 0, 0, 0.18),
+          0 2px 4px rgba(0, 0, 0, 0.4);
+        transition: transform 0.05s ease, box-shadow 0.05s ease;
+      }
+
+      .mkey span {
+        font-family: 'DM Serif Display', serif;
+        font-size: 22px;
+        line-height: 1;
+      }
+
+      .mkey em {
+        font-style: normal;
+        font-size: 9px;
+        letter-spacing: 0.15em;
+        opacity: 0.6;
+        text-transform: uppercase;
+      }
+
+      .mkey--accent {
+        background: linear-gradient(180deg, #c9a05a 0%, #8a6020 100%);
+        color: var(--paper);
+      }
+      .mkey--accent em {
+        color: var(--paper);
+        opacity: 0.9;
+      }
+
+      .mkey:active {
+        transform: translateY(2px);
+        box-shadow:
+          inset 0 -1px 0 rgba(0, 0, 0, 0.18),
+          0 1px 2px rgba(0, 0, 0, 0.4);
+      }
+
+      .drawer {
+        height: 56px;
+        background: linear-gradient(180deg, #3a2410 0%, #2a1a0d 100%);
+        border-top: 2px solid var(--brass-lo);
+        position: relative;
+      }
+
+      .drawer-pull {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 14px;
+        background: linear-gradient(180deg, var(--brass-hi) 0%, var(--brass-lo) 100%);
+        border-radius: 3px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      /* LEVER */
+      .lever {
+        position: absolute;
+        right: -56px;
+        top: 36%;
+        width: 60px;
+        height: 120px;
+      }
+
+      .lever-pivot {
+        position: absolute;
+        bottom: 0;
+        left: 8px;
+        width: 22px;
+        height: 22px;
+        background: radial-gradient(circle at 35% 35%, var(--brass-hi), var(--brass-lo));
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+      }
+
+      .lever-arm {
+        position: absolute;
+        bottom: 10px;
+        left: 18px;
+        width: 6px;
+        height: 96px;
+        background: linear-gradient(90deg, var(--brass-lo), var(--brass-hi), var(--brass-lo));
+        border-radius: 3px;
+        transform-origin: bottom center;
+        transform: rotate(15deg);
+      }
+
+      .lever-knob {
+        position: absolute;
+        top: 0;
+        left: 4px;
+        width: 26px;
+        height: 26px;
+        background: radial-gradient(circle at 35% 30%, #f0d18a, var(--brass-lo) 70%);
+        border-radius: 50%;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+        transform: translate(8px, 0);
+      }
+
+      /* SLIP / RECEIPT */
+      .slip-slot {
+        position: absolute;
+        bottom: 30%;
+        right: 8%;
+        width: 230px;
+      }
+
+      .slip {
+        background:
+          repeating-linear-gradient(
+            0deg,
+            transparent 0 22px,
+            rgba(43, 29, 16, 0.04) 22px 23px
+          ),
+          var(--paper);
+        color: var(--ink);
+        padding: 18px 18px 30px;
+        font-family: 'Special Elite', 'Courier New', monospace;
+        font-size: 12px;
+        line-height: 1.55;
+        box-shadow:
+          0 14px 28px rgba(0, 0, 0, 0.55),
+          0 1px 0 rgba(255, 255, 255, 0.2) inset;
+        position: relative;
+        transform: rotate(-1.2deg);
+      }
+
+      .slip::after {
+        /* torn bottom edge */
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -12px;
+        height: 14px;
+        background: var(--paper);
+        clip-path: polygon(
+          0 0,
+          4% 80%, 8% 30%, 14% 90%, 20% 40%, 27% 95%, 33% 30%,
+          40% 85%, 46% 35%, 53% 90%, 60% 30%, 66% 85%, 73% 40%,
+          80% 95%, 86% 35%, 92% 90%, 96% 50%, 100% 0
+        );
+      }
+
+      .slip-head {
+        text-align: center;
+        font-family: 'DM Serif Display', serif;
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        margin-bottom: 10px;
+      }
+
+      .slip-head span {
+        font-family: 'Special Elite', monospace;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        opacity: 0.7;
+      }
+
+      .slip-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 2px 0;
+      }
+
+      .slip-rule {
+        text-align: center;
+        letter-spacing: 0.2em;
+        margin: 6px 0;
+        opacity: 0.5;
+      }
+
+      .slip-total {
+        font-weight: 700;
+        font-family: 'DM Serif Display', serif;
+        font-size: 14px;
+      }
+
+      .slip-foot {
+        text-align: center;
+        margin-top: 10px;
+        font-style: italic;
+        opacity: 0.7;
+      }
+
+      .floor-pile {
+        position: absolute;
+        bottom: 0;
+        right: 6%;
+        width: 260px;
+        height: 80px;
+        pointer-events: none;
+      }
+
+      .curled-slip {
+        position: absolute;
+        background: var(--paper);
+        width: 140px;
+        height: 50px;
+        opacity: 0.85;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+      }
+
+      .slip-a {
+        bottom: 8px;
+        right: 30px;
+        transform: rotate(-14deg);
+      }
+      .slip-b {
+        bottom: 16px;
+        right: 90px;
+        transform: rotate(6deg);
+      }
+
+      /* CAPTION */
+      .caption {
+        position: absolute;
+        top: 18px;
+        left: 24px;
+        color: var(--paper);
+        font-family: 'DM Serif Display', serif;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+      }
+
+      .caption-era {
+        font-size: 11px;
+        letter-spacing: 0.4em;
+        opacity: 0.7;
+      }
+      .caption-title {
+        font-size: 22px;
+        letter-spacing: 0.05em;
+      }
+      .caption-note {
+        font-family: 'Special Elite', monospace;
+        font-size: 11px;
+        opacity: 0.55;
+        letter-spacing: 0.1em;
+      }
+
+      .back-link {
+        position: absolute;
+        bottom: 18px;
+        left: 24px;
+        color: var(--paper-deep);
+        text-decoration: none;
+        font-family: 'Special Elite', monospace;
+        font-size: 12px;
+        opacity: 0.7;
+      }
+      .back-link:hover {
+        opacity: 1;
+      }
+    </style>
+  </body>
+</html>

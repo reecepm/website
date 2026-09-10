@@ -2,11 +2,11 @@ import { useEffect, useRef } from 'react';
 import { type QdColors, rgba } from './palette';
 import { bayer8 } from './bayer';
 
-// The page-transition layer (top of the stack). On mount it develops the page
-// out of dither static (in). When `trigger` increments it runs the full
-// out -> in cycle: dissolve the page into static, fire `onCovered` at the peak
-// (so the caller swaps the route content while it's hidden), then develop the
-// new page back out. Honors prefers-reduced-motion.
+// The page-transition layer (top of the stack). The initial page is left clean.
+// When `trigger` increments it runs the full out -> in cycle: dissolve the page
+// into static, fire `onCovered` at the peak (so the caller swaps the route
+// content while it's hidden), then develop the new page back out. Honors
+// prefers-reduced-motion.
 
 const easeOut = (x: number) => 1 - Math.pow(1 - x, 4);
 const easeIn = (x: number) => x * x * x * x;
@@ -39,7 +39,7 @@ function paint(ctx: CanvasRenderingContext2D, colors: QdColors, w: number, h: nu
 
 type Props = {
   colors: QdColors;
-  /** 0 = initial develop-in; each increment plays a full out -> in cycle. */
+  /** 0 = initial clean page; each increment plays a full out -> in cycle. */
   trigger: number;
   /** Fired when the cover phase peaks, the moment to swap route content. */
   onCovered?: () => void;
@@ -62,8 +62,9 @@ export default function DevelopTransition({ colors, trigger, onCovered }: Props)
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (reduced) {
-      // No animation: swap immediately and leave the page clean.
+    if (trigger === 0 || reduced) {
+      // Never animate hydration. For reduced motion, commit later swaps
+      // immediately and leave the page clean.
       if (trigger > 0) onCovered?.();
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
@@ -74,7 +75,7 @@ export default function DevelopTransition({ colors, trigger, onCovered }: Props)
       return;
     }
 
-    const queue: Phase[] = trigger === 0 ? [REVEAL] : [COVER, REVEAL];
+    const queue: Phase[] = [COVER, REVEAL];
     let phase = queue.shift();
     let phaseStart = performance.now();
     let raf = 0;

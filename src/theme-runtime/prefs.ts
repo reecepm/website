@@ -33,11 +33,11 @@ export const useColorScheme = (fallback: ColorScheme = 'light') => {
 
 /** Inline script string to pre-paint the `data-theme` attribute on <html>
  *  from the persisted color scheme before first paint. */
-export const colorSchemeBootScript = `
+export const getColorSchemeBootScript = (fallback: ColorScheme) => `
   (function () {
     try {
       var v = localStorage.getItem('${STORAGE_KEY}');
-      if (v !== 'light' && v !== 'dark') v = 'light';
+      if (v !== 'light' && v !== 'dark') v = '${fallback}';
       document.documentElement.setAttribute('data-theme', v);
     } catch (e) {}
   })();
